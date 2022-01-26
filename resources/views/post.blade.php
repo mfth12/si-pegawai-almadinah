@@ -2,9 +2,8 @@
 
 @section('container')
 <article class="mb-3">
-    <h2>{{ $post["title"] }}</h2>
-    <h5>Creator: {{ $post["author"] }}</h5>
-    <p style="text-align: justify">{{ $post["body"] }}</p>
+    <h2>{{ $post->title }}</h2>
+    {!! $post->body !!}
 </article>
 
 <a href="/blog">

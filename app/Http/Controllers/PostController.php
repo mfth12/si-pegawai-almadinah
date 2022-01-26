@@ -15,11 +15,11 @@ class PostController extends Controller
         ]);
     }
 
-    public function show($slug)
+    public function show(Post $post) //using route model binding
     {
         return view('post', [
             "title" => "Postingan Single",
-            "post" => Post::find($slug)
+            "post" => $post 
         ]);
     }
 }

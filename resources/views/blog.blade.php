@@ -6,12 +6,11 @@
 @foreach ($posts as $post)
 <article class="mb-3">
     <h2>
-        <a href="/blog/{{ $post["slug"] }}">
-            {{ $n.". ".$post["title"] }}
+        <a href="/blog/{{ $post->slug }}">
+            {{ $n.". ".$post->title }}
     </h2>
     </a>
-    <h5>Creator: {{ $post["author"] }}</h5>
-    <p style="text-align: justify">{{ $post["body"] }}</p>
+    <p style="text-align: justify">{{ $post->excerpt }}</p>
 </article>
 <?php $n++; ?>
 @endforeach

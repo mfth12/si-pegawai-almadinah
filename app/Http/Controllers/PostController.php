@@ -15,11 +15,11 @@ class PostController extends Controller
         ]);
     }
 
-    public function show(Post $post) //using route model binding
+    public function show(Post $post) //using route model binding //mencari data dengan slug yg dikirim tadi
     {
         return view('post', [
             "title" => "Postingan Single",
-            "post" => $post 
+            "post" => $post //kirim data dengan variable $post
         ]);
     }
 }

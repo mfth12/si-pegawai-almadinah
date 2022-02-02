@@ -11,4 +11,9 @@ class Post extends Model
 
     // protected $fillable = ['title', 'slug', 'excerpt', 'body']; //yang bisa diinput
     protected $guarded = ['post_id']; //ini diisi increment
+
+    public function kategori() {
+        return $this->belongsTo(Kategori::class, 'kateg_id', 'kateg_id'); 
+        //yg pertama foreign-key //yg kedua owner-key
+    }
 }

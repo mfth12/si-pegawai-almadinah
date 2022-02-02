@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Kategori;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -24,16 +25,29 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
-        "name" => "Miftahul Haqx",
-        "email" => "ciftah12@mfth12.com",
-        "image" => "miftah-small.jpg",
+        "name" => "Mr. Miftahul Haq",
+        "email" => "me@mfth12.com",
+        "image" => "miftah-small.jpg"
     ]);
 });
 
-
-
+#routes basic
 Route::get('/blog', [PostController::class, 'index']);
+Route::get('/blog/{post:slug}', [PostController::class, 'show']); //sing routes model binding
 
+#routes semua kategori
+Route::get('/kategories', function () {
+    return view('kategories', [
+        'title' => "Kategori Post",
+        'kategories' => Kategori::all() //model kategori yg dikirim
+    ]);
+});
 
-//halaman single post
-Route::get('blog/{post:slug}', [PostController::class, 'show']);
+#routes post berdasarkan kategori
+Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
+    return view('kategori', [
+        'title' => "Kategori: ".$kategori->nama,
+        'deis' => $kategori->post, //ini data yang dikirim
+        'kategori' => $kategori->nama
+    ]);
+});

@@ -16,4 +16,9 @@ class Post extends Model
         return $this->belongsTo(Kategori::class, 'kateg_id', 'kateg_id'); 
         //yg pertama foreign-key //yg kedua owner-key
     }
+    
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id'); 
+        //yg pertama foreign-key //yg kedua owner-key
+    }
 }

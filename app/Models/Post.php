@@ -17,7 +17,7 @@ class Post extends Model
         //yg pertama foreign-key //yg kedua owner-key
     }
     
-    public function user() {
+    public function author() {
         return $this->belongsTo(User::class, 'user_id', 'id'); 
         //yg pertama foreign-key //yg kedua owner-key
     }

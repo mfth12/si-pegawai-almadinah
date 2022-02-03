@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Models\Kategori;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,5 +50,13 @@ Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
         'title' => "Kategori: ".$kategori->nama,
         'deis' => $kategori->post, //ini data yang dikirim
         'kategori' => $kategori->nama
+    ]);
+});
+
+#routes authors
+Route::get('/author/{author:username}', function (User $author) {
+    return view('blog', [
+        'title' => "Author post's",
+        'posts' => $author->post, //ini data yang dikirim
     ]);
 });

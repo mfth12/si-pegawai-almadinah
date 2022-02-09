@@ -10,9 +10,9 @@ class PostController extends Controller
     public function index()
     {
         return view('blog', [
-            "title" => "Blog",
+            "title" => "All Posts",
             // "posts" => Post::all() //untuk semua, sort berdasarkan id
-            "posts" => Post::latest()->get() //sort berdasarkan time latest nya
+            "posts" => Post::with(['author', 'kategori'])->latest()->get() //eager loading //sort berdasarkan time latest nya
         ]);
     }
 

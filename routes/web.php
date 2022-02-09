@@ -46,17 +46,16 @@ Route::get('/kategories', function () {
 
 #routes post berdasarkan kategori
 Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
-    return view('kategori', [
-        'title' => "Kategori: ".$kategori->nama,
-        'deis' => $kategori->post, //ini data yang dikirim
-        'kategori' => $kategori->nama
+    return view('blog', [
+        'title' => "Post by Kategori: ".$kategori->nama,
+        'posts' => $kategori->post->load('kategori', 'author') //lazy eiger loading
     ]);
 });
 
 #routes authors
 Route::get('/author/{author:username}', function (User $author) {
     return view('blog', [
-        'title' => "Author post's",
-        'posts' => $author->post, //ini data yang dikirim
+        'title' => "Post by Author: $author->name",
+        'posts' => $author->post->load('kategori', 'author') //lazy eiger loading
     ]);
 });

@@ -11,8 +11,9 @@ class PostController extends Controller
     {
         return view('blog', [
             "title" => "All Posts",
+            "aktif" => 'blog',
             // "posts" => Post::all() //untuk semua, sort berdasarkan id
-            "posts" => Post::with(['author', 'kategori'])->latest()->get() //eager loading //sort berdasarkan time latest nya
+            "posts" => Post::latest()->get() //eager loading //sort berdasarkan time latest nya
         ]);
     }
 
@@ -20,6 +21,7 @@ class PostController extends Controller
     {
         return view('post', [
             "title" => "Postingan Single",
+            "aktif" => 'blog',
             "post" => $post //kirim data dengan variable $post
         ]);
     }

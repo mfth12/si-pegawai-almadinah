@@ -11,6 +11,7 @@ class Post extends Model
 
     // protected $fillable = ['title', 'slug', 'excerpt', 'body']; //yang bisa diinput
     protected $guarded = ['post_id']; //ini diisi increment
+    protected $with = ['kategori', 'author']; //menggunakan eiger loading di models
 
     public function kategori() {
         return $this->belongsTo(Kategori::class, 'kateg_id', 'kateg_id'); 

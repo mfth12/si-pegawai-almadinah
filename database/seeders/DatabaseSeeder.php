@@ -21,19 +21,19 @@ class DatabaseSeeder extends Seeder
         Kategori::create([
             'nama' => 'Web Programming',
             'slug' => 'web-programming'
-        ]); 
+        ]);
 
         Kategori::create([
-            'nama' => 'Sains',
-            'slug' => 'sains'
-        ]); 
+            'nama' => 'Web Design',
+            'slug' => 'web-design'
+        ]);
 
         Kategori::create([
-            'nama' => 'Personal',
-            'slug' => 'personal'
-        ]); 
+            'nama' => 'Culture',
+            'slug' => 'culture'
+        ]);
 
 
-        Post::factory(16)->create();
+        Post::factory(17)->create();
     }
 }

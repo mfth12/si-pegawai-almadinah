@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home"
+        "title" => "Home",
+        'aktif' => 'home'
     ]);
 });
 
@@ -28,7 +29,8 @@ Route::get('/about', function () {
         "title" => "About",
         "name" => "Mr. Miftahul Haq",
         "email" => "me@mfth12.com",
-        "image" => "miftah-small.jpg"
+        "image" => "miftah-small.jpg",
+        'aktif'=> 'about'
     ]);
 });
 
@@ -39,7 +41,8 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show']); //sing routes 
 #routes semua kategori
 Route::get('/kategories', function () {
     return view('kategories', [
-        'title' => "Kategori Post",
+        'title' => "Kategori Pos",
+        'aktif' => 'kategories',
         'kategories' => Kategori::all() //model kategori yg dikirim
     ]);
 });
@@ -47,7 +50,8 @@ Route::get('/kategories', function () {
 #routes post berdasarkan kategori
 Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
     return view('blog', [
-        'title' => "Post by Kategori: ".$kategori->nama,
+        'title' => "Posting berdasarkan Kategori: ".$kategori->nama,
+        'aktif' => 'kategories',
         'posts' => $kategori->post->load('kategori', 'author') //lazy eiger loading
     ]);
 });
@@ -55,7 +59,8 @@ Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
 #routes authors
 Route::get('/author/{author:username}', function (User $author) {
     return view('blog', [
-        'title' => "Post by Author: $author->name",
+        'title' => "Posting berdasarkan Penulis: $author->name",
+        'aktif' => 'blog',
         'posts' => $author->post->load('kategori', 'author') //lazy eiger loading
     ]);
 });

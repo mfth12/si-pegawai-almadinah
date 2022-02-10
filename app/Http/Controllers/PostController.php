@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Kategori;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
+        // dd(request('cari'));
+        $title = '';
+        if (request('kateg')) {
+            $kategori = Kategori::firstWhere('slug', request('kateg'));
+            $title = 'dalam: ' . $kategori->nama;
+        }
+        
+        if (request('penulis')) {
+            $penulis = User::firstWhere('username', request('penulis'));
+            $title = 'oleh: ' . $penulis->name;
+        }
+        
         return view('blog', [
-            "title" => "All Posts",
+            "title" => "Semua pos ". $title,
             "aktif" => 'blog',
             // "posts" => Post::all() //untuk semua, sort berdasarkan id
-            "posts" => Post::latest()->get() //eager loading //sort berdasarkan time latest nya
+            "posts" => Post::latest()->filter(request(['cari', 'kateg', 'penulis'])) //using filter //eager loading 
+            ->paginate(4) //using pagination
+            ->withQueryString() //apapun yg ada di query string sebelumnya, bawa!
         ]);
     }
 

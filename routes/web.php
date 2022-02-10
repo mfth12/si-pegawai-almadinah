@@ -47,20 +47,20 @@ Route::get('/kategories', function () {
     ]);
 });
 
-#routes post berdasarkan kategori
-Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
-    return view('blog', [
-        'title' => "Posting berdasarkan Kategori: ".$kategori->nama,
-        'aktif' => 'kategories',
-        'posts' => $kategori->post->load('kategori', 'author') //lazy eiger loading
-    ]);
-});
+// #routes post berdasarkan kategori
+// Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
+//     return view('blog', [
+//         'title' => "Posting berdasarkan Kategori: ".$kategori->nama,
+//         'aktif' => 'kategories',
+//         'posts' => $kategori->post->load('kategori', 'author') //lazy eiger loading
+//     ]);
+// });
 
-#routes authors
-Route::get('/author/{author:username}', function (User $author) {
-    return view('blog', [
-        'title' => "Posting berdasarkan Penulis: $author->name",
-        'aktif' => 'blog',
-        'posts' => $author->post->load('kategori', 'author') //lazy eiger loading
-    ]);
-});
+// #routes authors
+// Route::get('/author/{author:username}', function (User $author) {
+//     return view('blog', [
+//         'title' => "Posting berdasarkan Penulis: $author->name",
+//         'aktif' => 'blog',
+//         'posts' => $author->post->load('kategori', 'author') //lazy eiger loading
+//     ]);
+// });

@@ -5,9 +5,9 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-8">
                 <h1 class="mb-3">{{ $post->title }}</h1>
-                <p>Oleh <a href="/author/{{ $post->author->username }}"
+                <p>Oleh <a href="/blog?penulis={{ $post->author->username }}"
                         class="text-decoration-none">{{ $post->author->name }}</a>
-                    pada kategori <a href="/kategori/{{ $post->kategori->slug }}"
+                    pada kategori <a href="/blog?kateg={{ $post->kategori->slug }}"
                         class="text-decoration-none">{{ $post->kategori->nama }}</a></p>
                 <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid" alt="{{ $post->title }}">
                 <article class="my-3 fs-5 text-justify">

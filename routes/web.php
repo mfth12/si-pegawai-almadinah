@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\DaftarController;
+use App\Http\Controllers\DasborController;
 
 Route::get('/', function () {
     return view('home', [
@@ -39,12 +40,18 @@ Route::get('/kategories', function () {
 });
 
 #routes untuk masuk
-Route::get('/masuk', [MasukController::class, 'index']);
+Route::get('/masuk', [MasukController::class, 'index'])->name('masuk')->middleware('guest');
+Route::post('/masuk', [MasukController::class, 'auth']);
+
+#routes untuk keluar
+Route::get('/keluar', [MasukController::class, 'keluar']);
 
 #routes untuk daftar
-Route::get('/daftar', [DaftarController::class, 'index']);
-Route::post('/daftar', [DaftarController::class, 'buat']);
+Route::get('/daftar', [DaftarController::class, 'index'])->middleware('guest');
+Route::post('/daftar', [DaftarController::class, 'buat'])->middleware('guest');
 
+#routes untuk dasbor
+Route::get('/dasbor', [DasborController::class, 'index'])->middleware('auth');
 // #routes post berdasarkan kategori
 // Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
 //     return view('blog', [

@@ -1,21 +1,12 @@
 <?php
 
-use App\Http\Controllers\PostController;
 use App\Models\Kategori;
-use App\Models\Post;
-use App\Models\User;
+use App\Models\Post;//boleh dihapus
+use App\Models\User;//boleh dihapus
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\MasukController;
+use App\Http\Controllers\DaftarController;
 
 Route::get('/', function () {
     return view('home', [
@@ -46,6 +37,12 @@ Route::get('/kategories', function () {
         'kategories' => Kategori::all() //model kategori yg dikirim
     ]);
 });
+
+#routes untuk masuk
+Route::get('/masuk', [MasukController::class, 'index']);
+
+#routes untuk daftar
+Route::get('/daftar', [DaftarController::class, 'index']);
 
 // #routes post berdasarkan kategori
 // Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {

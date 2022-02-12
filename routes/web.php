@@ -43,6 +43,7 @@ Route::get('/masuk', [MasukController::class, 'index']);
 
 #routes untuk daftar
 Route::get('/daftar', [DaftarController::class, 'index']);
+Route::post('/daftar', [DaftarController::class, 'buat']);
 
 // #routes post berdasarkan kategori
 // Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {

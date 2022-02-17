@@ -21,21 +21,21 @@ class Post extends Model
         // }
 
         // ini aalah filter untuk pencarian $title dan $body
-        $query->when($filters['cari'] ?? false, function($query, $cari) {
+        $query->when($filters['cari'] ?? false, function ($query, $cari) {
             return $query->where('title', 'like', '%' . $cari . '%')
                 ->orWhere('body', 'like', '%' . $cari . '%');
         });
-        
+
         // ini aalah filter untuk pencarian $kategori
-        $query->when($filters['kateg'] ?? false, function($query, $kateg) {
-            return $query->whereHas('kategori', function($query) use ($kateg) {
+        $query->when($filters['kateg'] ?? false, function ($query, $kateg) {
+            return $query->whereHas('kategori', function ($query) use ($kateg) {
                 $query->where('slug', $kateg);
             });
         });
-        
+
         // ini aalah filter untuk pencarian $penulis
-        $query->when($filters['penulis'] ?? false, function($query, $penulis) {
-            return $query->whereHas('author', function($query) use ($penulis) {
+        $query->when($filters['penulis'] ?? false, function ($query, $penulis) {
+            return $query->whereHas('author', function ($query) use ($penulis) {
                 $query->where('username', $penulis);
             });
         });
@@ -51,5 +51,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
         //yg pertama foreign-key //yg kedua owner-key
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'post_id';
     }
 }

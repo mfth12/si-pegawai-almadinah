@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\Kategori;
-use App\Models\Post;//boleh dihapus
-use App\Models\User;//boleh dihapus
+use App\Models\Post; //boleh dihapus
+use App\Models\User; //boleh dihapus
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\DasborController;
+use App\Http\Controllers\DasborPostCtrl;
 
 Route::get('/', function () {
     return view('home', [
@@ -22,7 +23,7 @@ Route::get('/about', function () {
         "name" => "Mr. Miftahul Haq",
         "email" => "me@mfth12.com",
         "image" => "miftah-small.jpg",
-        'aktif'=> 'about'
+        'aktif' => 'about'
     ]);
 });
 
@@ -43,15 +44,27 @@ Route::get('/kategories', function () {
 Route::get('/masuk', [MasukController::class, 'index'])->name('masuk')->middleware('guest');
 Route::post('/masuk', [MasukController::class, 'auth']);
 
-#routes untuk keluar
+#route untuk keluar
 Route::get('/keluar', [MasukController::class, 'keluar']);
 
 #routes untuk daftar
 Route::get('/daftar', [DaftarController::class, 'index'])->middleware('guest');
 Route::post('/daftar', [DaftarController::class, 'buat'])->middleware('guest');
 
-#routes untuk dasbor
-Route::get('/dasbor', [DasborController::class, 'index'])->middleware('auth');
+#route untuk dasbor
+// Route::get('/dasbor', [DasborController::class, 'index'])->middleware('auth');
+Route::get('/dasbor', function () { //ini menggunakan closure function
+    return view('dasbor.index');
+})->middleware('auth');
+#route untuk pos yang ada di dasbor
+Route::get('/dasbor/posts/{post:post_id}', [DasborPostCtrl::class, 'show'])->middleware('auth'); //sing routes model binding
+Route::resource('/dasbor/posts', DasborPostCtrl::class)->except([
+    'show'
+])->middleware('auth');
+
+
+
+
 // #routes post berdasarkan kategori
 // Route::get('/kategori/{kategori:slug}', function (Kategori $kategori) {
 //     return view('blog', [

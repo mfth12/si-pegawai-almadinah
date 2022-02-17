@@ -25,7 +25,38 @@
     border-top-right-radius: 0;
 }
 
+/* form daftar */
+
+.form-daftar .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-daftar input[name="name"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-daftar input[name="username"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-daftar input[name="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-daftar input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* 
 .form-daftar input{
     border-radius: 0;
     margin-bottom: -1px;
-}
+} */

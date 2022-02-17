@@ -31,7 +31,7 @@ class DaftarController extends Controller
         // dd($request);
         
         User::create($dataTervalidasi);
-        // $request->session()->flash('terdaftar', 'Pendaftaran berhasil, Silakan masuk.');
-        return redirect('/masuk')->with('terdaftar', 'Pendaftaran berhasil, Silakan masuk.');
+        // $request->session()->flash('terdaftar', 'Pendaftaran berhasil, silakan masuk.');
+        return redirect('/masuk')->with('terdaftar', 'Pendaftaran berhasil, silakan masuk.');
     }
 }

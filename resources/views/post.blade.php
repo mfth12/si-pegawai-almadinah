@@ -9,7 +9,8 @@
                         class="text-decoration-none">{{ $post->author->name }}</a>
                     pada kategori <a href="/blog?kateg={{ $post->kategori->slug }}"
                         class="text-decoration-none">{{ $post->kategori->nama }}</a></p>
-                <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid" alt="{{ $post->title }}">
+                <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid"
+                    alt="{{ $post->title }}">
                 <article class="my-3 fs-5 text-justify">
                     {!! $post->body !!}
                 </article>
@@ -17,6 +18,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

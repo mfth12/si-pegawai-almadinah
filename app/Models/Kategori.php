@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     use HasFactory;
+    // protected $primaryKey = 'kateg_id';
+
     protected $guarded = ['kateg_id']; //ini diisi increment
 
     public function post() {

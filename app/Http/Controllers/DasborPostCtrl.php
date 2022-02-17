@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class DasborPostCtrl extends Controller
 {
@@ -26,7 +29,11 @@ class DasborPostCtrl extends Controller
      */
     public function create()
     {
-        //
+        // $a = Kategori::firstWhere('slug', 'culture');
+        // dd($a);
+        return view('dasbor.posts.buat', [
+            'kategories' => Kategori::all()
+        ]);
     }
 
     /**
@@ -37,7 +44,7 @@ class DasborPostCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -88,5 +95,11 @@ class DasborPostCtrl extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function cekSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+        return response()->json(['slug' => $slug]);
     }
 }

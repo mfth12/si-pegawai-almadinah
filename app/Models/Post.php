@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     // protected $fillable = ['title', 'slug', 'excerpt', 'body']; //yang bisa diinput
+    protected $primaryKey = 'post_id';
     protected $guarded = ['post_id']; //ini diisi increment
     protected $with = ['kategori', 'author']; //menggunakan eiger loading di models
+    public function getRouteKeyName() //untuk menjadikan key name route
+    {
+        return 'post_id';
+    }
 
     public function scopeFilter($query, array $filters)
     {
@@ -53,8 +60,18 @@ class Post extends Model
         //yg pertama foreign-key //yg kedua owner-key
     }
 
-    public function getRouteKeyName()
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
     {
-        return 'post_id';
+        return [
+            'slug' => [
+                'source' => 'slug'
+            ]
+        ];
     }
 }

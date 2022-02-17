@@ -57,10 +57,10 @@ Route::get('/dasbor', function () { //ini menggunakan closure function
     return view('dasbor.index');
 })->middleware('auth');
 #route untuk pos yang ada di dasbor
-Route::get('/dasbor/posts/{post:post_id}', [DasborPostCtrl::class, 'show'])->middleware('auth'); //sing routes model binding
-Route::resource('/dasbor/posts', DasborPostCtrl::class)->except([
-    'show'
-])->middleware('auth');
+// Route::get('/dasbor/posts/{post:post_id}', [DasborPostCtrl::class, 'show'])->middleware('auth'); //sing routes model binding
+Route::get('/dasbor/posts/cekSlug', [DasborPostCtrl::class, 'cekSlug'])->middleware('auth');
+Route::post('/dasbor/posts/create', [DasborPostCtrl::class, 'store'])->middleware('auth');
+Route::resource('/dasbor/posts', DasborPostCtrl::class)->middleware('auth');
 
 
 

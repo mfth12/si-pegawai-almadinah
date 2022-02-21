@@ -7,10 +7,17 @@
         </div>
         @if ($posts->count())
             <div class="table-responsive col-lg-8">
-                {{-- flash terdaftar --}}
-                @if (session()->has('sukses'))
+                {{-- flash pos telah terbit --}}
+                @if (session()->has('hijau'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('sukses') }}
+                        {{ session('hijau') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                {{-- flash terdaftar --}}
+                @if (session()->has('merah'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('merah') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -33,10 +40,15 @@
                                 <td class="text-center text-nowrap">
                                     <a href="/dasbor/posts/{{ $post->post_id }}" class="badge bg-secondary mb-1"><span
                                             data-feather="eye"></span> </a>
-                                    <a href="/dasbor/posts/{{ $post->post_id }}" class="badge bg-warning mb-1"><span
+                                    <a href="/dasbor/posts/{{ $post->post_id }}/edit" class="badge bg-warning mb-1"><span
                                             data-feather="edit"></span> </a>
-                                    <a href="/dasbor/posts/destroy/{{ $post->post_id }}"
-                                        class="badge bg-danger mb-1"><span data-feather="x-circle"></span> </a>
+                                    <form action="/dasbor/posts/{{ $post->post_id }}" method="POST" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="badge bg-danger mb-1 border-0" onclick="return confirm('Yakin ingin menghapus data?')"><span data-feather="x-circle"></span></button>
+                                    </form>
+                                    {{-- <a href="/dasbor/posts/destroy/{{ $post->post_id }}"
+                                        class="badge bg-danger mb-1"> </a> --}}
                                 </td>
                             </tr>
                         @endforeach

@@ -56,7 +56,7 @@ class DasborPostCtrl extends Controller
         $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
 
         Post::create($tervalidasi); //langsung eksekusi simpan data ke database
-        return redirect('/dasbor/posts/')->with('sukses', 'Pos berhasil ditambahkan.');
+        return redirect('/dasbor/posts/')->with('hijau', 'Pos berhasil ditambahkan.');
     }
 
     /**
@@ -83,7 +83,10 @@ class DasborPostCtrl extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dasbor.posts.edit', [
+            'post' => $post,
+            'kategories' => Kategori::all()
+        ]);
     }
 
     /**
@@ -95,7 +98,25 @@ class DasborPostCtrl extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $rules = [ //array data
+            'title' => 'required|max:255',
+            // 'slug' => 'required|unique:posts',
+            'kateg_id' => 'required',
+            'body' => 'required'
+        ];
+
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $tervalidasi = $request->validate($rules);
+        // baru masuk ke ngisi user_id,
+        $tervalidasi['user_id'] = auth()->user()->id;
+        $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
+        //terus save deh
+        Post::where('post_id', $post->post_id) //langsung eksekusi simpan data ke database
+            ->update($tervalidasi);
+        return redirect('/dasbor/posts/')->with('hijau', 'Pos berhasil diperbarui.');
     }
 
     /**
@@ -106,7 +127,8 @@ class DasborPostCtrl extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->post_id); //langsung eksekusi simpan data ke database
+        return redirect('/dasbor/posts/')->with('merah', 'Pos berhasil dihapus.');
     }
 
     public function cekSlug(Request $request)

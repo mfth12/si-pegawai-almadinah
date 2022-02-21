@@ -6,29 +6,54 @@
             <h1 class="h2">Buat Post Baru</h1>
         </div>
         <div class="col-lg-8">
-            <form action="/dasbor/posts/create" method="POST">
+            <form action="/dasbor/posts/create" method="POST" class="mb-5">
                 @csrf
                 {{-- @method('PUT') --}}
                 <div class="mb-3">
                     <label for="title" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                        autofocus value="{{ old('title') }}">
+                    @error('title')
+                        <div class="invalid-feedback">
+                            *{{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="slug" class="form-label">Slug</label>
-                    <input type="text" class="form-control" id="slug" name="slug" disabled readonly>
+                    <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
+                        value="{{ old('slug') }}">
+                    @error('slug')
+                        <div class="invalid-feedback">
+                            *{{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="kateg_id" class="form-label">Kategori</label>
-                    <select class="form-select" name="kateg_id">
+                    <select class="form-select @error('kateg_id') is-invalid @enderror" name="kateg_id">
+                        <option value="">Pilih kategori..</option>
                         @foreach ($kategories as $kateg)
-                            <option value="{{ $kateg->kateg_id }}">{{ $kateg->nama }}</option>
+                            @if (old('kateg_id') == $kateg->kateg_id)
+                                <option selected value="{{ $kateg->kateg_id }}">{{ $kateg->nama }}</option>
+                            @else
+                                <option value="{{ $kateg->kateg_id }}">{{ $kateg->nama }}</option>
+                            @endif
                         @endforeach
                     </select>
+                    @error('kateg_id')
+                        <div class="invalid-feedback">
+                            *{{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Isi Post</label>
-                    <input id="body" type="hidden" name="body">
+                    <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                     <trix-editor input="body"></trix-editor>
+                    @error('body')
+                        <p class="text-danger"><small>*{{ $message }}</small></p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary">Buat Post</button>
@@ -45,8 +70,9 @@
                 .then(data => slug.value = data.slug)
         });
 
-        document.addEventListener('trix-file-accept'), function(e) {
-            e.preventDevault();
-        }
+        document.addEventListener('trix-file-accept'),
+            function(e) {
+                e.preventDevault();
+            }
     </script>
 @endsection

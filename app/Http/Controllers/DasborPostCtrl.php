@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Kategori;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -21,7 +22,7 @@ class DasborPostCtrl extends Controller
             'posts' => Post::where('user_id', auth()->user()->id)->get()
         ]);
     }
-  
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,7 +45,18 @@ class DasborPostCtrl extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $tervalidasi = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:posts',
+            'kateg_id' => 'required',
+            'body' => 'required'
+        ]);
+
+        $tervalidasi['user_id'] = auth()->user()->id;
+        $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
+
+        Post::create($tervalidasi); //langsung eksekusi simpan data ke database
+        return redirect('/dasbor/posts/')->with('sukses', 'Pos berhasil ditambahkan.');
     }
 
     /**

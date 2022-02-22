@@ -6,13 +6,14 @@
             <h1 class="h2">Edit Post</h1>
         </div>
         <div class="col-lg-8">
-            <form action="/dasbor/posts/{{ $post->post_id }}" method="POST" class="mb-5">
+            <form enctype="multipart/form-data" action="/dasbor/posts/{{ $post->post_id }}" method="POST"
+                class="mb-5">
                 @csrf
                 @method('PUT') {{-- method untuk update, bisa juga pake patch --}}
                 <div class="mb-3">
                     <label for="title" class="form-label">Judul</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
-                        autofocus value="{{ old('title', $post->title )}}">
+                        autofocus value="{{ old('title', $post->title) }}">
                     @error('title')
                         <div class="invalid-feedback">
                             *{{ $message }}
@@ -48,6 +49,22 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="gambar" class="form-label">Gambar Post</label>
+                    <input type="hidden" name="gambarOld" value="{{ $post->gambar }}">
+                    @if ($post->gambar)
+                        <img src="{{ asset('storage/' . $post->gambar) }}" class="img-lihat img-fluid mb-3 col-sm-5 d-block">
+                    @else
+                        <img class="img-lihat img-fluid mb-3 col-sm-5">
+                    @endif
+                    <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar"
+                        onchange="lihatGambar()">
+                    @error('gambar')
+                        <div class="invalid-feedback">
+                            *{{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="body" class="form-label">Isi Post</label>
                     <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
                     <trix-editor input="body"></trix-editor>
@@ -74,5 +91,19 @@
             function(e) {
                 e.preventDevault();
             }
+
+        // tampil preview image
+        function lihatGambar() {
+            const gambar = document.querySelector('#gambar');
+            const gambarPreview = document.querySelector('.img-lihat')
+
+            gambarPreview.style.display = 'block';
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(gambar.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                gambarPreview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection

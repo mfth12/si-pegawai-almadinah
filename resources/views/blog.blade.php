@@ -23,8 +23,15 @@
 
     @if ($posts->count())
         <div class="card mb-5">
-            <img src="https://source.unsplash.com/960x360?{{ $posts[0]->kategori->nama }}" class="card-img-top"
-                alt="{{ $posts[0]->kategori->nama }}">
+            @if ($posts[0]->gambar)
+                <div style="max-height=360px; overflow:hidden;">
+                    <img src="{{ asset('storage/' . $posts[0]->gambar) }}" class="img-fluid"
+                        alt="{{ $posts[0]->title }}">
+                </div>
+            @else
+                <img src="https://source.unsplash.com/960x360?{{ $posts[0]->kategori->nama }}" class="card-img-top"
+                    alt="{{ $posts[0]->kategori->nama }}">
+            @endif
             <div class="card-body text-center">
                 <h3 class="card-title"><a href="/blog/{{ $posts[0]->slug }}"
                         class="text-decoration-none text-dark">{{ $n . '. ' . $posts[0]->title }}</a></h3>
@@ -54,8 +61,15 @@
                                         class="text-decoration-none text-white">{{ $post->kategori->nama }}</a></small>
                             </div>
                             <a href="/blog/{{ $post->slug }}">
-                                <img src="https://source.unsplash.com/320x200?{{ $post->kategori->nama }}"
-                                    class="card-img-top" alt="{{ $post->kategori->nama }}">
+                                @if ($post->gambar)
+                                    <img src="{{ asset('storage/' . $post->gambar) }}" class="img-fluid"
+                                        alt="{{ $post->title }}">
+                                @else
+                                    <img src="https://source.unsplash.com/640x360?{{ $post->kategori->nama }}"
+                                        class="card-img-top" alt="{{ $post->kategori->nama }}">
+                                @endif
+                                {{-- <img src="https://source.unsplash.com/320x200?{{ $post->kategori->nama }}"
+                                    class="card-img-top" alt="{{ $post->kategori->nama }}"> --}}
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title"><a href="/blog/{{ $post->slug }}"

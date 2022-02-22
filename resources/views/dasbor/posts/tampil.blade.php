@@ -8,7 +8,8 @@
                     <h1 class="mb-3">{{ $post->title }}</h1>
                     <a href="/dasbor/posts" class="btn btn-sm btn-outline-secondary mr-2"><span
                             data-feather="arrow-left"></span> Kembali</a>
-                    <a href="/dasbor/posts/{{ $post->post_id }}/edit" class="btn btn-sm btn-outline-warning mr-2"><span data-feather="edit"></span> Edit</a>
+                    <a href="/dasbor/posts/{{ $post->post_id }}/edit" class="btn btn-sm btn-outline-warning mr-2"><span
+                            data-feather="edit"></span> Edit</a>
                     <form action="/dasbor/posts/{{ $post->post_id }}" method="POST" class="d-inline">
                         @method('delete')
                         @csrf
@@ -16,9 +17,15 @@
                             onclick="return confirm('Yakin ingin menghapus data?')"><span data-feather="x-circle"></span>
                             Hapus</button>
                     </form>
-                    {{-- <a href="" class="btn btn-sm btn-outline-danger mr-2"><span data-feather="trash"></span> Hapus</a> --}}
-                    <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid mt-3"
-                        alt="{{ $post->title }}">
+                    @if ($post->gambar)
+                        <div style="max-height=350px; overflow:hidden;">
+                            <img src="{{ asset('storage/' . $post->gambar) }}" class="img-fluid mt-3"
+                                alt="{{ $post->title }}">
+                        </div>
+                    @else
+                        <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid mt-3"
+                            alt="{{ $post->title }}">
+                    @endif
                     <article class="my-3 fs-5 text-justify">
                         {!! $post->body !!}
                     </article>

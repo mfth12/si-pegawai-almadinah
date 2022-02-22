@@ -45,12 +45,20 @@ class DasborPostCtrl extends Controller
      */
     public function store(Request $request)
     {
+        // ddd($request); //dump, die, dan debug
+        // return $request->file('gambar')->store('images-post');
+        
         $tervalidasi = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts',
+            'gambar' => 'image|file|max:1024',
             'kateg_id' => 'required',
             'body' => 'required'
         ]);
+
+        if($request->file('gambar')) {
+            $tervalidasi['gambar'] = $request->file('gambar')->store('images-post');
+        }
 
         $tervalidasi['user_id'] = auth()->user()->id;
         $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');

@@ -9,8 +9,15 @@
                         class="text-decoration-none">{{ $post->author->name }}</a>
                     pada kategori <a href="/blog?kateg={{ $post->kategori->slug }}"
                         class="text-decoration-none">{{ $post->kategori->nama }}</a></p>
-                <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid"
-                    alt="{{ $post->title }}">
+                @if ($post->gambar)
+                    <div style="max-height=350px; overflow:hidden;">
+                        <img src="{{ asset('storage/' . $post->gambar) }}" class="img-fluid mt-3"
+                            alt="{{ $post->title }}">
+                    </div>
+                @else
+                    <img src="https://source.unsplash.com/960x360?{{ $post->kategori->nama }}" class="img-fluid mt-3"
+                        alt="{{ $post->title }}">
+                @endif
                 <article class="my-3 fs-5 text-justify">
                     {!! $post->body !!}
                 </article>

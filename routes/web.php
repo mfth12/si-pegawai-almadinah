@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\DasborController;
+use App\Http\Controllers\DasborKategCtrl;
 use App\Http\Controllers\DasborPostCtrl;
 
 Route::get('/', function () {
@@ -63,6 +64,7 @@ Route::post('/dasbor/posts/create', [DasborPostCtrl::class, 'store'])->middlewar
 Route::resource('/dasbor/posts', DasborPostCtrl::class)->middleware('auth');
 
 
+Route::resource('/dasbor/kategori', DasborKategCtrl::class)->except('show')->middleware('admin');
 
 
 // #routes post berdasarkan kategori

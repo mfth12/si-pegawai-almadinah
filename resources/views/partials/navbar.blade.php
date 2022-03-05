@@ -1,17 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand" href="/">Project</a>
+        <a class="navbar-brand" href="/">Sistem Santri Idris</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link {{ $aktif === 'home' ? 'active' : '' }}" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ $aktif === 'about' ? 'active' : '' }}" href="/about">About</a>
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {{ $aktif === 'home' ? 'active' : '' }}" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ $aktif === 'about' ? 'active' : '' }}" href="/about">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $aktif === 'blog' ? 'active' : '' }}" href="/blog">Blog</a>
@@ -20,8 +20,8 @@
                     <a class="nav-link {{ $aktif === 'kategories' ? 'active' : '' }}" href="/kategories">Kategori</a>
                 </li>
             </ul>
-
-
+            
+            
             <ul class="navbar-nav ms-auto">
                 @auth
                     <li class="nav-item dropdown">
@@ -38,7 +38,8 @@
                             <li>
                                 <form action="/keluar">
                                     @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Keluar</button>
+                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i>
+                                        Keluar</button>
                                 </form>
                             </li>
                         </ul>
@@ -46,7 +47,7 @@
                 @else
                     <li class="nav-item">
                         <a class="nav-link {{ $aktif === 'masuk' ? 'active' : '' }}" href="/masuk"><i
-                                class="bi bi-box-arrow-in-right"></i> Login</a>
+                                class="bi bi-box-arrow-in-right"></i> Masuk</a>
                     </li>
                 @endauth
             </ul>

@@ -1,5 +1,6 @@
 @extends('layouts.main')
 
 @section('container')
-<h1>Halaman Utama Projects!</h1>
+<h2>Halaman Utama Sistem Informasi Santri</h2>
+<p>Pondok Pesantren Idris Bintan</p>
 @endsection

@@ -5,7 +5,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-8">
                 <h1 class="mb-3">{{ $post->title }}</h1>
-                <p>Oleh <a href="/blog?penulis={{ $post->author->username }}"
+                <p>Oleh <a href="/blog?penulis={{ $post->author->nomer_induk }}"
                         class="text-decoration-none">{{ $post->author->name }}</a>
                     pada kategori <a href="/blog?kateg={{ $post->kategori->slug }}"
                         class="text-decoration-none">{{ $post->kategori->nama }}</a></p>

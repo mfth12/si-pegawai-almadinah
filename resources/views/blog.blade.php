@@ -36,7 +36,7 @@
                 <h3 class="card-title"><a href="/blog/{{ $posts[0]->slug }}"
                         class="text-decoration-none text-dark">{{ $n . '. ' . $posts[0]->title }}</a></h3>
                 <small class="text-muted">
-                    <p>Ditulis oleh <a href="/blog?penulis={{ $posts[0]->author->username }}"
+                    <p>Ditulis oleh <a href="/blog?penulis={{ $posts[0]->author->nomer_induk }}"
                             class="text-decoration-none">{{ $posts[0]->author->name }}</a> pada kategori <a
                             href="/blog?kateg={{ $posts[0]->kategori->slug }}"
                             class="text-decoration-none">{{ $posts[0]->kategori->nama }}</a>
@@ -74,7 +74,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><a href="/blog/{{ $post->slug }}"
                                         class="text-decoration-none text-black">{{ $n . '. ' . $post->title }}</a></h5>
-                                <p><small>Ditulis oleh <a href="/blog?penulis={{ $post->author->username }}"
+                                <p><small>Ditulis oleh <a href="/blog?penulis={{ $post->author->nomer_induk }}"
                                             class="text-decoration-none">{{ $post->author->name }}</a>
                                         {{ $post->created_at->diffForHumans() }}
                                     </small></p>

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Kategori;
-use App\Models\User;
+use App\Models\Pengguna;
+// use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -19,7 +20,7 @@ class PostController extends Controller
         }
         
         if (request('penulis')) {
-            $penulis = User::firstWhere('username', request('penulis'));
+            $penulis = Pengguna::firstWhere('nomer_induk', request('penulis'));
             $title = 'oleh: ' . $penulis->name;
         }
         

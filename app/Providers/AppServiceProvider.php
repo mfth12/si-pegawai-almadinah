@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Pengguna;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
@@ -28,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();// pagination bootstrap disini
-        Gate::define('admin', function(User $user){
+        Gate::define('admin', function(Pengguna $user){
             return $user->status === 1;
         });
     }

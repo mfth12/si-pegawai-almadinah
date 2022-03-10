@@ -19,8 +19,9 @@ class DasborPostCtrl extends Controller
      */
     public function index()
     {
+        // dd(auth()->user());
         return view('dasbor.posts.index', [
-            'posts' => Post::where('user_id', auth()->user()->id)->get()
+            'posts' => Post::where('user_id', auth()->user()->user_id)->get()
         ]);
     }
 
@@ -61,7 +62,7 @@ class DasborPostCtrl extends Controller
             $tervalidasi['gambar'] = $request->file('gambar')->store('images-post');
         }
 
-        $tervalidasi['user_id'] = auth()->user()->id;
+        $tervalidasi['user_id'] = auth()->user()->user_id;
         $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
 
         Post::create($tervalidasi); //langsung eksekusi simpan data ke database
@@ -129,7 +130,7 @@ class DasborPostCtrl extends Controller
         }
 
         // baru masuk ke ngisi user_id,
-        $tervalidasi['user_id'] = auth()->user()->id;
+        $tervalidasi['user_id'] = auth()->user()->user_id;
         $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
         //terus save deh
         Post::where('post_id', $post->post_id) //langsung eksekusi simpan data ke database

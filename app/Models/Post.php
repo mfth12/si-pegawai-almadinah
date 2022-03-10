@@ -43,7 +43,7 @@ class Post extends Model
         // ini aalah filter untuk pencarian $penulis
         $query->when($filters['penulis'] ?? false, function ($query, $penulis) {
             return $query->whereHas('author', function ($query) use ($penulis) {
-                $query->where('username', $penulis);
+                $query->where('nomer_induk', $penulis);
             });
         });
     }
@@ -56,7 +56,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(Pengguna::class, 'user_id', 'user_id');
         //yg pertama foreign-key //yg kedua owner-key
     }
 

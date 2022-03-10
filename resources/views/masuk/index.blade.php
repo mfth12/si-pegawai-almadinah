@@ -51,10 +51,10 @@
 
                     @csrf {{-- CSRF security here --}}
                     <div class="form-floating">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                            id="email" placeholder="name@example.com" autofocus required value="{{ old('email') }}">
-                        <label for="email">Alamat email</label>
-                        @error('email')
+                        <input type="text" class="form-control @error('nomer_induk') is-invalid @enderror" name="nomer_induk"
+                            id="nomer_induk" placeholder="name@example.com" autofocus required value="{{ old('nomer_induk') }}">
+                        <label for="nomer_induk">Nomer ID</label>
+                        @error('nomer_induk')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

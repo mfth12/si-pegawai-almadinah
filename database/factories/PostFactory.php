@@ -23,7 +23,7 @@ class PostFactory extends Factory
                     return "<p>$p</p>";
                 })->implode(''),
             'kateg_id' => mt_rand(54, 56), //id kategori mulainya dari 54
-            'user_id' => mt_rand(1, 3),
+            'user_id' => mt_rand(2101, 2104),
         ];
     }
 }

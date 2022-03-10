@@ -1,15 +1,15 @@
 <?php
 
+// use App\Models\Post; //boleh dihapus
+// use App\Models\User; //boleh dihapus
 use App\Models\Kategori;
-use App\Models\Post; //boleh dihapus
-use App\Models\User; //boleh dihapus
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MasukController;
 use App\Http\Controllers\DaftarController;
-use App\Http\Controllers\DasborController;
 use App\Http\Controllers\DasborKategCtrl;
 use App\Http\Controllers\DasborPostCtrl;
+use App\Http\Controllers\PenggunaCtrl;
 
 Route::get('/', function () {
     return view('home', [
@@ -57,14 +57,18 @@ Route::post('/daftar', [DaftarController::class, 'buat'])->middleware('guest');
 Route::get('/dasbor', function () { //ini menggunakan closure function
     return view('dasbor.index');
 })->middleware('auth');
+
 #route untuk pos yang ada di dasbor
 // Route::get('/dasbor/posts/{post:post_id}', [DasborPostCtrl::class, 'show'])->middleware('auth'); //sing routes model binding
 Route::get('/dasbor/posts/cekSlug', [DasborPostCtrl::class, 'cekSlug'])->middleware('auth');
 Route::post('/dasbor/posts/create', [DasborPostCtrl::class, 'store'])->middleware('auth');
 Route::resource('/dasbor/posts', DasborPostCtrl::class)->middleware('auth');
 
-
+#route untuk kategori list
 Route::resource('/dasbor/kategori', DasborKategCtrl::class)->except('show')->middleware('admin');
+
+#route untuk pengguna list
+Route::resource('/dasbor/pengguna', PenggunaCtrl::class)->middleware('admin');
 
 
 // #routes post berdasarkan kategori

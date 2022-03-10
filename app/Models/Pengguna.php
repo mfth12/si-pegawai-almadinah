@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+// use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Pengguna extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    // use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +25,8 @@ class User extends Authenticatable
     //     'email',
     //     'password',
     // ];
-
-    protected $guarded = ['id'];
+    protected $primaryKey = 'user_id';
+    protected $guarded = ['user_id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -36,18 +38,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-
     //ini relasi ke model post
-    public function post(){
+    public function post() {
         return $this->hasMany(Post::class);
     }
 }

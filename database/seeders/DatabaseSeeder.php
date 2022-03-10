@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Kategori;
+use App\Models\Pengguna;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,15 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        //
+        Pengguna::create([
             'name' => 'Miftahul Haq',
-            'username' => 'mfth12',
+            'nomer_induk' => 'mfth12ds',
             'email' => 'ciftah12@gmail.com',
+            'status' => 1,
             'password' => bcrypt('123123'),
-
         ]);
         
-        User::factory(3)->create();
+        Pengguna::factory(3)->create();
 
         Kategori::create([
             'nama' => 'Web Programming',

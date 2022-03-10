@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class MasukController extends Controller
 {
+    public function username()
+    {
+        return 'nomer_induk';
+    }
     public function index()
     {
         return view('masuk.index', [
@@ -18,17 +22,18 @@ class MasukController extends Controller
     public function auth(Request $request)
     {
         $kredensi = $request->validate([
-            'email' => 'required|email:dns',
+            // 'email' => 'required|email',
+            'nomer_induk' => 'required', //menggunakan nomer induk untuk login masuk kedalam sistem
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($kredensi)) {
+        if (Auth::attempt($kredensi)) {
             $request->session()->regenerate();
             return redirect()->intended('dasbor');
         }
 
-        return back()->with('masukGagal', 'Email atau password Anda salah!');
-        
+        return back()->with('masukGagal', 'ID atau password Anda salah!');
+
         dd('berhasil masuk');
     }
 

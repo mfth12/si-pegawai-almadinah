@@ -16,9 +16,9 @@ class apakahAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || !auth()->user()->status === 1) {
-            abort(403);
-        }
-        return $next($request);
+        // if (!auth()->check() || !auth()->user()->status === 1) {
+        //     abort(403);
+        // }
+        // return $next($request);
     }
 }

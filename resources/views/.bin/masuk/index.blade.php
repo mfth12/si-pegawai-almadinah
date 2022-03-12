@@ -51,8 +51,9 @@
 
                     @csrf {{-- CSRF security here --}}
                     <div class="form-floating">
-                        <input type="text" class="form-control @error('nomer_induk') is-invalid @enderror" name="nomer_induk"
-                            id="nomer_induk" placeholder="name@example.com" autofocus required value="{{ old('nomer_induk') }}">
+                        <input type="text" class="form-control @error('nomer_induk') is-invalid @enderror"
+                            name="nomer_induk" id="nomer_induk" placeholder="name@example.com" autofocus required
+                            value="{{ old('nomer_induk') }}">
                         <label for="nomer_induk">Nomer ID</label>
                         @error('nomer_induk')
                             <div class="invalid-feedback">

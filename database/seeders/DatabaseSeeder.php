@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         //
         Pengguna::create([
-            'name' => 'Miftahul Haq',
+            'nama' => 'Miftahul Haq',
             'nomer_induk' => 'mfth12ds',
             'email' => 'ciftah12@gmail.com',
             'status' => 1,

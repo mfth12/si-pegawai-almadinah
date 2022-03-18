@@ -12,20 +12,26 @@
     <script src="https://kit.fontawesome.com/c19cab79ac.js" crossorigin="anonymous"></script>
     {{-- icheck bootstrap --}}
     <link rel="stylesheet" href="/css/front/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/tables/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/tables/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/tables/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
         integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Theme style --}}
     <link rel="stylesheet" href="/css/front/adminlte.min.css">
     <link rel="icon" type="image/x-icon" href="/img/logo-pondok-idris-red.png">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         {{-- include components --}}
         @once
-            <x-back.navbar />
-            <x-back.sidebar />
+            {{-- <x-back.navbar /> --}}
+            @include('components.back.navbar') {{-- manggil komponen view navbar --}}
+            {{-- <x-back.sidebar /> --}}
+            @include('components.back.sidebar') {{-- manggil komponen view sidebar --}}
         @endonce
         {{-- include isi ke dalam container --}}
         @yield('container')
@@ -35,13 +41,30 @@
                 Pesantren Idris Bintan</a>. Hak cipta dilindungi undang-undang.
         </footer>
     </div>
+    @once
+        {{-- jQuery --}}
+        <script src="/js/front/jquery.min.js"></script>
+        {{-- Bootstrap 4 --}}
+        <script src="/js/front/bootstrap.bundle.min.js"></script>
+        <script src="/js/tables/jquery.dataTables.min.js"></script>
+        <script src="/js/tables/dataTables.bootstrap4.min.js"></script>
+        <script src="/js/tables/dataTables.responsive.min.js"></script>
+        <script src="/js/tables/dataTables.buttons.min.js"></script>
+        <script src="/js/tables/buttons.bootstrap4.min.js"></script>
+        <script src="/js/tables/buttons.html5.min.js"></script>
+        <script src="/js/tables/buttons.print.min.js"></script>
+        <script src="/js/tables/buttons.colVis.min.js"></script>
+        <script src="/js/process/jszip.min.js"></script>
+        <script src="/js/process/pdfmake.min.js"></script>
+        <script src="/js/process/vfs_fonts.js"></script>
+        <script src="/js/demo.js"></script>
 
-    {{-- jQuery --}}
-    <script src="/js/front/jquery.min.js"></script>
-    {{-- Bootstrap 4 --}}
-    <script src="/js/front/bootstrap.bundle.min.js"></script>
-    {{-- AdminLTE App --}}
-    <script src="/js/front/adminlte.min.js"></script>
+        {{-- AdminLTE App --}}
+        <script src="/js/front/adminlte.min.js"></script>
+        {{-- Menampilkan konfig tabel view --}}
+        @include('components.konfig_tabel') {{-- Manggil konfigurasi tabel --}}
+    @endonce
+
 </body>
 
 </html>

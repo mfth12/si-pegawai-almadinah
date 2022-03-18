@@ -17,10 +17,10 @@ class CreatePenggunasTable extends Migration
             // $table->id();
             $table->bigIncrements('user_id')->from(2101);
             $table->string('nomer_induk')->unique();
-            $table->string('name');
+            $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

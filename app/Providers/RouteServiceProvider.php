@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     // public const HOME = '/home';
-    public const HOME = '/';
+    public const HOME = 'dasbor'; //kembali lagi ke dasbor kalau sudah login dan maksa ke page 'masuk'
 
     /**
      * The controller namespace for the application.

@@ -21,65 +21,13 @@
 
     {{-- Right navbar links --}}
     <ul class="navbar-nav ml-auto">
-        {{-- Messages Dropdown Menu --}}
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
+        {{-- Fullscreen button --}}
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
-                    {{-- Message Start --}}
-                    <div class="media">
-                        <img src="https://picsum.photos/100" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Brad Diesel
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    {{-- Message End --}}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    {{-- Message Start --}}
-                    <div class="media">
-                        <img src="https://picsum.photos/100" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                John Pierce
-                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">I got your message bro</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    {{-- Message End --}}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    {{-- Message Start --}}
-                    <div class="media">
-                        <img src="https://picsum.photos/100" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Nora Silvester
-                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">The subject goes here</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-                    {{-- Message End --}}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
         </li>
-        {{-- Notifications Dropdown Menu --}}
+        {{-- Notifications Menu --}}
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
@@ -94,7 +42,7 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
+                    <i class="fas fa-user-group mr-2"></i> 8 friend requests
                     <span class="float-right text-muted text-sm">12 hours</span>
                 </a>
                 <div class="dropdown-divider"></div>
@@ -106,11 +54,37 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
+        {{-- Option Menu --}}
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="fas fa-bars"></i>
             </a>
+            {{-- <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <li class="dropdown-item"><i class="fas fa-envelope mr-2"></i><a href="/keluar">Keluar</a></li>
+            </ul> --}}
+            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                <a href="#" class="dropdown-item">
+                    {{-- <i class="fas fa-user mr-2"></i>  --}}
+                    Akun
+                </a>
+                {{-- <div class="dropdown-divider"></div> --}}
+                <a href="#" class="dropdown-item disabled">
+                    {{-- <i class="fas fa-file mr-2"></i>  --}}
+                    Dokumen
+                </a>
+                {{-- <div class="dropdown-divider"></div> --}}
+                <a href="/pengaturan" class="dropdown-item">
+                    {{-- <i class="fas fa-gear mr-2"></i>  --}}
+                    Pengaturan
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="/keluar" class="dropdown-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Keluar
+                </a>
+            </div>
         </li>
+
+
     </ul>
 </nav>
 {{-- /.navbar --}}

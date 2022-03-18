@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,7 +10,7 @@ class DaftarController extends Controller
 {
     public function index()
     {
-        return view('daftar.index', [
+        return view('bin.daftar.index', [
             'title' => 'Daftar',
             'aktif' => 'daftar'
         ]);
@@ -30,7 +30,7 @@ class DaftarController extends Controller
         $dataTervalidasi['password'] = Hash::make($dataTervalidasi['password']);
         // dd($request);
         
-        User::create($dataTervalidasi);
+        Pengguna::create($dataTervalidasi);
         // $request->session()->flash('terdaftar', 'Pendaftaran berhasil, silakan masuk.');
         return redirect('/masuk')->with('terdaftar', 'Pendaftaran berhasil, silakan masuk.');
     }

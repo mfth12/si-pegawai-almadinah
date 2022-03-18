@@ -16,7 +16,7 @@ class PenggunaFactory extends Factory
     {
         return [
             // this seed code
-            'name' => $this->faker->name(),
+            'nama' => $this->faker->name(),
             'nomer_induk' => $this->faker->unique()->randomNumber(9, false),
             // 'nomer_induk' => $this->faker->unique()->userName(),
             // 'nomer_induk' => Str::random(10),

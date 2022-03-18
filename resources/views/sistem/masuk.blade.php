@@ -16,6 +16,14 @@
                     <i class="fa-solid fa-triangle-exclamation mr-2"></i>{{ session('masukGagal') }}
                 </div>
             @endif
+            
+            {{-- flash kosong masuk --}}
+            @if (session()->has('masukKosong'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <i class="fa-solid fa-key mr-2"></i>{{ session('masukKosong') }}
+                </div>
+            @endif
 
             {{-- flash keluar user --}}
             @if (session()->has('keluar'))

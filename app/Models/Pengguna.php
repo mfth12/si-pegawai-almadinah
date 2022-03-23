@@ -15,8 +15,9 @@ class Pengguna extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $primaryKey = 'user_id';
-    protected $guarded = ['user_id']; //ini diisi increment
-    // protected $with = ['kategori', 'author']; //menggunakan eiger loading di models
+    protected $guarded = ['user_id']; //dilindungi agar tidak ada input yang masuk ke user_id
+    //hanya untuk model induk
+    protected $with = ['detail']; //menggunakan eiger loading di models
     public function getRouteKeyName() //untuk menjadikan key name route
     {
         return 'user_id';
@@ -45,9 +46,16 @@ class Pengguna extends Authenticatable
         'remember_token',
     ];
 
-    //ini relasi ke model post
+    //relasi utama ke model post
     public function post()
     {
         return $this->hasMany(Post::class);
+    }
+
+    //relasi utama ke model detail_pengguna
+    public function detail()
+    {
+        return $this->hasOne(Detail_pengguna::class, 'user_id', 'user_id');
+        //yg pertama foreign-key //yg kedua owner-key
     }
 }

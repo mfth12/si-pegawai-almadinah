@@ -63,12 +63,12 @@
                 <li class="dropdown-item"><i class="fas fa-envelope mr-2"></i><a href="/keluar">Keluar</a></li>
             </ul> --}}
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                <a href="#" class="dropdown-item">
+                <a href="/pengguna/you" class="dropdown-item">
                     {{-- <i class="fas fa-user mr-2"></i>  --}}
                     Akun
                 </a>
                 {{-- <div class="dropdown-divider"></div> --}}
-                <a href="#" class="dropdown-item disabled">
+                <a href="/dokumen" class="dropdown-item disabled">
                     {{-- <i class="fas fa-file mr-2"></i>  --}}
                     Dokumen
                 </a>
@@ -83,8 +83,6 @@
                 </a>
             </div>
         </li>
-
-
     </ul>
 </nav>
 {{-- /.navbar --}}

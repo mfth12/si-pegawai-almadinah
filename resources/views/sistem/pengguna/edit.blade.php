@@ -7,13 +7,12 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
+                    <div class="col-md-6">
                         <h1>{{ $head_page }}</h1>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-md-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
+                            {{ Breadcrumbs::render() }}
                         </ol>
                     </div>
                 </div>
@@ -37,7 +36,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="nama">Nama Lengkap</label>
+                                        <label for="nama">Nama Lengkap *</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror"
                                             id="nama" name="nama" value="{{ old('nama', $pengguna->nama) }}"
                                             placeholder="">
@@ -50,10 +49,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nomer_induk">Nomer Induk</label>
-                                        <input type="number" class="form-control @error('nomer_induk') is-invalid @enderror"
-                                            id="nomer_induk" name="nomer_induk"
-                                            value="{{ old('nomer_induk', $pengguna->nomer_induk) }}" placeholder="">
+                                        <label for="nomer_induk">Nomer Induk *</label>
+                                        <input type="text" onkeypress="return /[0-9a-zA-Z.]/i.test(event.key)"
+                                            class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
+                                            name="nomer_induk" value="{{ old('nomer_induk', $pengguna->nomer_induk) }}"
+                                            placeholder="">
 
                                         @error('nomer_induk')
                                             <div class="invalid-feedback">
@@ -66,7 +66,7 @@
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                             id="email" name="email" value="{{ old('email', $pengguna->email) }}"
-                                            placeholder="">
+                                            placeholder="{{ $pengguna->email ?? 'Tidak ada data, isi jika ingin menambah email' }}">
 
                                         @error('email')
                                             <div class="invalid-feedback">
@@ -78,13 +78,18 @@
                                     <div class="form-group">
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            id="password" name="password" value="{{ old('password') }}" placeholder="">
+                                            id="password" name="password" value="{{ old('password') }}"
+                                            placeholder="Isi jika ingin mengganti password">
 
                                         @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <small><label class="form-check-label" for="keterangan">* Wajib
+                                                diisi</label></small>
                                     </div>
                                     {{-- <div class="form-group">
                                         <label for="password">Password</label>

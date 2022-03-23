@@ -15,7 +15,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (!$request->expectsJson()) {
-            $request->session()->flash('nouser', 'Tidak dapat diakses, Anda harus masuk dahulu!');
+            $request->session()->flash('nouser', 'Sesi berakhir, Anda harus masuk dahulu !');
             return route('masuk');
         }
     }

@@ -18,11 +18,9 @@ class PenggunaFactory extends Factory
             // this seed code
             'nama' => $this->faker->name(),
             'nomer_induk' => $this->faker->unique()->randomNumber(9, false),
-            // 'nomer_induk' => $this->faker->unique()->userName(),
-            // 'nomer_induk' => Str::random(10),
             'email' => $this->faker->unique()->safeEmail(),
             // 'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('123123'), // password bcrypt
             'remember_token' => Str::random(10),
         ];
     }

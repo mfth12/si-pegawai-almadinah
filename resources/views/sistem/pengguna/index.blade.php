@@ -5,13 +5,13 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
+                    <div class="col-lg-6">
                         <h1>{{ $head_page }}</h1>
                     </div>
-                    <div class="col-sm-6">
+
+                    <div class="col-lg-4">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Dasbor</a></li>
-                            <li class="breadcrumb-item active">Pengguna</li>
+                            {{ Breadcrumbs::render() }}
                         </ol>
                     </div>
                 </div>
@@ -78,6 +78,7 @@
                                             <th>Nama Lengkap</th>
                                             <th>Nomor Induk</th>
                                             <th>Email</th>
+                                            <th>Asal</th>
                                             <th>Status</th>
                                             <th style="width: 1%" class="text-center">Aksi</th>
                                         </tr>
@@ -87,9 +88,13 @@
                                         @foreach ($pengguna as $user)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->nama }}</td>
+                                                <td class="trigger-icon"> <a href="/pengguna/{{ $user->user_id }}"
+                                                        class="text-decoration-none text-dark" data-toggle="tooltip" data-placement="top"
+                                                        title="Lihat profil {{ $user->nama }}.">{{ $user->nama }}
+                                                    </a></td>
                                                 <td>{{ $user->nomer_induk }}</td>
-                                                <td>{{ $user->email }}</td>
+                                                <td>{!! $user->email ?? "<i>(Tidak ada data)</i>" !!}</td> 
+                                                <td>{!! $user->detail->asal ?? "<i>(Tidak ada data)</i>" !!}</td> 
                                                 <td>{{ $user->status === 1 ? 'Admin' : 'Staff' }}</td>
                                                 <td class="text-center text-nowrap">
                                                     <a href="/pengguna/{{ $user->user_id }}/edit" {{-- style="color: blue" --}}

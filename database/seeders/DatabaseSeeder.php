@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Kategori;
 use App\Models\Pengguna;
+use App\Models\Detail_pengguna;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +27,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123123'),
         ]);
         
-        Pengguna::factory(3)->create();
+        Pengguna::factory(10)->create();
+        Detail_pengguna::factory(10)->create();
+
 
         Kategori::create([
             'nama' => 'Web Programming',

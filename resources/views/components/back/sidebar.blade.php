@@ -12,12 +12,12 @@
         {{-- Sidebar Menu --}}
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li>
-                </li>
+                {{-- <li>
+                </li> --}}
 
-                <li class="nav-header">UTAMA</li>
+                <li style="padding: 1rem 1rem .5rem" class="nav-header">UTAMA</li>
                 <li class="nav-item">
-                    <a href="/dasbor" class="nav-link {{ Request::is('dasbor') ? 'active' : '' }}">
+                    <a href="/dasbor" class="nav-link {{ Request::is('dasbor*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dasbor</p>
                     </a>
@@ -361,8 +361,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>File Pribadi</p>
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>Dokumen</p>
                     </a>
                 </li>
             </ul>

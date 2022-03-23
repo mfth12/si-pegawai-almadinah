@@ -59,10 +59,16 @@
         <script src="/js/process/vfs_fonts.js"></script>
         <script src="/js/demo.js"></script>
 
-        {{-- AdminLTE App --}}
+        <script src="/js/part_js/additional.js"></script>
+        {{-- untuk konfigurasi tabel --}}
+        @if ($tabel == 'pengguna')
+            <script src="/js/part_js/tabel_pengguna.js"></script>
+        @else
+            <script src="/js/part_js/tabel_default.js"></script>
+        @endif
+
+        {{-- javascript untuk admin lte 3 --}}
         <script src="/js/front/adminlte.min.js"></script>
-        {{-- Menampilkan konfig tabel view --}}
-        @include('components.konfig_tabel') {{-- Manggil konfigurasi tabel --}}
     @endonce
 
 </body>

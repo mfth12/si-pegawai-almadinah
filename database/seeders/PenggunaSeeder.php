@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Detail_pengguna;
 use App\Models\Pengguna;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,7 @@ class PenggunaSeeder extends Seeder
         // ]);
         
         // Pengguna::factory(3)->create();
+        // Detail_pengguna::factory(10)->create();
+
     }
 }

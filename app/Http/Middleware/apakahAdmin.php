@@ -17,10 +17,11 @@ class apakahAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!auth()->check()) {
-            return redirect('/')->with('nouser', 'Tidak dapat diakses, Anda harus masuk dahulu!');// maka balik ke halaman login, dan minta masuk dahulu
+            abort(redirect('/')->with('nouser', 'Akses terlarang, pastikan masuk menggunakan ID Anda !')); // maka balik ke halaman login, dan minta masuk dahulu
         }
+        return $next($request);
 
-        if (!auth()->check() || !auth()->user()->status == 1) { //jika dia tidak masuk, dan tidak punya status ==1
+        if (!auth()->user()->status == 1) { //jika dia tidak masuk, dan tidak punya status ==1 satu
             abort(403); //maka abort 403
         }
         return $next($request);

@@ -20,15 +20,15 @@ class DatabaseSeeder extends Seeder
     {
         //
         Pengguna::create([
-            'nama' => 'Miftahul Haq',
-            'nomer_induk' => 'mfth12ds',
+            'nama' => 'Lord. Miftahul Haq',
+            'nomer_induk' => 'mfth12',
             'email' => 'ciftah12@gmail.com',
             'status' => 1,
             'password' => bcrypt('123123'),
         ]);
         
-        Pengguna::factory(10)->create();
-        Detail_pengguna::factory(10)->create();
+        Pengguna::factory(24)->hasDetail(1)->create();
+        Detail_pengguna::factory(24)->create();
 
 
         Kategori::create([

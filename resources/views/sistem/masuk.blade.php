@@ -68,7 +68,7 @@
                 <div class="row d-flex justify-content-center">
                     {{-- /.col --}}
                     <div class="col-4">
-                        <button type="submit" class="btn btn-success btn-block">Masuk<i
+                        <button type="submit" id="tombolmasuk" class="btn btn-success btn-block">Masuk<i
                                 class="fas fa-arrow-right ml-1"></i></button>
                     </div>
                     {{-- /.col --}}

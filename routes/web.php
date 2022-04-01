@@ -4,6 +4,7 @@ use App\Models\Kategori;
 use App\Models\Pengguna;
 use GuzzleHttp\Middleware;
 use App\Http\Controllers\DasborCtrl;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaCtrl;
 use App\Http\Controllers\DasborPostCtrl;
@@ -41,7 +42,8 @@ use App\Http\Controllers\DaftarController;
 Route::get('/', function () {
     return view('sistem.masuk', [
         "title" => "Masuk | Sistem Portal Santri",
-    ]);})->name('masuk')->middleware('guest'); //dikasi nama 'masuk' dan dijagain, supaya yg bisa akses masuk hanya 'guest'
+    ]);
+})->name('masuk')->middleware('guest'); //dikasi nama 'masuk' dan dijagain, supaya yg bisa akses masuk hanya 'guest'
 # routes untuk masuk
 // Route::get('/masuk', [MasukController::class, 'index'])->Middleware('guest');
 Route::post('masuk', [MasukController::class, 'auth']);
@@ -60,3 +62,4 @@ Route::get('dasbor', [DasborCtrl::class, 'index'])->middleware('auth')->name('da
 ### Routes baru untuk pengembangan sistem santri
 # route untuk resource pengguna
 Route::resource('pengguna', PenggunaCtrl::class)->middleware('admin');
+# route untuk cek nomer ID Pengguna

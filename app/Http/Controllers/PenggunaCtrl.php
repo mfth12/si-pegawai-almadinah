@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detail_pengguna;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Diglactic\Breadcrumbs\Breadcrumbs;
 
 class PenggunaCtrl extends Controller
 {
@@ -21,7 +21,8 @@ class PenggunaCtrl extends Controller
             'title' => 'Pengguna Sistem | Portal Santri ',
             'head_page' => 'Pengguna Sistem',
             'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get(),
-            'tabel' => 'pengguna' //untuk memanggil fungsi tabel bernama 'pengguna'
+            'tabel' => 'pengguna', //untuk memanggil fungsi tabel bernama 'pengguna'
+            'setting' => ['form' => false] //for individual setting
         ]);
     }
 
@@ -36,18 +37,34 @@ class PenggunaCtrl extends Controller
         return view('sistem.pengguna.tambah', [
             'title' => 'Tambah Pengguna',
             'head_page' => 'Tambah Pengguna',
-            'tabel' => false //apakah ingin menampilkan tabel atau tidak
+            'tabel' => false, //apakah ingin menampilkan tabel atau tidak
+            'setting' => ['form' => true] //for individual setting
         ]);
     }
 
     public function store(Request $request)
     {
-        // return $request->all(); //ngembaliin request
         $rules = [
             'nama' => 'required|max:255',
-            'nomer_induk' => 'required|min:3|max:255|unique:penggunas',
+            'nomer_induk' => 'required|min:6|max:255|unique:penggunas',
             'email' => '',
-            'password' => 'required|min:6|max:64'
+            'password' => 'required|min:6|max:64',
+            'status' => '',
+            ////divider
+            'foto' => '',
+            'nama_arab' => '',
+            'nisn' => '',
+            'asal' => '',
+            'tempat_lahir' => '',
+            'tanggal_lahir' => '',
+            'kelas' => '',
+            'sub_kelas' => '',
+            'alamat' => '',
+            //ortu
+            'nama_ayah' => '',
+            'pekerjaan_ayah' => '',
+            'nama_ibu' => '',
+            'pekerjaan_ibu' => '',
         ];
         $messages = [
             'nama.required' => 'Nama lengkap tidak boleh kosong.',
@@ -56,15 +73,15 @@ class PenggunaCtrl extends Controller
             'nomer_induk.required' => 'Nomor induk tidak boleh kosong.',
             'nomer_induk.min' => 'Nomor induk minimal :min karakter.',
             'nomer_induk.max' => 'Nomor induk maksimal :max karakter.',
+            'nomer_induk.unique' => 'Nomor induk sudah terdaftar, gunakan nomor induk yang lain.',
             'password.required' => 'Password tidak boleh kosong.',
             'password.min' => 'Password minimal :min karakter.',
             'password.max' => 'Password maksimal :max karakter.'
         ];
 
-        $tervalidasi = $this->validate($request, $rules, $messages); //melakukan validasi di awal
 
         if (isset($request->email)) { //apabila ada input email dari request
-            $rules['email'] = 'email:dns|min:6|max:64|unique:penggunas,nomer_induk';
+            $rules['email'] = 'email:dns|min:6|max:64|unique:penggunas';
             $messages = [
                 'email' => 'Alamat email harus berupa email yang valid.',
                 'email.required' => 'Email tidak boleh kosong.',
@@ -76,12 +93,42 @@ class PenggunaCtrl extends Controller
 
         $tervalidasi = $this->validate($request, $rules, $messages); //melakukan validasi di awal
         $tervalidasi['password'] = Hash::make($tervalidasi['password']);
+        if ($request->status == 'on') {
+            $tervalidasi['status'] = 1;
+        } else {
+            $tervalidasi['status'] = 0;
+        }
+        // dd($tervalidasi);
+        
 
-        // $dataTervalidasi['password'] = bcrypt($dataTervalidasi['password']);
-        // dd($request);
+        // $comment = new App\Comment(['message' => 'A new comment.']);
+        // $post = Pengguna::find(1);
+        // $post->comments()->save($detail);
 
         Pengguna::create($tervalidasi);
-        // $request->session()->flash('terdaftar', 'Pendaftaran berhasil, silakan masuk.');
+        $detail = new Detail_pengguna([
+            'foto' => $request->foto,
+            'nama_arab' => $request->nama_arab,
+            'nisn' => $request->nisn,
+            'asal' => $request->asal,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'kelas' => $request->kelas,
+            'sub_kelas' => $request->sub_kelas,
+            'alamat' => $request->alamat,
+            'nama_ayah' => $request->nama_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu
+
+        ]);
+        // $cari = Pengguna::orderBy('user_id', 'desc')->limit(1)->get();
+        $cari = Pengguna::latest('user_id')->first();
+        Pengguna::find($cari->user_id)->detail()->save($detail);
+        // $tervalidasi['user_id'] = auth()->user()->id;
+
+        // Detail_pengguna::create($tervalidasi);
+        // dd($tervalidasi);
         return redirect('/pengguna')->with('hijau', 'Alhamdulillah, pengguna berhasil ditambahkan.');
     }
 
@@ -94,12 +141,13 @@ class PenggunaCtrl extends Controller
     public function show(Pengguna $pengguna)
     {
         // print_r('<h1>'.$pengguna->nama . '</h1> <p> [' . $pengguna->nomer_induk.' ]</p>');
-        $nama= $pengguna->nama;
+        $nama = $pengguna->nama;
         return view('sistem.pengguna.lihat', [
-            'title' => 'Profil '.$nama,
-            'head_page' => 'Profil '.$nama,
+            'title' => 'Profil ' . $nama,
+            'head_page' => 'Profil ' . $nama,
             'tabel' => false, //apakah ingin menampilkan tabel
-            'pengguna' => $pengguna
+            'setting' => ['form' => false], //for individual setting
+            'pengguna' => $pengguna //return data pengguna
         ]);
     }
 
@@ -116,7 +164,8 @@ class PenggunaCtrl extends Controller
             'title' => 'Edit Pengguna',
             'head_page' => 'Edit Pengguna',
             'tabel' => false, //apakah ingin menampilkan tabel
-            'pengguna' => $pengguna
+            'pengguna' => $pengguna, //return data pengguna
+            'setting' => ['form' => false] //for individual setting
         ]);
     }
 
@@ -132,7 +181,8 @@ class PenggunaCtrl extends Controller
             'nama' => 'required|min:3|max:255',
             'nomer_induk' => 'required|min:6|max:64',
             'email' => '',
-            'password' => ''
+            'password' => '',
+            'status' => ''
         ];
         $messages = [
             'nama.required' => 'Nama lengkap tidak boleh kosong.',
@@ -170,24 +220,24 @@ class PenggunaCtrl extends Controller
             $rules['password'] = 'required|min:6|max:64';
             $messages = [
                 'password.required' => 'Jika ingin diganti, password harus diisi.',
-                'password.min' => 'Password minimal :min karakter.',   
+                'password.min' => 'Password minimal :min karakter.',
                 'password.max' => 'Password maksimal :max karakter.'
             ];
             $request['password'] = Hash::make($request->password);
             // dd('ada isinya = '.$tervalidasi['password']);
         } elseif (!isset($request->password)) {
             unset($rules['password']); //unset untuk menghilangkan rules pada password
-            // $tervalidasi['password'] = $pengguna->password;
             // dd('password tidak ada isinya');
         }
-
         $tervalidasi = $this->validate($request, $rules, $messages); //melakukan validasi di akhir
-        // dd($tervalidasi);
-
-        // baru masuk ke ngisi user_id,
+        if ($request->status == 'on') {
+            $tervalidasi['status'] = 1;
+        } else {
+            $tervalidasi['status'] = 0;
+        }
+        // dd($tervalidasi); //dump die
         // $tervalidasi['user_id'] = auth()->user()->user_id;
         // $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
-        //terus save deh
         Pengguna::where('user_id', $pengguna->user_id)->update($tervalidasi);
         return redirect('/pengguna')->with('hijau', 'Data pengguna berhasi diperbarui');
     }
@@ -200,8 +250,8 @@ class PenggunaCtrl extends Controller
      */
     public function destroy(Pengguna $pengguna)
     {
-        // dd("sd");
+        // dd("menghapus");
         Pengguna::destroy($pengguna->user_id); //delete row di tabelnya
-        return redirect('/pengguna')->with('merah', 'Akun berhasil dihapus.');
+        return redirect('/pengguna')->with('merah', 'Pengguna berhasil dihapus.');
     }
 }

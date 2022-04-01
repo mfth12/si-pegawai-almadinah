@@ -20,7 +20,7 @@ class CreatePenggunasTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->rememberToken()->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             // last login record
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();

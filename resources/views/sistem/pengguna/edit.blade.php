@@ -35,13 +35,15 @@
                                 @method('PUT') {{-- method untuk update, bisa juga pake patch --}}
                                 @csrf
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="nama">Nama Lengkap *</label>
-                                        <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                            id="nama" name="nama" value="{{ old('nama', $pengguna->nama) }}"
-                                            placeholder="">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Nomor ID</span>
+                                        </div>
+                                        <input type="text" onkeypress="return /[0-9a-zA-Z.]/i.test(event.key)"
+                                            class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
+                                            name="nomer_induk" value="{{ old('nomer_induk', $pengguna->nomer_induk) }}" placeholder="{{ $pengguna->nomer_induk ?? '' }}">
 
-                                        @error('nama')
+                                        @error('nomer_induk')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -49,13 +51,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nomer_induk">Nomer Induk *</label>
-                                        <input type="text" onkeypress="return /[0-9a-zA-Z.]/i.test(event.key)"
-                                            class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
-                                            name="nomer_induk" value="{{ old('nomer_induk', $pengguna->nomer_induk) }}"
-                                            placeholder="">
+                                        <label for="nama">Nama Lengkap *</label>
+                                        <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                            id="nama" name="nama" value="{{ old('nama', $pengguna->nama) }}"
+                                            placeholder="{{ $pengguna->nama ?? '' }}">
 
-                                        @error('nomer_induk')
+                                        @error('nama')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -87,26 +88,33 @@
                                             </div>
                                         @enderror
                                     </div>
+
+
                                     <div class="form-group">
-                                        <small><label class="form-check-label" for="keterangan">* Wajib
-                                                diisi</label></small>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" placeholder="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        <div class="row">
+
+                                            <div class="col-sm-6">
+                                                <small>
+                                                    <label class="form-check-label" for="keterangan">* Wajib diisi</label>
+                                                </small>
                                             </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
+                                            <div class="col-sm-6">
+
+                                                <div class="custom-control custom-switch float-right">
+                                                    <input type="checkbox" name="status" class="custom-control-input"
+                                                        id="status" {{ $pengguna->status == 1 ? 'checked' : '' }} >
+                                                    <label class="custom-control-label" for="status">Status Aktif
+                                                        Pengguna</label>
+                                                </div>
                                             </div>
+
+                                            @error('status')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 {{-- /.card-body --}}
                                 <div class="card-footer">

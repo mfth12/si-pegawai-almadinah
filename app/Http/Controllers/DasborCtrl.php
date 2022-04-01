@@ -13,7 +13,8 @@ class DasborCtrl extends Controller
         return view('sistem.dasbor', [
             'title' => "Dashboard | Sistem Informasi Santri",
             'tabel' => false,
-            'jml_pengguna' => Pengguna::all()->count()
+            'jml_pengguna' => Pengguna::all()->count(),
+            'setting' => ['form' => false]
         ]);
     }
 }

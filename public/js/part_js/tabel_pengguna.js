@@ -2,7 +2,7 @@ $(function () {
     //setting untuk tabel penggunas
     $("#example1").DataTable({
         "responsive": true,
-        "lengthMenu": [5, 10, 20, 50, 100], //jumlah data yang ditampilkan
+        "lengthMenu": [15, 30, 50, 100], //jumlah data yang ditampilkan
         // "pageLength": 50 //set show record per page
         // "lengthChange": false, //apakah statik atau bisa berubah
         "autoWidth": false,
@@ -10,9 +10,14 @@ $(function () {
 
         // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         // "buttons": ["excel", "print"]
+        // "dom": '<"wrapper"flipt>',
+        "dom": 
+        "<'row d-flex align-items-baseline'<'col-sm-12 col-md-6'<'d-flex align-items-baseline'<'mr-2'i><'mr-2'l>>><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-6'><'col-sm-12 col-md-6'p>>",
         columnDefs: [{
             orderable: false,
-            targets: [3, 4, 5]
+            targets: [3, 4, 5, 6]
         }],
         order: [
             [0, 'asc']

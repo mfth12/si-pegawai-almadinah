@@ -26,27 +26,9 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
             'password' => bcrypt('123123'),
         ]);
-        
+        //seeding pengguna 24 persons
         Pengguna::factory(24)->hasDetail(1)->create();
+        //seeding detail pengguna 24 persons also
         Detail_pengguna::factory(24)->create();
-
-
-        Kategori::create([
-            'nama' => 'Web Programming',
-            'slug' => 'web-programming'
-        ]);
-
-        Kategori::create([
-            'nama' => 'Web Design',
-            'slug' => 'web-design'
-        ]);
-
-        Kategori::create([
-            'nama' => 'Culture',
-            'slug' => 'culture'
-        ]);
-
-
-        Post::factory(17)->create();
     }
 }

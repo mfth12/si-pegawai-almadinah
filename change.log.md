@@ -1,5 +1,10 @@
-SHA Commit [now],
-Judul [none],
+SHA Commit [],
+Judul [minor_changes],
+1. sedikit perubahan
+----
+
+SHA Commit [fb99b89adb1ebf493f048384c4430b0db02462fa],
+Judul [progress_of_Pengguna::class],
 1. include jQuery validation for forms input
 2. add form "detail pengguna"
 3. add datetimepicker and other plugin

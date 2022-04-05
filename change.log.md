@@ -1,4 +1,16 @@
-SHA Commit [],
+SHA Commit [null],
+Judul [now],
+1. akses relasi tabel pengguna->detail_penguna
+2. fix 'tambah pengguna'
+3. add feature 'edit pengguna'
+4. delete file -> PostFactory.php
+               -> Post migration
+5. deleted 'bin' view-folder
+6. fixed 'edit form' pengguna
+7. upload and replace photo profile pengguna
+----
+
+SHA Commit [1412015b61751405ab2440496d170d320efa9150],
 Judul [minor_changes],
 1. sedikit perubahan
 ----

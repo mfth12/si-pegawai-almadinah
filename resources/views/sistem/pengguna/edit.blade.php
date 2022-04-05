@@ -22,18 +22,21 @@
         {{-- Main content --}}
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    {{-- left column --}}
-                    <div class="col-md-6">
-                        {{-- general form elements --}}
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Akun</h3>
-                            </div>
-                            {{-- /.card-header --}}
-                            <form enctype="multipart/form-data" action="/pengguna/{{ $pengguna->user_id }}" method="POST">
-                                @method('PUT') {{-- method untuk update, bisa juga pake patch --}}
-                                @csrf
+                <form name="edit_pengguna" enctype="multipart/form-data" action="/pengguna/{{ $pengguna->user_id }}"
+                    method="POST">
+                    @method('PUT') {{-- method untuk update, bisa juga pake patch --}}
+                    @csrf
+                    @php $kosong = "Belum ada data"; @endphp
+                    <div class="row">
+                        {{-- left column --}}
+                        <div class="col-md-6">
+                            {{-- general form elements --}}
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Profil</h3>
+                                </div>
+                                {{-- /.card-header --}}
+
                                 <div class="card-body">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -41,7 +44,8 @@
                                         </div>
                                         <input type="text" onkeypress="return /[0-9a-zA-Z.]/i.test(event.key)"
                                             class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
-                                            name="nomer_induk" value="{{ old('nomer_induk', $pengguna->nomer_induk) }}" placeholder="{{ $pengguna->nomer_induk ?? '' }}">
+                                            name="nomer_induk" value="{{ old('nomer_induk', $pengguna->nomer_induk) }}"
+                                            placeholder="{{ $pengguna->nomer_induk ?? '' }}">
 
                                         @error('nomer_induk')
                                             <div class="invalid-feedback">
@@ -102,7 +106,7 @@
 
                                                 <div class="custom-control custom-switch float-right">
                                                     <input type="checkbox" name="status" class="custom-control-input"
-                                                        id="status" {{ $pengguna->status == 1 ? 'checked' : '' }} >
+                                                        id="status" {{ $pengguna->status == 1 ? 'checked' : '' }}>
                                                     <label class="custom-control-label" for="status">Status Aktif
                                                         Pengguna</label>
                                                 </div>
@@ -118,216 +122,238 @@
                                 </div>
                                 {{-- /.card-body --}}
                                 <div class="card-footer">
-                                    <a href="/pengguna" class="btn btn-outline-secondary">Batal</a>
-                                    <button type="submit" class="btn btn-primary float-right">Simpan<i
-                                            class="fa-solid fa-floppy-disk ml-2"></i></button>
+                                    <a href="/pengguna" class="btn btn-outline-secondary">Kembali</a>
+                                    <div class="float-right">
+
+                                        <button type="reset" class="btn btn-outline-primary mr-2">Reset<i
+                                                class="fa-solid fa-arrow-rotate-right ml-2"></i></button>
+                                        <button type="submit" class="btn btn-primary float-right">Simpan<i
+                                                class="fa-solid fa-floppy-disk ml-2"></i></button>
+                                    </div>
                                 </div>
-                            </form>
+
+                            </div>
+                        </div>
+
+                        {{-- kolom kanan --}}
+                        <div class="col-md-6">
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Detail</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        {{-- <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button> --}}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="foto" class="form-label">Foto Profil</label>
+                                            @if ($pengguna->detail->foto)
+                                                <input type="hidden" name="fotoOld"
+                                                    value="{{ $pengguna->detail->foto }}">
+                                                <img src="{{ asset('storage/' . $pengguna->detail->foto) }}"
+                                                    class="img-lihat img-fluid mb-3">
+                                                <a class="btn btn-md btn-outline-secondary mb-3" style="display:block"
+                                                    onclick="document.getElementById('foto').click()">Ganti
+                                                    <i class="fa-solid fa-camera ml-1"></i></a>
+                                            @else
+                                                <img class="img-lihat img-fluid mb-3 ">
+                                                <a class="btn btn-md btn-outline-secondary mb-3" style="display:block"
+                                                    onclick="document.getElementById('foto').click()">Upload
+                                                    <i class="fa-solid fa-circle-arrow-up ml-1"></i></a>
+                                            @endif
+
+                                            <input class="form-control @error('foto') is-invalid @enderror" type="file"
+                                                id="foto" name="foto" style="display:none" onchange="lihatGambar()">
+                                            @error('foto')
+                                                <div class="invalid-feedback">
+                                                    *{{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label for="nama_arab">Nama Arab</label>
+                                                <input type="text"
+                                                    class="form-control @error('nama_arab') is-invalid @enderror"
+                                                    id="nama_arab" name="nama_arab"
+                                                    value="{{ old('nama_arab', $pengguna->detail->nama_arab) }}"
+                                                    placeholder="{{ $pengguna->detail->nama_arab ?? $kosong }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nisn">NISN</label>
+                                                <input type="number"
+                                                    class="form-control @error('nisn') is-invalid @enderror" id="nisn"
+                                                    name="nisn" value="{{ old('nisn', $pengguna->detail->nisn) }}"
+                                                    placeholder="{{ $pengguna->detail->nisn ?? $kosong }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="asal">Asal</label>
+                                                <input type="text" class="form-control @error('asal') is-invalid @enderror"
+                                                    id="asal" name="asal"
+                                                    value="{{ old('asal', $pengguna->detail->asal) }}"
+                                                    placeholder="{{ $pengguna->detail->asal ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="tempat_lahir">Tempat lahir</label>
+                                                <input type="text"
+                                                    class="form-control @error('tempat_lahir') is-invalid @enderror"
+                                                    id="tempat_lahir" name="tempat_lahir"
+                                                    value="{{ old('tempat_lahir', $pengguna->detail->tempat_lahir) }}"
+                                                    placeholder="{{ $pengguna->detail->tempat_lahir ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <!-- Date -->
+                                            <div class="form-group">
+                                                <label for="tanggal_lahir">Tanggal lahir</label>
+                                                <div class="input-group date" data-target-input="nearest">
+                                                    <input type="text"
+                                                        class="form-control datetimepicker-input @error('tanggal_lahir') is-invalid @enderror""
+                                                                    data-target=" #tanggal_lahir" id="tanggal_lahir"
+                                                        name="tanggal_lahir"
+                                                        value="{{ old('tanggal_lahir', $pengguna->detail->tanggal_lahir) }}"
+                                                        placeholder="{{ $pengguna->detail->tanggal_lahir ?? $kosong }}" />
+                                                    <div class="input-group-append" data-target="#tanggal_lahir"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="alamat">Alamat</label>
+                                                <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3"
+                                                    placeholder="Alamat lengkap rumah..">{{ old('alamat', $pengguna->detail->alamat) }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Kelas</label>
+                                                <select class="form-control select2" name="kelas" id="kelas"
+                                                    style="width: 100%;">
+                                                    <option value="{{ old('kelas', $pengguna->detail->kelas) }}"
+                                                        selected>
+                                                        {{ old('kelas', $pengguna->detail->kelas ?? $kosong) }}
+                                                    </option>
+                                                    {{-- <option value="1">Kelas 1</option>
+                                                    <option value="2">Kelas 2</option>
+                                                    <option value="3">Kelas 3</option>
+                                                    <option value="4">Kelas 4</option>
+                                                    <option value="5">Kelas 5</option>
+                                                    <option value="6">Kelas 6</option> --}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label>Sub-kelas</label>
+                                                <select class="form-control select2" name="sub_kelas" style="width: 100%;">
+                                                    <option value="{{ old('sub_kelas', $pengguna->detail->sub_kelas) }}"
+                                                        selected>
+                                                        {{ old('sub_kelas', $pengguna->detail->sub_kelas ?? $kosong) }}
+                                                    </option>
+                                                    {{-- <option value="" selected="selected">--Pilih--</option> --}}
+                                                    {{-- <option value="1">A</option>
+                                                    <option value="2">B</option>
+                                                    <option value="3">C</option>
+                                                    <option value="4">D</option>
+                                                    <option value="5">E</option>
+                                                    <option value="6">F</option> --}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- end --}}
+                                </div>
+                            </div>
+
+                            <div class="card">
+
+                                <div class="card-header">
+                                    <h3 class="card-title">Orang tua</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        {{-- <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button> --}}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <label for="nama_ayah">Ayah</label>
+                                                <input type="text"
+                                                    class="form-control @error('nama_ayah') is-invalid @enderror"
+                                                    id="nama_ayah" name="nama_ayah"
+                                                    value="{{ old('nama_ayah', $pengguna->detail->nama_ayah) }}"
+                                                    placeholder="{{ $pengguna->detail->nama_ayah ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="pekerjaan_ayah">Pekerjaan</label>
+                                                <input type="text"
+                                                    class="form-control @error('pekerjaan_ayah') is-invalid @enderror"
+                                                    id="pekerjaan_ayah" name="pekerjaan_ayah"
+                                                    value="{{ old('pekerjaan_ayah', $pengguna->detail->pekerjaan_ayah) }}"
+                                                    placeholder="{{ $pengguna->detail->pekerjaan_ayah ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <label for="nama_ibu">Ibu</label>
+                                                <input type="text"
+                                                    class="form-control @error('nama_ibu') is-invalid @enderror"
+                                                    id="nama_ibu" name="nama_ibu"
+                                                    value="{{ old('nama_ibu', $pengguna->detail->nama_ibu) }}"
+                                                    placeholder="{{ $pengguna->detail->nama_ibu ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="pekerjaan_ibu">Pekerjaan</label>
+                                                <input type="text"
+                                                    class="form-control @error('pekerjaan_ibu') is-invalid @enderror"
+                                                    id="pekerjaan_ibu" name="pekerjaan_ibu"
+                                                    value="{{ old('pekerjaan_ibu', $pengguna->detail->pekerjaan_ibu) }}"
+                                                    placeholder="{{ $pengguna->detail->pekerjaan_ibu ?? $kosong }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {{-- /.col (left) --}}
-
-                    {{-- right column --}}
-                    {{-- <div class="col-md-6">
-                        <div class="card card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Detail Pengguna</h3>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                                    placeholder="Enter email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                                    placeholder="Password">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox1"
-                                                        value="option1">
-                                                    <label for="customCheckbox1" class="custom-control-label">Satu</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2"
-                                                        checked>
-                                                    <label for="customCheckbox2" class="custom-control-label">Custom
-                                                        Checkbox checked</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="customCheckbox3"
-                                                        disabled>
-                                                    <label for="customCheckbox3" class="custom-control-label">Custom
-                                                        Checkbox disabled</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input custom-control-input-danger"
-                                                        type="checkbox" id="customCheckbox4" checked>
-                                                    <label for="customCheckbox4" class="custom-control-label">Custom
-                                                        Checkbox with custom
-                                                        color</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input
-                                                        class="custom-control-input custom-control-input-danger custom-control-input-outline"
-                                                        type="checkbox" id="customCheckbox5" checked>
-                                                    <label for="customCheckbox5" class="custom-control-label">Custom
-                                                        Checkbox with custom color
-                                                        outline</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="customRadio1"
-                                                        name="customRadio">
-                                                    <label for="customRadio1" class="custom-control-label">Custom
-                                                        Radio</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="customRadio2"
-                                                        name="customRadio" checked>
-                                                    <label for="customRadio2" class="custom-control-label">Custom Radio
-                                                        checked</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="customRadio3"
-                                                        disabled>
-                                                    <label for="customRadio3" class="custom-control-label">Custom Radio
-                                                        disabled</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input custom-control-input-danger"
-                                                        type="radio" id="customRadio4" name="customRadio2" checked>
-                                                    <label for="customRadio4" class="custom-control-label">Custom Radio
-                                                        with custom
-                                                        color</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input
-                                                        class="custom-control-input custom-control-input-danger custom-control-input-outline"
-                                                        type="radio" id="customRadio5" name="customRadio2">
-                                                    <label for="customRadio5" class="custom-control-label">Custom Radio
-                                                        with custom color
-                                                        outline</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Custom Select</label>
-                                                <select class="custom-select">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Custom Select Disabled</label>
-                                                <select class="custom-select" disabled>
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Custom Select Multiple</label>
-                                                <select multiple class="custom-select">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Custom Select Multiple Disabled</label>
-                                                <select multiple class="custom-select" disabled>
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                            <label class="custom-control-label" for="customSwitch1">Toggle this custom
-                                                switch
-                                                element</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div
-                                            class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                                            <label class="custom-control-label" for="customSwitch3">Toggle this custom
-                                                switch element with
-                                                custom colors danger/success</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" disabled
-                                                id="customSwitch2">
-                                            <label class="custom-control-label" for="customSwitch2">Disabled custom switch
-                                                element</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="customRange1">Custom range</label>
-                                        <input type="range" class="custom-range" id="customRange1">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="customRange2">Custom range (custom-range-danger)</label>
-                                        <input type="range" class="custom-range custom-range-danger" id="customRange2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="customRange3">Custom range (custom-range-teal)</label>
-                                        <input type="range" class="custom-range custom-range-teal" id="customRange3">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
+                </form>
             </div>
         </section>
     </div>

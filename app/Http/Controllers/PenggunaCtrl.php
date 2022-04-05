@@ -45,10 +45,10 @@ class PenggunaCtrl extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'nama' => 'required|max:255',
-            'nomer_induk' => 'required|min:6|max:255|unique:penggunas',
+            'nama' => 'max:255',
+            'nomer_induk' => 'min:6|max:64|unique:penggunas',
             'email' => '',
-            'password' => 'required|min:6|max:64',
+            'password' => 'min:6|max:64',
             'status' => '',
             ////divider
             'foto' => '',
@@ -67,16 +67,16 @@ class PenggunaCtrl extends Controller
             'pekerjaan_ibu' => '',
         ];
         $messages = [
-            'nama.required' => 'Nama lengkap tidak boleh kosong.',
+            // 'nama.required' => 'Nama lengkap tidak boleh kosong.',
             'nama.min' => 'Nama lengkap terlalu pendek.',
             'nama.max' => 'Nama lengkap terlalu panjang.',
-            'nomer_induk.required' => 'Nomor induk tidak boleh kosong.',
+            // 'nomer_induk.required' => 'Nomor induk tidak boleh kosong.',
             'nomer_induk.min' => 'Nomor induk minimal :min karakter.',
             'nomer_induk.max' => 'Nomor induk maksimal :max karakter.',
             'nomer_induk.unique' => 'Nomor induk sudah terdaftar, gunakan nomor induk yang lain.',
-            'password.required' => 'Password tidak boleh kosong.',
+            // 'password.required' => 'Password tidak boleh kosong.',
             'password.min' => 'Password minimal :min karakter.',
-            'password.max' => 'Password maksimal :max karakter.'
+            'password.max' => 'Password maksimal :max karakter.',
         ];
 
 
@@ -99,15 +99,11 @@ class PenggunaCtrl extends Controller
             $tervalidasi['status'] = 0;
         }
         // dd($tervalidasi);
-        
-
-        // $comment = new App\Comment(['message' => 'A new comment.']);
-        // $post = Pengguna::find(1);
-        // $post->comments()->save($detail);
 
         Pengguna::create($tervalidasi);
+
         $detail = new Detail_pengguna([
-            'foto' => $request->foto,
+            // 'foto' => $request->foto,
             'nama_arab' => $request->nama_arab,
             'nisn' => $request->nisn,
             'asal' => $request->asal,
@@ -123,11 +119,16 @@ class PenggunaCtrl extends Controller
 
         ]);
         // $cari = Pengguna::orderBy('user_id', 'desc')->limit(1)->get();
+
+        if ($request->file('foto')) {
+            $detail['foto'] = $request->file('foto')->store('foto-pengguna');
+        }
         $cari = Pengguna::latest('user_id')->first();
         Pengguna::find($cari->user_id)->detail()->save($detail);
         // $tervalidasi['user_id'] = auth()->user()->id;
 
         // Detail_pengguna::create($tervalidasi);
+        // dd($detail);
         // dd($tervalidasi);
         return redirect('/pengguna')->with('hijau', 'Alhamdulillah, pengguna berhasil ditambahkan.');
     }
@@ -160,12 +161,13 @@ class PenggunaCtrl extends Controller
     public function edit(Pengguna $pengguna)
     {
         //
+        // dd($pengguna);
         return view('sistem.pengguna.edit', [
-            'title' => 'Edit Pengguna',
+            'title' => 'Edit (' . $pengguna->nama . ')',
             'head_page' => 'Edit Pengguna',
             'tabel' => false, //apakah ingin menampilkan tabel
-            'pengguna' => $pengguna, //return data pengguna
-            'setting' => ['form' => false] //for individual setting
+            'pengguna' => $pengguna, //return data pengguna dengan relasinya juga
+            'setting' => ['form' => true] //for individual setting
         ]);
     }
 
@@ -182,7 +184,7 @@ class PenggunaCtrl extends Controller
             'nomer_induk' => 'required|min:6|max:64',
             'email' => '',
             'password' => '',
-            'status' => ''
+            'status' => '',
         ];
         $messages = [
             'nama.required' => 'Nama lengkap tidak boleh kosong.',
@@ -236,10 +238,36 @@ class PenggunaCtrl extends Controller
             $tervalidasi['status'] = 0;
         }
         // dd($tervalidasi); //dump die
-        // $tervalidasi['user_id'] = auth()->user()->user_id;
-        // $tervalidasi['excerpt'] = Str::limit(strip_tags($request->body), 200, '...');
         Pengguna::where('user_id', $pengguna->user_id)->update($tervalidasi);
-        return redirect('/pengguna')->with('hijau', 'Data pengguna berhasi diperbarui');
+
+        $detail = [
+            // 'foto' => $request->foto,
+            'foto' => $request->fotoOld,
+            'nama_arab' => $request->nama_arab,
+            'nisn' => $request->nisn,
+            'asal' => $request->asal,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'kelas' => $request->kelas,
+            'sub_kelas' => $request->sub_kelas,
+            'alamat' => $request->alamat,
+            'nama_ayah' => $request->nama_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu
+        ];
+        if ($request->file('foto')) { //kondisi untuk foto apa bila tidak kosong
+            if ($request->fotoOld) {
+                if ($request->fotoOld != "default.png") {
+                    Storage::delete($request->fotoOld);
+                }
+                // dd('ini request foto lama');
+                unset($detail['foto']);
+            }
+            $detail['foto'] = $request->file('foto')->store('foto-pengguna');
+        }
+        Pengguna::find($pengguna->user_id)->detail()->update($detail);
+        return redirect('/pengguna')->with('hijau', 'Data pengguna berhasi diperbarui.');
     }
 
     /**
@@ -252,6 +280,17 @@ class PenggunaCtrl extends Controller
     {
         // dd("menghapus");
         Pengguna::destroy($pengguna->user_id); //delete row di tabelnya
+        if ($pengguna->detail->foto != "default.png") {
+            Storage::delete($pengguna->detail->foto); //delete foto
+        }
         return redirect('/pengguna')->with('merah', 'Pengguna berhasil dihapus.');
+    }
+
+    public function hapusfoto()
+    {
+        // Storage::delete(public_path('foto-pengguna'));
+        Storage::deleteDirectory('foto-pengguna');
+        // dd($response);
+        return redirect('/pengguna')->with('merah', 'Foto dalam direktori pengguna berhasil dihapus.');
     }
 }

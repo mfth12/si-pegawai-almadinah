@@ -9,7 +9,9 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- Font Awesome Icons --}}
-    <script src="https://kit.fontawesome.com/c19cab79ac.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/c19cab79ac.js" crossorigin="anonymous"></script> --}}
+    <script src="/js/back/font-awesome.js"></script>
+
     {{-- Konfigurasi setting for advanced forms --}}
     @if ($setting['form'] == true)
         <link rel="stylesheet" href="/css/back/daterangepicker.css">
@@ -84,16 +86,17 @@
         {{-- Konfigurasi setting for advanced forms --}}
         @if ($setting['form'] == true)
             <script src="/js/back/select2.full.min.js"></script>
-            <script src="/js/back/jquery.bootstrap-duallistbox.min.js"></script>
-            <script src="/js/back/moment.min.js"></script>
+            {{-- <script src="/js/back/jquery.bootstrap-duallistbox.min.js"></script> --}}
             <script src="/js/back/jquery.inputmask.min.js"></script>
-            <script src="/js/back/daterangepicker.js"></script>
-            <script src="/js/back/bootstrap-colorpicker.min.js"></script>
+            <script src="/js/back/moment.min.js"></script>
+            {{-- <script src="/js/back/daterangepicker.js"></script> --}}
+            {{-- <script src="/js/back/bootstrap-colorpicker.min.js"></script> --}}
             <script src="/js/back/tempusdominus-bootstrap-4.min.js"></script>
-            <script src="/js/back/bootstrap-switch.min.js"></script>
-            <script src="/js/back/bs-stepper.min.js"></script>
-            <script src="/js/back/dropzone.min.js"></script>
+            {{-- <script src="/js/back/bootstrap-switch.min.js"></script> --}}
+            {{-- <script src="/js/back/bs-stepper.min.js"></script> --}}
+            {{-- <script src="/js/back/dropzone.min.js"></script> --}}
             {{-- <h2>Used setting for advanced forms</h2> --}}
+            <script src="/js/part_js/input_gambar.js"></script>
         @endif
 
 

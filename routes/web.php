@@ -61,6 +61,8 @@ Route::get('dasbor', [DasborCtrl::class, 'index'])->middleware('auth')->name('da
 //     ]);})->middleware('auth')->name('dasbor');
 ### Routes baru untuk pengembangan sistem santri
 # route untuk resource pengguna
-Route::resource('pengguna', PenggunaCtrl::class)->middleware('auth');
+// Route::resource('pengguna', PenggunaCtrl::class)->middleware('auth');
 Route::resource('pengguna', PenggunaCtrl::class)->middleware('admin');
 # route untuk cek nomer ID Pengguna
+Route::get('hapusfoto', [PenggunaCtrl::class, 'hapusfoto']);
+

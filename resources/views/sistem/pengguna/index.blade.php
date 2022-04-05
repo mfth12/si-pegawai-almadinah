@@ -95,25 +95,29 @@
                                     <tbody>
                                         @foreach ($pengguna as $user)
                                             <tr>
-                                                <td class="text-center">{{ $loop->iteration."." }}</td>
+                                                <td class="text-center">{{ $loop->iteration . '.' }}</td>
                                                 <td class="trigger-icon"> <a href="/pengguna/{{ $user->user_id }}"
-                                                        class="text-decoration-none text-dark" data-toggle="tooltip"
+                                                        class="text-decoration-none  text-dark" data-toggle="tooltip"
                                                         data-placement="top"
-                                                        title="Lihat profil {{ $user->nama }}.">{{ $user->nama }}</a>
+                                                        title="Lihat profil {{ $user->nama }}">{{ $user->nama }}</a>
                                                 </td>
                                                 <td>{{ $user->nomer_induk }}</td>
                                                 <td>{!! $user->email ?? '<i>(Tidak ada data)</i>' !!}</td>
                                                 <td>{!! $user->detail->asal ?? '<i>(Tidak ada data)</i>' !!}</td>
-                                                <td class="text-center">{{ $user->status === 1 ? 'Aktif' : 'Non-aktif' }}</td>
+                                                <td class="text-center">
+                                                    {{ $user->status === 1 ? 'Aktif' : 'Non-aktif' }}</td>
                                                 <td class="text-center text-nowrap">
                                                     <a href="/pengguna/{{ $user->user_id }}/edit" {{-- style="color: blue" --}}
-                                                        class="btn btn-sm"><i class="nav-icon fas fa-edit"></i>
+                                                        class="btn btn-sm" data-toggle="tooltip" data-placement="top"
+                                                        title="Edit {{ $user->nama }}.">
+                                                        <i class="nav-icon fas fa-edit"></i>
                                                     </a>
                                                     <form action="/pengguna/{{ $user->user_id }}" method="POST"
                                                         class="d-inline">
                                                         @method('delete')
                                                         @csrf
-                                                        <button class="btn btn-sm"
+                                                        <button class="btn btn-sm" data-toggle="tooltip"
+                                                            data-placement="top" title="Hapus"
                                                             onclick="return confirm('Yakin ingin menghapus data?')">
                                                             <i class="nav-icon fas fa-trash"></i>
                                                         </button>

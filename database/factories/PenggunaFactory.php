@@ -19,10 +19,9 @@ class PenggunaFactory extends Factory
             'nama' => $this->faker->name(),
             'nomer_induk' => $this->faker->unique()->randomNumber(9, false),
             'email' => $this->faker->unique()->safeEmail(),
-            // 'email_verified_at' => now(),
             'password' => bcrypt('123123'),
             'status' => 1,
-            'remember_token' => Str::random(10),
+            'remember_token' => Str::random(12)
         ];
     }
     

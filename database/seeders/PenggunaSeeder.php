@@ -15,16 +15,20 @@ class PenggunaSeeder extends Seeder
      */
     public function run()
     {
-        //
-        // Pengguna::create([
-        //     'name' => 'Miftahul Haq',
-        //     'nomer_induk' => 'mfth12ds',
-        //     'email' => 'ciftah12@gmail.com',
-        //     'password' => bcrypt('123123'),
-        // ]);
-        
-        // Pengguna::factory(3)->create();
-        // Detail_pengguna::factory(10)->create();
+        Pengguna::create([
+            'nama' => 'Lord. Miftahul Haq',
+            'nomer_induk' => 'mfth12',
+            'email' => 'ciftah12@gmail.com',
+            'status' => 1,
+            'password' => bcrypt('123123'),
+        ])->detail()->save(
+            Detail_pengguna::factory()->make([
+                'asal' => 'bekasi', 'foto' => 'satu.jpg'
+            ]));
 
+        // Storage::delete('/foto-pengguna/*');
+        Pengguna::factory(90)->create()->each(function ($pengguna) {
+            $pengguna->detail()->save(Detail_pengguna::factory()->make());
+        });
     }
 }

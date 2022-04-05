@@ -77,21 +77,22 @@ $(function () {
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
     //Money Euro
     $('[data-mask]').inputmask()
-
+    
     //Date range picker
     $('#tanggal_lahir').datetimepicker({
-        format: 'L'
+        // format: 'YYYY-MM-DD hh:mm:ss',
+        format: 'YYYY-MM-DD',
     });
     //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY hh:mm A'
-        }
-    })
+    $('#tanggal_lahir').daterangepicker()
+    // //Date range picker with time picker
+    // $('#reservationtime').daterangepicker({
+    //     timePicker: true,
+    //     timePickerIncrement: 30,
+    //     locale: {
+    //         format: 'MM/DD/YYYY hh:mm A'
+    //     }
+    // })
     //Date range as a button
     $('#daterange-btn').daterangepicker(
         {

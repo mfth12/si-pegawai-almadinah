@@ -50,6 +50,6 @@ class MasukController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('keluar', 'Terimakasih, Anda telah keluar dari Sistem.');
+        return redirect('/')->with('keluar', 'Terimakasih, Anda telah keluar dari sistem.');
     }
 }

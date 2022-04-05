@@ -14,21 +14,21 @@ class CreateDetailPenggunasTable extends Migration
     public function up()
     {
         Schema::create('detail_penggunas', function (Blueprint $table) {
-            $table->increments('detail_user_id')->from(61); #key penting
+            $table->increments('detail_user_id')->from(61); #primary key
             $table->foreignId('user_id')
             ->references('user_id')
             ->on('penggunas')
             ->onUpdate('cascade')
             ->onDelete('cascade')
-            ->unsigned(); #key foreign
+            ->unsigned(); #foreign key
 
             //////// PRIBADI //////
-            $table->string('foto')->nullable();
+            $table->string('foto')->nullable()->default('default.png');
             $table->string('nama_arab')->nullable();
             $table->string('nisn')->nullable();
             $table->string('asal')->nullable();
             $table->string('tempat_lahir')->nullable();
-            $table->string('tanggal_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->string('kelas')->nullable();
             $table->string('sub_kelas')->nullable();
             $table->string('alamat')->nullable();

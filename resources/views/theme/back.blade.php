@@ -11,19 +11,8 @@
     {{-- Font Awesome Icons --}}
     {{-- <script src="https://kit.fontawesome.com/c19cab79ac.js" crossorigin="anonymous"></script> --}}
     <script src="/js/back/font-awesome.js"></script>
-
-    {{-- Konfigurasi setting for advanced forms --}}
-    @if ($setting['form'] == true)
-        <link rel="stylesheet" href="/css/back/daterangepicker.css">
-        <link rel="stylesheet" href="/css/back/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="/css/back/tempusdominus-bootstrap-4.min.css">
-        <link rel="stylesheet" href="/css/back/select2.min.css">
-        <link rel="stylesheet" href="/css/back/select2-bootstrap4.min.css">
-        <link rel="stylesheet" href="/css/back/bootstrap-duallistbox.min.css">
-        <link rel="stylesheet" href="/css/back/bs-stepper.min.css">
-        <link rel="stylesheet" href="/css/back/dropzone.min.css">
-        {{-- <h2>Used setting for advanced forms</h2> --}}
-    @endif
+    {{-- JS-atas --}}
+    @yield('js_atas')
     {{-- icheck bootstrap --}}
     <link rel="stylesheet" href="/css/back/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="/css/tables/dataTables.bootstrap4.min.css">
@@ -33,6 +22,7 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous"> --}}
     <link rel="stylesheet" href="/css/back/adminlte.min.css">
     <link rel="stylesheet" href="/css/back/dropify.min.css">
+    {{-- Fav-icon --}}
     <link rel="icon" type="image/x-icon" href="/img/logo-pondok-idris-red.png">
 
 
@@ -83,30 +73,12 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" /> --}}
 
 
-        {{-- Konfigurasi setting for advanced forms --}}
-        @if ($setting['form'] == true)
-            <script src="/js/back/select2.full.min.js"></script>
-            {{-- <script src="/js/back/jquery.bootstrap-duallistbox.min.js"></script> --}}
-            <script src="/js/back/jquery.inputmask.min.js"></script>
-            <script src="/js/back/moment.min.js"></script>
-            {{-- <script src="/js/back/daterangepicker.js"></script> --}}
-            {{-- <script src="/js/back/bootstrap-colorpicker.min.js"></script> --}}
-            <script src="/js/back/tempusdominus-bootstrap-4.min.js"></script>
-            {{-- <script src="/js/back/bootstrap-switch.min.js"></script> --}}
-            {{-- <script src="/js/back/bs-stepper.min.js"></script> --}}
-            {{-- <script src="/js/back/dropzone.min.js"></script> --}}
-            {{-- <h2>Used setting for advanced forms</h2> --}}
-            <script src="/js/part_js/input_gambar.js"></script>
-        @endif
-
-
 
         {{-- untuk konfigurasi tabel --}}
-        @if ($tabel == 'pengguna')
-            <script src="/js/part_js/tabel_pengguna.js"></script>
-        @else
-            <script src="/js/part_js/tabel_default.js"></script>
-        @endif
+        {{-- @if ($tabel == 'penggunaasd') --}}
+        {{-- <script src="/js/part_js/tabel_pengguna.js"></script> --}}
+        {{-- <script src="/js/part_js/tabel_default.js"></script> --}}
+        {{-- @endif --}}
 
         {{-- javascript untuk admin lte 3 --}}
         <script src="/js/back/adminlte.min.js"></script>
@@ -114,8 +86,9 @@
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7. 29.2/sweetalert2.all.js"></script> --}}
 
         <script src="/js/back/dropify.min.js"></script>
-        <script src="/js/back/helpers.js"></script>
+        {{-- <script src="/js/back/helpers.js"></script> --}}
         <script src="/js/part_js/additional.js"></script>
+        @yield('js_bawah')
 
     @endonce
 

@@ -63,6 +63,7 @@ Route::get('dasbor', [DasborCtrl::class, 'index'])->middleware('auth')->name('da
 # route untuk resource pengguna
 // Route::resource('pengguna', PenggunaCtrl::class)->middleware('auth');
 Route::resource('pengguna', PenggunaCtrl::class)->middleware('admin');
-# route untuk cek nomer ID Pengguna
-Route::get('hapusfoto', [PenggunaCtrl::class, 'hapusfoto']);
+# route untuk akses spesial
+Route::get('hapusfoto', [PenggunaCtrl::class, 'hapusfoto'])->middleware('auth');
+Route::get('gantistatus', [PenggunaCtrl::class, 'gantistatus'])->middleware('auth');
 

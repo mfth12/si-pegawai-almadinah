@@ -5,11 +5,11 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <h1>{{ $head_page }}</h1>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <ol class="breadcrumb float-sm-right">
                             {{ Breadcrumbs::render() }}
                         </ol>
@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         {{-- flash hijau --}}
                         @if (session()->has('hijau'))
                             <div class="alert alert-success alert-dismissible fade show">
@@ -60,7 +60,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         <div class="card card-white card-outline">
                             <div class="card-body">
                                 {{-- <h5 class="card-title">Card title</h5> --}}
@@ -70,7 +70,7 @@
                             </div>
                         </div><!-- /.card -->
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         <div class="card">
                             {{-- <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
@@ -83,11 +83,11 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 1%">No</th>
+                                            <th style="width: 10%" class="text-center">No_induk</th>
                                             <th>Nama Lengkap</th>
-                                            <th>Nomor Induk</th>
                                             <th>Email</th>
                                             <th>Asal</th>
-                                            <th class="text-center text-nowrap">Status</th>
+                                            <th style="width: 1%" class="text-center text-nowrap">Status</th>
                                             <th style="width: 1%" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -95,17 +95,27 @@
                                     <tbody>
                                         @foreach ($pengguna as $user)
                                             <tr>
-                                                <td class="text-center">{{ $loop->iteration . '.' }}</td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $user->nomer_induk }}</td>
                                                 <td class="trigger-icon"> <a href="/pengguna/{{ $user->user_id }}"
                                                         class="text-decoration-none  text-dark" data-toggle="tooltip"
                                                         data-placement="top"
                                                         title="Lihat profil {{ $user->nama }}">{{ $user->nama }}</a>
                                                 </td>
-                                                <td>{{ $user->nomer_induk }}</td>
                                                 <td>{!! $user->email ?? '<i>(Tidak ada data)</i>' !!}</td>
                                                 <td>{!! $user->detail->asal ?? '<i>(Tidak ada data)</i>' !!}</td>
-                                                <td class="text-center">
-                                                    {{ $user->status === 1 ? 'Aktif' : 'Non-aktif' }}</td>
+                                                {{-- <td class="text-center">
+                                                    {{ $user->status === 1 ? 'Aktif' : 'Non-aktif' }}</td> --}}
+                                                <td class="d-flex justify-content-center ">
+                                                    <div class="custom-control custom-switch  ">
+                                                        <input type="checkbox" data-id="{{ $user->user_id }}"
+                                                            class="custom-control-input aktif-gak"
+                                                            id="{{ 'user' . $user->user_id }}"
+                                                            {{ $user->status ? 'checked' : '' }}>
+                                                        <label class="custom-control-label"
+                                                            for="{{ 'user' . $user->user_id }}"></label>
+                                                    </div>
+                                                </td>
                                                 <td class="text-center text-nowrap">
                                                     <a href="/pengguna/{{ $user->user_id }}/edit" {{-- style="color: blue" --}}
                                                         class="btn btn-sm" data-toggle="tooltip" data-placement="top"
@@ -135,4 +145,12 @@
             </div>
         </section>
     </div>
+@endsection
+
+@section('js_atas')
+    {{-- kosong --}}
+@endsection
+
+@section('js_bawah')
+    <script src="/js/part_js/tabel_pengguna.js"></script>
 @endsection

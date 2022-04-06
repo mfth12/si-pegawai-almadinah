@@ -21,8 +21,8 @@ class PenggunaCtrl extends Controller
             'title' => 'Pengguna Sistem | Portal Santri ',
             'head_page' => 'Pengguna Sistem',
             'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get(),
-            'tabel' => 'pengguna', //untuk memanggil fungsi tabel bernama 'pengguna'
-            'setting' => ['form' => false] //for individual setting
+            // 'tabel' => 'pengguna', //untuk memanggil fungsi tabel bernama 'pengguna'
+            // 'setting' => ['form' => false] //for individual setting
         ]);
     }
 
@@ -37,8 +37,8 @@ class PenggunaCtrl extends Controller
         return view('sistem.pengguna.tambah', [
             'title' => 'Tambah Pengguna',
             'head_page' => 'Tambah Pengguna',
-            'tabel' => false, //apakah ingin menampilkan tabel atau tidak
-            'setting' => ['form' => true] //for individual setting
+            // 'tabel' => false, //apakah ingin menampilkan tabel atau tidak
+            // 'setting' => ['form' => true] //for individual setting
         ]);
     }
 
@@ -146,9 +146,9 @@ class PenggunaCtrl extends Controller
         return view('sistem.pengguna.lihat', [
             'title' => 'Profil ' . $nama,
             'head_page' => 'Profil ' . $nama,
-            'tabel' => false, //apakah ingin menampilkan tabel
-            'setting' => ['form' => false], //for individual setting
-            'pengguna' => $pengguna //return data pengguna
+            'pengguna' => $pengguna, //return data pengguna
+            // 'tabel' => false, //apakah ingin menampilkan tabel
+            // 'setting' => ['form' => false], //for individual setting
         ]);
     }
 
@@ -292,5 +292,19 @@ class PenggunaCtrl extends Controller
         Storage::deleteDirectory('foto-pengguna');
         // dd($response);
         return redirect('/pengguna')->with('merah', 'Foto dalam direktori pengguna berhasil dihapus.');
+    }
+    
+    /**
+     * Responds with a welcome message with instructions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function gantistatus(Request $request)
+    {
+        $user = Pengguna::find($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+  
+        return response()->json(['success'=>'Status '.$request->user_id.' berhasil diganti.']);
     }
 }

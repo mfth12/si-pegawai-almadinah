@@ -1,5 +1,12 @@
-SHA Commit [null],
-Judul [now],
+SHA Commit [now],
+Judul [fix_some_bug],
+1. fix bug in data-tables 'pengguna'
+2. fix javascript implementing in every page
+3. fix template back-end
+----
+
+SHA Commit [579edcfb7ac6edfdb926630c2558da474defd217],
+Judul [fix_edit_pengguna_form],
 1. akses relasi tabel pengguna->detail_penguna
 2. fix 'tambah pengguna'
 3. add feature 'edit pengguna'

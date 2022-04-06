@@ -206,10 +206,10 @@
                                                 <label for="tanggal_lahir">Tanggal lahir</label>
                                                 <div class="input-group date" data-target-input="nearest">
                                                     <input type="text"
-                                                        class="form-control datetimepicker-input @error('tanggal_lahir') is-invalid @enderror""
-                                                                                        data-target=" #tanggal_lahir"
-                                                        id="tanggal_lahir" name="tanggal_lahir"
-                                                        value="{{ old('tanggal_lahir') }}" placeholder="yyyy-mm-dd" />
+                                                        class="form-control datetimepicker-input @error('tanggal_lahir') is-invalid @enderror"
+                                                        data-target=" #tanggal_lahir" id="tanggal_lahir"
+                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                                                        placeholder="yyyy-mm-dd" />
                                                     <div class="input-group-append" data-target="#tanggal_lahir"
                                                         data-toggle="datetimepicker">
                                                         <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -332,4 +332,34 @@
             </div>
         </section>
     </div>
+@endsection
+
+@section('js_atas')
+    <link rel="stylesheet" href="/css/back/daterangepicker.css">
+    <link rel="stylesheet" href="/css/back/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="/css/back/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/css/back/select2.min.css">
+    <link rel="stylesheet" href="/css/back/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/back/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="/css/back/bs-stepper.min.css">
+    <link rel="stylesheet" href="/css/back/dropzone.min.css">
+@endsection
+
+@section('js_bawah')
+    <script src="/js/part_js/tabel_pengguna.js"></script>
+    <script src="/js/part_js/additional_form.js"></script>
+    {{-- sd --}}
+
+
+    <script src="/js/back/select2.full.min.js"></script>
+    {{-- <script src="/js/back/jquery.bootstrap-duallistbox.min.js"></script> --}}
+    <script src="/js/back/jquery.inputmask.min.js"></script>
+    <script src="/js/back/moment.min.js"></script>
+    {{-- <script src="/js/back/daterangepicker.js"></script> --}}
+    {{-- <script src="/js/back/bootstrap-colorpicker.min.js"></script> --}}
+    <script src="/js/back/tempusdominus-bootstrap-4.min.js"></script>
+    {{-- <script src="/js/back/bootstrap-switch.min.js"></script> --}}
+    {{-- <script src="/js/back/bs-stepper.min.js"></script> --}}
+    {{-- <script src="/js/back/dropzone.min.js"></script> --}}
+    {{-- <h2>Used setting for advanced forms</h2> --}}
 @endsection

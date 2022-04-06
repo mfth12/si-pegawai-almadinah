@@ -33,7 +33,7 @@
 
             {{-- flash keluar user --}}
             @if (session()->has('keluar'))
-                <div class="alert alert-info alert-dismissible">
+                <div class="alert alert-light alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <i class="fa-solid fa-check mr-2"></i>{{ session('keluar') }}
                 </div>

@@ -7,10 +7,15 @@ $(function () {
         // "lengthChange": false, //apakah statik atau bisa berubah
         "autoWidth": false,
         // "ordering": false,
+        
+        "processing": true,
+        // "serverSide": true,
+        // "ajax": "/pengguna",
 
         // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         // "buttons": ["excel", "print"]
         // "dom": '<"wrapper"flipt>',
+        
         "dom": 
         "<'row d-flex align-items-baseline'<'col-sm-12 col-md-6'<'d-flex align-items-baseline'<'mr-2'i><'mr-2'l>>><'col-sm-12 col-md-6'f>>" +
         "<'row'<'col-sm-12'tr>>" +

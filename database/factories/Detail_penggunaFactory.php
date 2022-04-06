@@ -29,6 +29,9 @@ class Detail_penggunaFactory extends Factory
             "3" => "C",
             "4" => "D"
         );
+        $arab = \Faker\Factory::create('ar_SA');
+
+
         return [
             // 'user_id' => $this->faker->unique()->numberBetween(2101, 2130),
             // 'user_id' => Pengguna::inRandomOrder()->first()->user_id,
@@ -36,12 +39,18 @@ class Detail_penggunaFactory extends Factory
             // 'user_id' => function () {
             //     return Pengguna::create()->user_id;
             // },
-            'nama_arab' => $this->faker->name('ar_SA'),
-            'nisn' => $this->faker->unique()->randomNumber(4, false),
+            // 'nama_arab' => $this->faker->name('ar_SA'),
+            'nama_arab' => $arab->name(),
+            'nisn' => $this->faker->unique()->randomNumber(9, false),
             'asal' => $this->faker->unique()->city(),
             'tempat_lahir' => $this->faker->unique()->cityName(),
             'kelas' => array_rand(array_flip($kelas)),
             'sub_kelas' => array_rand(array_flip($sub_kelas)),
+            'alamat' => $this->faker->address(),
+            'nama_ayah' => $this->faker->name('male'),
+            'pekerjaan_ayah' => $this->faker->jobTitle(),
+            'nama_ibu' => $this->faker->name('female'),
+            'pekerjaan_ibu' => $this->faker->jobTitle(),
         ];
     }
     //this is post factory

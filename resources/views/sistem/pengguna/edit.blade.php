@@ -122,7 +122,7 @@
                                 </div>
                                 {{-- /.card-body --}}
                                 <div class="card-footer">
-                                    <a href="/pengguna" class="btn btn-outline-secondary">Kembali</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Kembali</a>
                                     <div class="float-right">
 
                                         <button type="reset" class="btn btn-outline-primary mr-2">Reset<i

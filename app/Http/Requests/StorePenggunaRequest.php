@@ -24,10 +24,7 @@ class StorePenggunaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required|max:255',
-            'nomer_induk' => 'required|min:3|max:255|unique:penggunas',
-            'email' => 'required|email:dns|unique:penggunas',
-            'password' => 'required|min:5|max:114'
+            //kosong
         ];
     }
 }

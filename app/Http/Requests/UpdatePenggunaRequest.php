@@ -24,7 +24,7 @@ class UpdatePenggunaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            //kosong
         ];
     }
 }

@@ -10,7 +10,8 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     {{-- Font Awesome Icons --}}
     {{-- <script src="https://kit.fontawesome.com/c19cab79ac.js" crossorigin="anonymous"></script> --}}
-    <script src="/js/back/font-awesome.js"></script>
+    {{-- <script src="/js/back/font-awesome.js"></script> --}}
+    <link rel="stylesheet" href="/css/font-awesome.css">
     {{-- JS-atas --}}
     @yield('js_atas')
     {{-- icheck bootstrap --}}
@@ -25,6 +26,7 @@
     {{-- Fav-icon --}}
     <link rel="icon" type="image/x-icon" href="/img/logo-pondok-idris-red.png">
 
+    @yield('style')
 
 
 </head>
@@ -39,6 +41,7 @@
         @endonce
         {{-- include isi ke dalam container --}}
         @yield('container')
+        @include('theme.modal')
 
         <footer class="main-footer">
             © {{ now()->year }}. Portal Santri <a href="https://idriskepri.ponpes.id/" style="color: green">Pondok

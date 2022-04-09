@@ -1,10 +1,15 @@
-SHA Commit [now],
-Judul [fix_some_bug],
+SHA Commit [null],
+Judul [fix_view_pengguna],
+1. create 'delete-modal' for data
+2. penyempurnaan view 'lihat pengguna'
+3. penambahan fitur akses ke laravel.com/link#id
+------------------------------------------------------
+SHA Commit [34413b7ad67fdbd9fb02a902feff0da8b0283ccc],
+Judul [fix_some_bugs],
 1. fix bug in data-tables 'pengguna'
 2. fix javascript implementing in every page
 3. fix template back-end
-----
-
+------------------------------------------------------
 SHA Commit [579edcfb7ac6edfdb926630c2558da474defd217],
 Judul [fix_edit_pengguna_form],
 1. akses relasi tabel pengguna->detail_penguna
@@ -15,13 +20,11 @@ Judul [fix_edit_pengguna_form],
 5. deleted 'bin' view-folder
 6. fixed 'edit form' pengguna
 7. upload and replace photo profile pengguna
-----
-
+------------------------------------------------------
 SHA Commit [1412015b61751405ab2440496d170d320efa9150],
 Judul [minor_changes],
 1. sedikit perubahan
-----
-
+------------------------------------------------------
 SHA Commit [fb99b89adb1ebf493f048384c4430b0db02462fa],
 Judul [progress_of_Pengguna::class],
 1. include jQuery validation for forms input
@@ -30,11 +33,10 @@ Judul [progress_of_Pengguna::class],
 4. rename directory "front" to "back"
 5. add pengguna 'status' field
 6. deleted 'database/bin' folder
-----
-
+------------------------------------------------------
 SHA Commit [9569342765ce0b1617dcc31f2658d411e40c26e9],
 Judul [minor_add],
 1. relational model pengguna to detail_pengguna
 2. complete view for pengguna
 3. add last login feature for pengguna
-----
+------------------------------------------------------

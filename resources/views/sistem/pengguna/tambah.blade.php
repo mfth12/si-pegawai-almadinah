@@ -128,7 +128,7 @@
 
                                 </div>
                                 <div class="card-footer">
-                                    <a href="/pengguna" class="btn btn-outline-secondary">Batal</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Batal</a>
                                     <button type="submit" class="btn btn-primary float-right">Tambah
                                         <i class="fa-solid fa-plus ml-2"></i></button>
                                 </div>

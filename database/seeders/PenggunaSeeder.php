@@ -16,7 +16,7 @@ class PenggunaSeeder extends Seeder
     public function run()
     {
         Pengguna::create([
-            'nama' => 'Lord. Miftahul Haq',
+            'nama' => 'Miftahul Haq',
             'nomer_induk' => 'mfth12',
             'email' => 'ciftah12@gmail.com',
             'status' => 1,

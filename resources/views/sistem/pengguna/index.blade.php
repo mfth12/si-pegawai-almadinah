@@ -85,8 +85,9 @@
                                             <th style="width: 1%">No</th>
                                             <th style="width: 10%" class="text-center">No_induk</th>
                                             <th>Nama Lengkap</th>
-                                            <th>Email</th>
                                             <th>Asal</th>
+                                            <th class="text-center text-nowrap">Kelas</th>
+                                            <th class="text-center text-nowrap">Asrama</th>
                                             <th style="width: 1%" class="text-center text-nowrap">Status</th>
                                             <th style="width: 1%" class="text-center">Aksi</th>
                                         </tr>
@@ -96,17 +97,16 @@
                                         @foreach ($pengguna as $user)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $user->nomer_induk }}</td>
+                                                <td class="text-center"> <code class="rounded-pill" style="color: black;">{{ $user->nomer_induk }}</code></td>
                                                 <td class="trigger-icon"> <a href="/pengguna/{{ $user->user_id }}"
                                                         class="text-decoration-none  text-dark" data-toggle="tooltip"
                                                         data-placement="top"
                                                         title="Lihat profil {{ $user->nama }}">{{ $user->nama }}</a>
                                                 </td>
-                                                <td>{!! $user->email ?? '<i>(Tidak ada data)</i>' !!}</td>
                                                 <td>{!! $user->detail->asal ?? '<i>(Tidak ada data)</i>' !!}</td>
-                                                {{-- <td class="text-center">
-                                                    {{ $user->status === 1 ? 'Aktif' : 'Non-aktif' }}</td> --}}
-                                                <td class="d-flex justify-content-center ">
+                                                <td class="text-center text-nowrap">{!! $user->detail->kelas ? $user->detail->kelas." - ".$user->detail->sub_kelas : '<i>(Tidak ada data)</i>' !!}</td>
+                                                <td class="text-center text-nowrap">{!! $user->detail->asrama ? $user->detail->asrama." - ".$user->detail->kamar : '<i>(Tidak ada data)</i>' !!}</td>
+                                                <td class="text-center">
                                                     <div class="custom-control custom-switch  ">
                                                         <input type="checkbox" data-id="{{ $user->user_id }}"
                                                             class="custom-control-input aktif-gak"
@@ -126,11 +126,11 @@
                                                         class="d-inline">
                                                         @method('delete')
                                                         @csrf
-                                                        <button class="btn btn-sm" data-toggle="tooltip"
+                                                        <a href="#!" class="btn btn-sm" data-toggle="tooltip"
                                                             data-placement="top" title="Hapus"
-                                                            onclick="return confirm('Yakin ingin menghapus data?')">
+                                                            onclick="deleteConfirm('/pengguna/{{ $user->user_id }}')">
                                                             <i class="nav-icon fas fa-trash"></i>
-                                                        </button>
+                                                        </a>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -14,8 +14,19 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 {{-- <li>
                 </li> --}}
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="Cari Menu" placeholder="Cari Menu"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                <li style="padding: 1rem 1rem .5rem" class="nav-header">UTAMA</li>
+                <li style="padding: 1.5rem 1rem .5rem" class="nav-header">UTAMA</li>
                 <li class="nav-item">
                     <a href="/dasbor" class="nav-link {{ Request::is('dasbor*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -79,7 +90,8 @@
                         <i class="nav-icon fas fa-user-group"></i>
                         <p>
                             Pengguna
-                            <span class="badge badge-info right">43</span>
+                            <span class="badge badge-light right">@php $jml_pengguna_sidebar = App\Models\Pengguna::all()->count(); @endphp
+                                {{ $jml_pengguna_sidebar }}</span>
                         </p>
                     </a>
                 </li>

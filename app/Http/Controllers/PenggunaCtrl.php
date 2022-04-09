@@ -21,8 +21,6 @@ class PenggunaCtrl extends Controller
             'title' => 'Pengguna Sistem | Portal Santri ',
             'head_page' => 'Pengguna Sistem',
             'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get(),
-            // 'tabel' => 'pengguna', //untuk memanggil fungsi tabel bernama 'pengguna'
-            // 'setting' => ['form' => false] //for individual setting
         ]);
     }
 
@@ -145,10 +143,8 @@ class PenggunaCtrl extends Controller
         $nama = $pengguna->nama;
         return view('sistem.pengguna.lihat', [
             'title' => 'Profil ' . $nama,
-            'head_page' => 'Profil ' . $nama,
-            'pengguna' => $pengguna, //return data pengguna
-            // 'tabel' => false, //apakah ingin menampilkan tabel
-            // 'setting' => ['form' => false], //for individual setting
+            'head_page' => 'Profil',
+            'pengguna' => $pengguna,
         ]);
     }
 
@@ -165,9 +161,7 @@ class PenggunaCtrl extends Controller
         return view('sistem.pengguna.edit', [
             'title' => 'Edit (' . $pengguna->nama . ')',
             'head_page' => 'Edit Pengguna',
-            'tabel' => false, //apakah ingin menampilkan tabel
             'pengguna' => $pengguna, //return data pengguna dengan relasinya juga
-            'setting' => ['form' => true] //for individual setting
         ]);
     }
 
@@ -208,15 +202,29 @@ class PenggunaCtrl extends Controller
             unset($rules['nomer_induk']); //unset untuk menghilangkan rules pada nomer_induk
         }
 
-        if ($request->email != $pengguna->email) { //kondisi untuk slug
-            $rules['email'] = 'email:dns|unique:penggunas,email';
-            $messages = [
-                'email:dns' => 'Harus pake DNS yang benar emailnya.',
-                'email.unique' => 'Email sudah terdaftar, gunakan yang lain.'
-            ];
+        if (!$request->email) {
+            $rules['email'] = ''; //masuk kan email kosong
         } else {
-            unset($rules['email']); //unset untuk menghilangkan rules pada email
+            if ($request->email != $pengguna->email) {
+                $rules['email'] = 'required|email|unique:penggunas,email';
+                $messages = [
+                    'email.required' => 'Email tidak boleh kosong.',
+                    'email.unique' => 'Email sudah terpakai, gunakan yang lain.',
+                ];
+            }
+            if ($request->email == $pengguna->email) {
+                unset($rules['email']); //unset untuk menghilangkan rules pada email
+            }
         }
+        // if ($request->email != $pengguna->email) { //kondisi untuk slug
+        //     $rules['email'] = 'email:dns|unique:penggunas,email';
+        //     $messages = [
+        //         'email:dns' => 'Harus pake DNS yang benar emailnya.',
+        //         'email.unique' => 'Email sudah terdaftar, gunakan yang lain.'
+        //     ];
+        // } else {
+        //     unset($rules['email']); //unset untuk menghilangkan rules pada email
+        // }
 
         if (isset($request->password)) {
             $rules['password'] = 'required|min:6|max:64';
@@ -232,6 +240,7 @@ class PenggunaCtrl extends Controller
             // dd('password tidak ada isinya');
         }
         $tervalidasi = $this->validate($request, $rules, $messages); //melakukan validasi di akhir
+
         if ($request->status == 'on') {
             $tervalidasi['status'] = 1;
         } else {
@@ -256,16 +265,18 @@ class PenggunaCtrl extends Controller
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu
         ];
+        
         if ($request->file('foto')) { //kondisi untuk foto apa bila tidak kosong
             if ($request->fotoOld) {
                 if ($request->fotoOld != "default.png") {
                     Storage::delete($request->fotoOld);
                 }
-                // dd('ini request foto lama');
                 unset($detail['foto']);
+                // dd('ini request foto lama');
             }
             $detail['foto'] = $request->file('foto')->store('foto-pengguna');
         }
+        // dd($detail);
         Pengguna::find($pengguna->user_id)->detail()->update($detail);
         return redirect('/pengguna')->with('hijau', 'Data pengguna berhasi diperbarui.');
     }
@@ -293,7 +304,7 @@ class PenggunaCtrl extends Controller
         // dd($response);
         return redirect('/pengguna')->with('merah', 'Foto dalam direktori pengguna berhasil dihapus.');
     }
-    
+
     /**
      * Responds with a welcome message with instructions
      *
@@ -304,7 +315,7 @@ class PenggunaCtrl extends Controller
         $user = Pengguna::find($request->user_id);
         $user->status = $request->status;
         $user->save();
-  
-        return response()->json(['success'=>'Status '.$request->user_id.' berhasil diganti.']);
+
+        return response()->json(['success' => $user->nama . ' berhasil ganti status.']);
     }
 }

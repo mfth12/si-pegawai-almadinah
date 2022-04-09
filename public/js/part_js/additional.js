@@ -7,7 +7,6 @@ $(document).ready(function () {
     }, 9000);
 });
 
-
 // untuk panggilan tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip({ delay: { "show": 300, "hide": 150 } });
@@ -31,17 +30,31 @@ $(function () {
     })
 })
 
-//input gambar di form
+//input foto di form
 function lihatGambar() {
     const gambar = document.querySelector('#foto');
     const gambarPreview = document.querySelector('.img-lihat')
-    const ganti = document.querySelector('#upload')
+    // const ganti = document.querySelector('#upload')
 
     gambarPreview.style.display = 'block';
     const oFReader = new FileReader();
     oFReader.readAsDataURL(gambar.files[0]);
 
-    oFReader.onload = function(oFREvent) {
+    oFReader.onload = function (oFREvent) {
         gambarPreview.src = oFREvent.target.result;
     }
+}
+
+//delete modal
+function deleteConfirm(url) {
+    $('#btn-delete').attr('action', url);
+    $('#deleteModal').modal();
+}
+
+// $('[data-widget="sidebar-search"]').SidebarSearch('toggle') 
+
+// Javascript to enable link to tab
+var url = document.location.toString();
+if (url.match('#')) {
+    $('.nav-item a[href="#'+url.split('#')[1]+'"]').tab('show') ;
 }

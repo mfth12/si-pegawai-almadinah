@@ -18,229 +18,261 @@
                 </div>
             </div>{{-- /.container-fluid --}}
         </section>
+        @php $kosong = "<i>(Tidak ada data)</i>"; @endphp
 
         {{-- Main content --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-
                         <!-- Profile Image -->
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle"
-                                        src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                                <div class="text-center image_area">
+                                    <img class="profile-user-img img-fluid img-responsive img-circle" style="width: 80%"
+                                        src="{{ asset('storage/' . $pengguna->detail->foto) }}">
                                 </div>
 
-                                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                                <h3 class="profile-username text-center my-1">{{ $pengguna->nama }}</h3>
 
-                                <p class="text-muted text-center">Software Engineer</p>
+                                <p class="text-muted text-center my-1">
+                                    {{ $pengguna->detail->nama_arab }}</p>
 
-                                <ul class="list-group list-group-unbordered mb-3">
+                                <p class="text-muted text-center my-1">
+                                    {!! $pengguna->detail->kelas ? $pengguna->detail->kelas . ' - ' . $pengguna->detail->sub_kelas : $kosong !!}
+                                </p>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="">
+                                        @php $s = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" @endphp
+                                        <p class="text-muted text-center mt-1 mb-3 badge-outline-secondary"
+                                            style="padding: 0.1em 1em 0.2em 1em;">
+                                            {!! $pengguna->status == 1 ? 'Status Aktif' : 'Status Non-aktif' !!}</p>
+                                    </div>
+                                </div>
+
+                                <ul class="list-group list-group-unbordered mb-1  no-select">
                                     <li class="list-group-item">
-                                        <b>Followers</b> <a class="float-right">1,322</a>
+                                        @php
+                                            $login = $pengguna->last_login_at;
+                                            $call = Carbon\Carbon::parse($login)->format('j F Y');
+                                            $waktu = Carbon\Carbon::parse($login)->format('H:i');
+                                            if ($login == null) {
+                                                $login = '(Tidak ada data)';
+                                            } else {
+                                                $login = Carbon\Carbon::parse($login)->diffForHumans();
+                                            }
+                                        @endphp
+                                        Login terakhir <a class="float-right" href="javascript:void(0);"
+                                            data-toggle="tooltip" data-placement="top" data-html="true"
+                                            title="<b>Tanggal: </b>{{ $pengguna->last_login_at ? $call : '(Tidak ada data)' }} <br> <b>Waktu: </b>{{ $pengguna->last_login_at ? $waktu : '(Tidak ada data)' }} <br> <b>IP: </b>{{ $pengguna->last_login_ip ?? '(Tidak ada data)' }}">{{ $login }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Following</b> <a class="float-right">543</a>
+                                        Email <a class="float-right" href="mailto: {{ $pengguna->email }}"
+                                            target="_blank" data-toggle="tooltip" data-placement="top"
+                                            title="Kirim Email">{!! $pengguna->email ?? $kosong !!}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Friends</b> <a class="float-right">13,287</a>
+                                        Terdaftar pada <a class="float-right"
+                                            href="javascript:void(0);">{{ $pengguna->created_at->format('j F Y') }}</a>
                                     </li>
                                 </ul>
+                                {{-- <a href="/pengguna/{{ $pengguna->user_id }}/edit" target="_blank" --}}
+                                <a href="#settings" data-toggle="tab" style="font-weight: 200"
+                                    class="btn btn-outline-primary btn-block mt-3"><b>Edit Profile
+                                        <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></b></a>
 
-                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
-
-                        <!-- About Me Box -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">About Me</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                                <p class="text-muted">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                                </p>
-
-                                <hr>
-
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                                <p class="text-muted">Malibu, California</p>
-
-                                <hr>
-
-                                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                                <p class="text-muted">
-                                    <span class="tag tag-danger">UI Design</span>
-                                    <span class="tag tag-success">Coding</span>
-                                    <span class="tag tag-info">Javascript</span>
-                                    <span class="tag tag-warning">PHP</span>
-                                    <span class="tag tag-primary">Node.js</span>
-                                </p>
-
-                                <hr>
-
-                                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                                    fermentum enim
-                                    neque.</p>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
                     </div>
                     <!-- /.col -->
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#activity"
-                                            data-toggle="tab">Activity</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#biodata"
+                                            data-toggle="tab">Biodata</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#timeline"
                                             data-toggle="tab">Timeline</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#settings"
+                                    <li class="nav-item"><a class="nav-link" id="set" href="#settings"
                                             data-toggle="tab">Settings</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div class="active tab-pane" id="activity">
-                                        <!-- Post -->
-                                        <div class="post">
-                                            <div class="user-block">
-                                                <img class="img-circle img-bordered-sm"
-                                                    src="../../dist/img/user1-128x128.jpg" alt="user image">
-                                                <span class="username">
-                                                    <a href="#">Jonathan Burke Jr.</a>
-                                                    <a href="#" class="float-right btn-tool"><i
-                                                            class="fas fa-times"></i></a>
-                                                </span>
-                                                <span class="description">Shared publicly - 7:30 PM today</span>
-                                            </div>
-                                            <!-- /.user-block -->
-                                            <p>
-                                                Lorem ipsum represents a long-held tradition for designers,
-                                                typographers and the like. Some people hate it and argue for
-                                                its demise, but others ignore the hate as they create awesome
-                                                tools to help create filler text for everyone from bacon lovers
-                                                to Charlie Sheen fans.
-                                            </p>
+                                    <div class="active tab-pane" id="biodata">
+                                        {{-- Post --}}
+                                        <div class="row">
+                                            {{-- left column --}}
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Biodata Utama</h3>
+                                                    </div>
+                                                    <div class="card-body">
 
-                                            <p>
-                                                <a href="#" class="link-black text-sm mr-2"><i
-                                                        class="fas fa-share mr-1"></i> Share</a>
-                                                <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i>
-                                                    Like</a>
-                                                <span class="float-right">
-                                                    <a href="#" class="link-black text-sm">
-                                                        <i class="far fa-comments mr-1"></i> Comments (5)
-                                                    </a>
-                                                </span>
-                                            </p>
 
-                                            <input class="form-control form-control-sm" type="text"
-                                                placeholder="Type a comment">
-                                        </div>
-                                        <!-- /.post -->
+                                                        <table class="table table-borderless">
+                                                            <tr>
+                                                                <td style="width: 40%; vertical-align: middle;"><b>NIS </b>
+                                                                </td>
+                                                                <td style="vertical-align: middle;"><code
+                                                                        class="badge badge-secondary mb-0"
+                                                                        style="font-size: 100%;
+                                                                                                            padding: 0.1em 0.75em;
+                                                                                                            line-height:unset;
+                                                                                                            font-weight:400;
+                                                                                                            color: #6c757d;
+                                                                                                            background-color: transparent;
+                                                                                                            border-color: #6c757d;
+                                                                                                            border: 1px solid;
+                                                                                                            border-radius: 1rem;">
+                                                                        {!! $pengguna->nomer_induk ?? $kosong !!}</code>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%"><b>NISN </b>(Nasional)</td>
+                                                                <td>: {!! $pengguna->detail->nisn ?? $kosong !!}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%"><b>Nama Lengkap</b></td>
+                                                                <td>: {!! $pengguna->nama ?? $kosong !!}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%"><b>Nama</b> (Bahasa Arab)</td>
+                                                                <td>: {!! $pengguna->detail->nama_arab ?? $kosong !!}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%"><b>Kelas</b></td>
+                                                                <td>: {!! $pengguna->detail->kelas ? $pengguna->detail->kelas . ' - ' . $pengguna->detail->sub_kelas : $kosong !!}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%"><b>Jenis Kelamin</b></td>
+                                                                <td>: {!! $pengguna->detail->jenis_kelamin ?? $kosong !!}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <hr>
+                                                        <table class="table table-borderless">
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Tempat, Tanggal
+                                                                        Lahir</b></td>
+                                                                @php $u = Carbon\Carbon::parse($pengguna->detail->tanggal_lahir)->format('j F Y') @endphp
+                                                                <td>:
+                                                                    @if ($pengguna->detail->tempat_lahir || $pengguna->detail->tanggal_lahir)
+                                                                        {{ $pengguna->detail->tempat_lahir . ', ' . $u }}
+                                                                    @else
+                                                                        {!! $kosong !!}
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Alamat Lengkap</b></td>
+                                                                <td>: {!! $pengguna->detail->alamat ?? $kosong !!}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <hr>
+                                                        <table class="table table-borderless">
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Nama Ayah</b></td>
+                                                                <td>: {!! $pengguna->detail->nama_ayah ?? $kosong !!}
 
-                                        <!-- Post -->
-                                        <div class="post clearfix">
-                                            <div class="user-block">
-                                                <img class="img-circle img-bordered-sm"
-                                                    src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                                                <span class="username">
-                                                    <a href="#">Sarah Ross</a>
-                                                    <a href="#" class="float-right btn-tool"><i
-                                                            class="fas fa-times"></i></a>
-                                                </span>
-                                                <span class="description">Sent you a message - 3 days ago</span>
-                                            </div>
-                                            <!-- /.user-block -->
-                                            <p>
-                                                Lorem ipsum represents a long-held tradition for designers,
-                                                typographers and the like. Some people hate it and argue for
-                                                its demise, but others ignore the hate as they create awesome
-                                                tools to help create filler text for everyone from bacon lovers
-                                                to Charlie Sheen fans.
-                                            </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Pekerjaan</b></td>
+                                                                <td>: {!! $pengguna->detail->pekerjaan_ayah ?? $kosong !!}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Nama Ibu</b></td>
+                                                                <td>: {!! $pengguna->detail->nama_ibu ?? $kosong !!}
 
-                                            <form class="form-horizontal">
-                                                <div class="input-group input-group-sm mb-0">
-                                                    <input class="form-control form-control-sm" placeholder="Response">
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-danger">Send</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%;"><b>Pekerjaan</b></td>
+                                                                <td>: {!! $pengguna->detail->pekerjaan_ibu ?? $kosong !!}</td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <!-- /.post -->
-
-                                        <!-- Post -->
-                                        <div class="post">
-                                            <div class="user-block">
-                                                <img class="img-circle img-bordered-sm"
-                                                    src="../../dist/img/user6-128x128.jpg" alt="User Image">
-                                                <span class="username">
-                                                    <a href="#">Adam Jones</a>
-                                                    <a href="#" class="float-right btn-tool"><i
-                                                            class="fas fa-times"></i></a>
-                                                </span>
-                                                <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
-                                            <div class="row mb-3">
-                                                <div class="col-sm-6">
-                                                    <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                                                </div>
-                                                <!-- /.col -->
-                                                <div class="col-sm-6">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <img class="img-fluid mb-3" src="../../dist/img/photo2.png"
-                                                                alt="Photo">
-                                                            <img class="img-fluid" src="../../dist/img/photo3.jpg"
-                                                                alt="Photo">
+
+                                            {{-- kolom pendidikan --}}
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Riwayat Pendidikan</h3>
+                                                        <div class="card-tools">
+                                                            <button type="button" class="btn btn-tool"
+                                                                data-card-widget="collapse">
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
                                                         </div>
-                                                        <!-- /.col -->
-                                                        <div class="col-sm-6">
-                                                            <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg"
-                                                                alt="Photo">
-                                                            <img class="img-fluid" src="../../dist/img/photo1.png"
-                                                                alt="Photo">
-                                                        </div>
-                                                        <!-- /.col -->
                                                     </div>
-                                                    <!-- /.row -->
+                                                    <div class="card-body">
+                                                        <table id="example1" class="table table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Nama Sekolah</th>
+                                                                    <th>Tahun</th>
+                                                                    <th>Ket.</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>SDIT As-Sakinah</td>
+                                                                    <td>2015-2021</td>
+                                                                    <td>Cumlaude</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>MTs Idris Bintan</td>
+                                                                    <td>2022-2023</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                                <!-- /.col -->
+
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Riwayat Penyakit Dalam</h3>
+                                                        <div class="card-tools">
+                                                            <button type="button" class="btn btn-tool"
+                                                                data-card-widget="collapse">
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <table id="example1" class="table table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Nama Penyakit</th>
+                                                                    <th>Tahun</th>
+                                                                    <th>Ket.</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>Asma</td>
+                                                                    <td>2019-2020</td>
+                                                                    <td>Sering kambuh</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- /.row -->
-
-                                            <p>
-                                                <a href="#" class="link-black text-sm mr-2"><i
-                                                        class="fas fa-share mr-1"></i> Share</a>
-                                                <a href="#" class="link-black text-sm"><i
-                                                        class="far fa-thumbs-up mr-1"></i> Like</a>
-                                                <span class="float-right">
-                                                    <a href="#" class="link-black text-sm">
-                                                        <i class="far fa-comments mr-1"></i> Comments (5)
-                                                    </a>
-                                                </span>
-                                            </p>
-
-                                            <input class="form-control form-control-sm" type="text"
-                                                placeholder="Type a comment">
+                                            <!-- /.post -->
                                         </div>
-                                        <!-- /.post -->
                                     </div>
                                     <!-- /.tab-pane -->
                                     <div class="tab-pane" id="timeline">
@@ -267,7 +299,8 @@
                                                     <div class="timeline-body">
                                                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
                                                         weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
+                                                        kaboodle
                                                         quora plaxo ideeli hulu weebly balihoo...
                                                     </div>
                                                     <div class="timeline-footer">
@@ -300,7 +333,8 @@
                                                     <span class="time"><i class="far fa-clock"></i> 27 mins
                                                         ago</span>
 
-                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your
+                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on
+                                                        your
                                                         post</h3>
 
                                                     <div class="timeline-body">
@@ -334,10 +368,10 @@
                                                         photos</h3>
 
                                                     <div class="timeline-body">
+                                                        {{-- <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="...">
+                                                        <img src="https://placehold.it/150x100" alt="..."> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -416,4 +450,39 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+@endsection
+
+@section('js_atas')
+@endsection
+
+@section('style')
+    <style>
+        .table-borderless td,
+        .table-borderless th {
+            padding: 0.75rem 0.75rem 0.75rem 0rem;
+        }
+
+        .badge-outline-secondary {
+            text-align: center;
+            color: #6c757d;
+            background-color: transparent;
+            border-color: #6c757d;
+            border: 1px solid;
+            border-radius: 1rem;
+        }
+
+        .no-select::selection,
+        .no-select *::selection {
+            background-color: Transparent;
+        }
+
+        .no-select {
+            /* Sometimes I add this too. */
+            cursor: default;
+        }
+
+    </style>
+@endsection
+
+@section('js_bawah')
 @endsection

@@ -91,8 +91,8 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#biodata"
                                             data-toggle="tab">Biodata</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#timeline"
-                                            data-toggle="tab">Timeline</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#aktifitas"
+                                            data-toggle="tab">Aktifitas</a></li>
                                     <li class="nav-item"><a class="nav-link" id="set" href="#settings"
                                             data-toggle="tab">Settings</a></li>
                                 </ul>
@@ -275,7 +275,7 @@
                                         </div>
                                     </div>
                                     <!-- /.tab-pane -->
-                                    <div class="tab-pane" id="timeline">
+                                    <div class="tab-pane" id="aktifitas">
                                         <!-- The timeline -->
                                         <div class="timeline timeline-inverse">
                                             <!-- timeline time label -->

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+use App\Models\Santri;
 use Illuminate\Http\Request;
 
-class DasborKategCtrl extends Controller
+class SantriCtrl extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +14,8 @@ class DasborKategCtrl extends Controller
      */
     public function index()
     {
-        // $this->authorize('admin'); //menggunakan Gate::admin
-        
-        // ini manual
-        // if (auth()->user()->username !== 'mfth12') {
-        //     abort(403);
-        // }
-
-        return view('dasbor.kategori.index', [
-            'kategori' => Kategori::all()
+        return view('sistem.maintenance', [
+            "title" => "Maintenance"
         ]);
     }
 
@@ -50,10 +43,10 @@ class DasborKategCtrl extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show(Santri $santri)
     {
         //
     }
@@ -61,10 +54,10 @@ class DasborKategCtrl extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit(Santri $santri)
     {
         //
     }
@@ -73,10 +66,10 @@ class DasborKategCtrl extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, Santri $santri)
     {
         //
     }
@@ -84,10 +77,10 @@ class DasborKategCtrl extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Santri  $santri
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy(Santri $santri)
     {
         //
     }

@@ -7,6 +7,7 @@ use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Datatables;
 
 class PenggunaCtrl extends Controller
 {
@@ -15,7 +16,7 @@ class PenggunaCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('sistem.pengguna.index', [
             'title' => 'Pengguna Sistem | Portal Santri ',
@@ -265,7 +266,7 @@ class PenggunaCtrl extends Controller
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu
         ];
-        
+
         if ($request->file('foto')) { //kondisi untuk foto apa bila tidak kosong
             if ($request->fotoOld) {
                 if ($request->fotoOld != "default.png") {
@@ -317,5 +318,72 @@ class PenggunaCtrl extends Controller
         $user->save();
 
         return response()->json(['success' => $user->nama . ' berhasil ganti status.']);
+    }
+
+    public function json(Request $request)
+    {
+
+        $columns = array(
+            0 => 'id',
+            1 => 'title',
+            2 => 'body',
+            3 => 'created_at',
+            4 => 'id',
+        );
+
+        $totalData = Pengguna::count();
+
+        $totalFiltered = $totalData;
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if (empty($request->input('search.value'))) {
+            $posts = Pengguna::offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+        } else {
+            $search = $request->input('search.value');
+
+            $posts =  Pengguna::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('title', 'LIKE', "%{$search}%")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+
+            $totalFiltered = Pengguna::where('id', 'LIKE', "%{$search}%")
+                ->orWhere('title', 'LIKE', "%{$search}%")
+                ->count();
+        }
+
+        $data = array();
+        if (!empty($pengguna)) {
+            foreach ($pengguna as $post) {
+                $show =  route('pengguna.show', $post->user_id);
+                $edit =  route('pengguna.edit', $post->user_id);
+
+                $nestedData['user_id'] = $post->user_id;
+                $nestedData['name'] = $post->name;
+                $nestedData['email'] = $post->email;
+                // $nestedData['email'] = substr(strip_tags($post->body), 0, 50) . "...";
+                $nestedData['created_at'] = date('j M Y h:i a', strtotime($post->created_at));
+                $nestedData['options'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
+                                          &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+        );
+
+        echo json_encode($json_data);
     }
 }

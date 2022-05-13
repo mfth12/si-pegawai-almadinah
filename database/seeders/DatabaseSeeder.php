@@ -19,9 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        #delete all foto in directory
+        Storage::deleteDirectory('foto-pengguna');
+        #do seeding
         $this->call([
+            // RoleSeeder::class,
             PenggunaSeeder::class,
         ]);
-
     }
 }

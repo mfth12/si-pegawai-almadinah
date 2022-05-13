@@ -63,7 +63,7 @@
                 <li class="dropdown-item"><i class="fas fa-envelope mr-2"></i><a href="/keluar">Keluar</a></li>
             </ul> --}}
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                <a href="/pengguna/{{ auth()->user()->user_id }}" class="dropdown-item">
+                <a href="/profil" class="dropdown-item">
                     {{-- <i class="fas fa-user mr-2"></i>  --}}
                     Profil
                 </a>

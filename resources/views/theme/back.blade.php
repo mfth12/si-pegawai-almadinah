@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -23,6 +23,8 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous"> --}}
     <link rel="stylesheet" href="/css/back/adminlte.min.css">
     <link rel="stylesheet" href="/css/back/dropify.min.css">
+    <script src="/js/back/nprogress.js"></script>
+    <link rel="stylesheet" href="/css/back/nprogress.css">
     {{-- Fav-icon --}}
     <link rel="icon" type="image/x-icon" href="/img/logo-pondok-idris-red.png">
 
@@ -32,7 +34,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" id="thisme">
         @once
             {{-- <x-back.navbar /> --}}
             @include('components.back.navbar') {{-- manggil komponen view navbar --}}

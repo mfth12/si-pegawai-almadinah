@@ -1,8 +1,20 @@
 SHA Commit [null],
+Judul [now],
+1. add more controller
+2. implementing user policy
+3. create 'profil' controller
+4. tidy-up the router system
+5. update the route:breadcrumbs
+6. deleted 'controller/.bin/*'
+7. add features 'role permission' with package spatie
+8. 
+9. 
+------------------------------------------------------
+SHA Commit [36dc86e25d8c24cdea50928dcb495731df666513],
 Judul [fix_view_pengguna],
 1. create 'delete-modal' for data
 2. penyempurnaan view 'lihat pengguna'
-3. penambahan fitur akses ke laravel.com/link#id
+3. penambahan fitur akses ke laravel.com/class#id
 ------------------------------------------------------
 SHA Commit [34413b7ad67fdbd9fb02a902feff0da8b0283ccc],
 Judul [fix_some_bugs],

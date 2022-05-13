@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
+// use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Model;
 
 // use Illuminate\Database\Eloquent\Model;
 
 class Pengguna extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
     protected $primaryKey = 'user_id';
     protected $guarded = ['user_id']; //dilindungi agar tidak ada input yang masuk ke user_id
     //hanya untuk model induk
@@ -57,5 +59,10 @@ class Pengguna extends Authenticatable
     {
         return $this->hasOne(Detail_pengguna::class, 'user_id', 'user_id');
         //yg pertama foreign-key //yg kedua owner-key
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

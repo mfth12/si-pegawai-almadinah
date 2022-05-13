@@ -35,9 +35,17 @@
                 </li>
                 <li class="nav-item">
                     <a href="/santri" class="nav-link {{ Request::is('santri*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-database"></i>
                         <p>
                             Santri
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/asatidz" class="nav-link {{ Request::is('asatidz*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Asatidz
                         </p>
                     </a>
                 </li>
@@ -366,7 +374,7 @@
 
                 <li class="nav-header">PERSONAL</li>
                 <li class="nav-item">
-                    <a href="iframe.html" class="nav-link">
+                    <a href="/profil" class="nav-link {{ Request::is('profil') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Profil</p>
                     </a>

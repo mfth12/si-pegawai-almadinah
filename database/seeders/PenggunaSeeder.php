@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Detail_pengguna;
 use App\Models\Pengguna;
+use App\Models\Detail_pengguna;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class PenggunaSeeder extends Seeder
 {
@@ -24,11 +26,30 @@ class PenggunaSeeder extends Seeder
         ])->detail()->save(
             Detail_pengguna::factory()->make([
                 'asal' => 'bekasi', 'foto' => 'satu.jpg'
-            ]));
+            ])
+        );
 
         // Storage::delete('/foto-pengguna/*');
-        Pengguna::factory(90)->create()->each(function ($pengguna) {
+        $user = Pengguna::factory(90)->create()->each(function ($pengguna) {
             $pengguna->detail()->save(Detail_pengguna::factory()->make());
         });
+
+        //role dan permission
+        // $role = Role::create([
+        //     'name' => 'superadmin'
+        // ]);
+        // $role = Role::create([
+        //     'name' => 'admin'
+        // ]);
+        // $role = Role::create([
+        //     'name' => 'santri'
+        // ]);
+
+        // $permissions = Permission::pluck('user_id', 'user_id')->all();
+
+        // $role->syncPermissions($permissions);
+
+        // $user->assignRole([$role->user_id]);
+        ////
     }
 }

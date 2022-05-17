@@ -22,7 +22,6 @@ Route::post('masuk', [MasukController::class, 'auth']);
 Route::get('keluar', [MasukController::class, 'keluar']);
 # route untuk dasbor
 Route::get('dasbor', [DasborCtrl::class, 'index'])->middleware('auth')->name('dasbor');
-### Routes baru untuk pengembangan sistem santri
 # route untuk resource pengguna
 Route::resource('pengguna', PenggunaCtrl::class)->middleware('auth');
 # route untuk akses spesial

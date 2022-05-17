@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Models\Role;
 // use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasRoles;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Pengguna extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $primaryKey = 'user_id';
     protected $guarded = ['user_id']; //dilindungi agar tidak ada input yang masuk ke user_id
     //hanya untuk model induk

@@ -76,7 +76,7 @@
             </form>
             <p class="mt-5 mb-2 text-center text-muted">
                 © {{ now()->year }} <a href="https://idriskepri.ponpes.id/" style="color: green">Pondok
-                    Pesantren Idris Bintan</a>.<br>Hak cipta dilindungi undang-undang.
+                    Pesantren Idris Bintan</a>.
             </p>
         </div>
         {{-- /.card-body --}}

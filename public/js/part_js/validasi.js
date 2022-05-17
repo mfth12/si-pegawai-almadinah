@@ -2,27 +2,21 @@ jQuery.validator.addMethod("lettersonly", function (value, element) {
     return this.optional(element) || /^[a-zA-Z\s]+$/i.test(value);
     // return this.optional(element) || /^[a-z]+$/i.test(value); //tanpa spasi
     // var regex = new RegExp(/^[a-zA-Z\s]+$/);
-}, "*Input hanya berupa huruf.");
+}, "Input hanya berupa huruf.");
 
 jQuery.validator.addMethod("angka", function (value, element) {
     return this.optional(element) || /^[0-9.]+$/i.test(value);
     // return this.optional(element) || /^[a-z]+$/i.test(value); //tanpa spasi
     // var regex = new RegExp(/^[a-zA-Z\s]+$/);
-}, "*Input hanya berupa kombinasi angka dan titik.");
+}, "Input hanya berupa kombinasi angka dan titik.");
 
-// validation first form
 // validation first form
 // validation first form
 // Wait for the DOM to be ready
 $(function () {
-    // Initialize form validation on the pendaftaran form.
-    // It has the name attribute ID "daftar"
     $("form[name='daftar_pengguna']").validate({
         // Specify validation rules
         rules: {
-            // The key name on the left side is the name attribute
-            // of an input field. Validation rules are defined
-            // on the right side
             nama: "required",
             nomer_induk: {
                 required: true,
@@ -56,27 +50,25 @@ $(function () {
         // Specify validation error messages
         messages: {
             nomer_induk: {
-                required: "*Nomor induk harus diisi.",
-                angka: "*ID hanya berupa kombinasi angka dan titik.",
+                required: "Nomor induk harus diisi.",
+                angka: "ID hanya berupa kombinasi angka dan titik.",
                 minlength: "*Nomor induk  minimal {0} karakter."
             },
-            nama: "*Nama lengkap harus diisi.",
-            email: "*Email harus berupa alamat yang valid.",
+            nama: "Nama lengkap harus diisi.",
+            email: "Email harus berupa alamat yang valid.",
             password: {
-                required: "*Password harus diisi.",
-                // minlength: jQuery.validator.format("Password minimal {0} karakter.")
-                minlength: "*Password minimal {0} karakter."
+                required: "Password harus diisi.",
+                minlength: "Password minimal {0} karakter."
             },
             password_ulang: {
-                required: "*Konfirmasi password harus diisi.",
-                equalTo: "*Password konfirmasi tidak cocok.",
-                // minlength: jQuery.validator.format("Password minimal {0} karakter."),
-                minlength: "*Password minimal {0} karakter."
+                required: "Konfirmasi password harus diisi.",
+                equalTo: "Password konfirmasi tidak cocok.",
+                minlength: "Password minimal {0} karakter."
             },
             nisn: {
-                minlength: "*NISN minimal {0} angka."
+                minlength: "NISN minimal {0} angka."
             },
-            kelas: "*Kelas harus dipilih.",
+            kelas: "Kelas harus dipilih.",
 
 
         },
@@ -103,8 +95,6 @@ $(function () {
                 error.insertAfter(element);
             }
         },
-        // Make sure the form is submitted to the destination defined
-        // in the "action" attribute of the form when valid
         submitHandler: function (form) {
             console.log("valid >> " + form.isValid());
             form.submit();
@@ -115,17 +105,10 @@ $(function () {
 
 // validation second form
 // validation second form
-// validation second form
 // Wait for the DOM to be ready
 $(function () {
-    // Initialize form validation on the pendaftaran form.
-    // It has the name attribute ID "daftar"
     $("form[name='edit_pengguna']").validate({
-        // Specify validation rules
         rules: {
-            // The key name on the left side is the name attribute
-            // of an input field. Validation rules are defined
-            // on the right side
             nama: "required",
             nomer_induk: {
                 required: true,
@@ -134,7 +117,7 @@ $(function () {
             },
             email: {
                 required: false,
-                email: true // Specify that email should be validated by the built-in "email" rule
+                email: true
             },
             password: {
                 minlength: 6
@@ -153,28 +136,25 @@ $(function () {
         // Specify validation error messages
         messages: {
             nomer_induk: {
-                required: "*Nomor induk harus diisi.",
-                angka: "*ID hanya berupa kombinasi angka dan titik.",
-                minlength: "*Nomor induk  minimal {0} karakter."
+                required: "Nomor induk harus diisi.",
+                angka: "ID hanya berupa kombinasi angka dan titik.",
+                minlength: "Nomor induk  minimal {0} karakter."
             },
-            nama: "*Nama lengkap harus diisi.",
-            email: "*Email harus berupa alamat yang valid.",
+            nama: "Nama lengkap harus diisi.",
+            email: "Email harus berupa alamat yang valid.",
             password: {
-                required: "*Password harus diisi.",
-                // minlength: jQuery.validator.format("Password minimal {0} karakter.")
-                minlength: "*Password minimal {0} karakter."
+                required: "Password harus diisi.",
+                minlength: "Password minimal {0} karakter."
             },
             password_ulang: {
-                required: "*Konfirmasi password harus diisi.",
-                equalTo: "*Password konfirmasi tidak cocok.",
-                // minlength: jQuery.validator.format("Password minimal {0} karakter."),
-                minlength: "*Password minimal {0} karakter."
+                required: "Konfirmasi password harus diisi.",
+                equalTo: "Password konfirmasi tidak cocok.",
+                minlength: "Password minimal {0} karakter."
             },
             nisn: {
-                minlength: "*NISN minimal {0} angka."
+                minlength: "NISN minimal {0} angka."
             },
-            kelas: "*Kelas harus dipilih.",
-
+            kelas: "Kelas harus dipilih.",
 
         },
         highlight: function (element) {
@@ -200,8 +180,6 @@ $(function () {
                 error.insertAfter(element);
             }
         },
-        // Make sure the form is submitted to the destination defined
-        // in the "action" attribute of the form when valid
         submitHandler: function (form) {
             console.log("valid >> " + form.isValid());
             form.submit();

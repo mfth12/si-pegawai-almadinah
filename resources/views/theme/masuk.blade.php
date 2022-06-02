@@ -22,7 +22,6 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        {{-- /.login-box --}}
         @yield('container')
     </div>
     {{-- jQuery --}}

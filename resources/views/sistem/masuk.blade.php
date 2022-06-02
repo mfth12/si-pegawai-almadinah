@@ -2,12 +2,13 @@
 
 @section('container')
     {{-- card --}}
-    <div class="card card-outline card-success">
+    <div class="card card-outline card-secondary">
         <div class="card-header text-center">
-            <h1> Portal<b> Santri</b></h1>
+            <img src="#" alt="">
+            <h1> <b>Sistem</b> Pegawai</h1>
         </div>
         <div class="card-body mx-auto">
-            <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Portal Santri</p>
+            <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Pegawai SIT Al-Madinah.</p>
             {{-- kalau ada error di password --}}
             @error('password')
                 <div class="alert alert-danger alert-dismissible">
@@ -68,15 +69,14 @@
                 <div class="row d-flex justify-content-center">
                     {{-- /.col --}}
                     <div class="col-4">
-                        <button type="submit" id="tombolmasuk" class="btn btn-success btn-block">Masuk<i
+                        <button type="submit" id="tombolmasuk" class="btn btn-primary btn-block">Masuk<i
                                 class="fas fa-arrow-right ml-1"></i></button>
                     </div>
                     {{-- /.col --}}
                 </div>
             </form>
             <p class="mt-5 mb-2 text-center text-muted">
-                © {{ now()->year }} <a href="https://idriskepri.ponpes.id/" style="color: green">Pondok
-                    Pesantren Idris Bintan</a>.
+                © {{ now()->year }} <a href="https://idriskepri.ponpes.id/" style="color: rgb(71, 71, 71)">Yayasan Al-Madinah Kepulauan Riau</a>.
             </p>
         </div>
         {{-- /.card-body --}}

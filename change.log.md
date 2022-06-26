@@ -1,5 +1,5 @@
-SHA Commit [null],
-Judul [now],
+SHA Commit [cad9090fccd9db4e0629714be81fb7c81674d489],
+Judul [migrasi-ke-sistem-pegawai-almadinah],
 1. add more controller
 2. implementing user policy
 3. create 'profil' controller

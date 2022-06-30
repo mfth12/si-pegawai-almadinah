@@ -167,6 +167,8 @@ return [
          * Package Service Providers...
          */
         Barryvdh\Debugbar\ServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        LaraIzitoast\LaraIzitoastServiceProvider::class,
 
         /*
          * Application Service Providers...

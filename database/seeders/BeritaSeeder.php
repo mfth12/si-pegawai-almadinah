@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Berita;
 use Illuminate\Database\Seeder;
 
-class SantriSeeder extends Seeder
+class BeritaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class SantriSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Berita::factory(100)->create();
     }
 }

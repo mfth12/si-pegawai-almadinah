@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }}</title>
     {{-- Google Font: Source Sans Pro --}}
     <link rel="stylesheet"
@@ -24,9 +25,10 @@
     <link rel="stylesheet" href="/css/back/adminlte.min.css">
     <link rel="stylesheet" href="/css/back/dropify.min.css">
     <script src="/js/back/nprogress.js"></script>
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet"> {{-- iziToast --}}
     <link rel="stylesheet" href="/css/back/nprogress.css">
     {{-- Fav-icon --}}
-    <link rel="icon" type="image/x-icon" href="/img/logo-pondok-idris-red.png">
+    <link rel="icon" type="image/x-icon" href="/img/logo-yys-almadinah-red.png">
 
     @yield('style')
 
@@ -40,6 +42,7 @@
             @include('components.back.navbar') {{-- manggil komponen view navbar --}}
             {{-- <x-back.sidebar /> --}}
             @include('components.back.sidebar') {{-- manggil komponen view sidebar --}}
+            @include('vendor.lara-izitoast.toast')
         @endonce
         {{-- include isi ke dalam container --}}
         @yield('container')
@@ -69,6 +72,7 @@
         <script src="/js/process/pdfmake.min.js"></script>
         <script src="/js/process/vfs_fonts.js"></script>
         <script src="/js/demo.js"></script>
+        <script src="{{ asset('js/iziToast.js') }}"></script> {{-- iziToast --}}
         {{-- Batas --}}
         {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
         <script

@@ -77,8 +77,8 @@
                                     </li>
                                 </ul>
                                 {{-- <a href="/pengguna/{{ $pengguna->user_id }}/edit" target="_blank" --}}
-                                <a href="#settings" data-toggle="tab" style="font-weight: 200"
-                                    class="btn btn-outline-primary btn-block mt-3"><b>Edit Profile
+                                <a href="{{url()->current()."#sunting"}}" style="font-weight: 200"
+                                    class="btn btn-outline-primary btn-block mt-3"><b>Edit Profil
                                         <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></b></a>
 
                             </div>
@@ -91,10 +91,10 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#biodata"
                                             data-toggle="tab">Biodata</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#aktifitas"
-                                            data-toggle="tab">Aktifitas</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="set" href="#settings"
-                                            data-toggle="tab">Settings</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#aktivitas"
+                                            data-toggle="tab">Aktivitas</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="set" href="#sunting"
+                                            data-toggle="tab">Sunting</a></li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
@@ -275,7 +275,7 @@
                                         </div>
                                     </div>
                                     <!-- /.tab-pane -->
-                                    <div class="tab-pane" id="aktifitas">
+                                    <div class="tab-pane" id="aktivitas">
                                         <!-- The timeline -->
                                         <div class="timeline timeline-inverse">
                                             <!-- timeline time label -->
@@ -383,7 +383,7 @@
                                     </div>
                                     <!-- /.tab-pane -->
 
-                                    <div class="tab-pane" id="settings">
+                                    <div class="tab-pane" id="sunting">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
                                                 <label for="inputName" class="col-sm-2 col-form-label">Name</label>

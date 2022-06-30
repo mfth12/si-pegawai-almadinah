@@ -4,18 +4,20 @@
     {{-- card --}}
     <div class="card card-outline card-secondary">
         <div class="card-header text-center">
-            <img src="#" alt="">
-            <h1> <b>Sistem</b> Pegawai</h1>
+            <h2>Sistem Pegawai</h2>
         </div>
         <div class="card-body mx-auto">
-            <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Pegawai SIT Al-Madinah.</p>
+            <div class="text-center mb-3">
+                <img src="/img/logo-yys-almadinah.png" alt="" style="width: 150px;">
+            </div>
+            <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Pegawai Yayasan Pendidikan Al-Madinah.</p>
             {{-- kalau ada error di password --}}
-            @error('password')
+            {{-- @error('password')
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <i class="fa-solid fa-triangle-exclamation mr-2"></i>{{ $message }}
                 </div>
-            @enderror
+            @enderror --}}
             {{-- flash gagal masuk --}}
             @if (session()->has('masukGagal'))
                 <div class="alert alert-danger alert-dismissible">
@@ -31,6 +33,14 @@
                     <i class="fa-solid fa-key mr-2"></i>{{ session('masukKosong') }}
                 </div>
             @endif
+            
+            {{-- flash no-user --}}
+            @if (session()->has('nouser'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <i class="fa-solid fa-ban mr-2"></i>{{ session('nouser') }}
+                </div>
+            @endif
 
             {{-- flash keluar user --}}
             @if (session()->has('keluar'))
@@ -40,13 +50,6 @@
                 </div>
             @endif
 
-            {{-- flash no-user --}}
-            @if (session()->has('nouser'))
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <i class="fa-solid fa-ban mr-2"></i>{{ session('nouser') }}
-                </div>
-            @endif
             <form action="/masuk" method="POST">
                 @csrf
                 <div class="input-group mb-3">
@@ -69,14 +72,14 @@
                 <div class="row d-flex justify-content-center">
                     {{-- /.col --}}
                     <div class="col-4">
-                        <button type="submit" id="tombolmasuk" class="btn btn-primary btn-block">Masuk<i
+                        <button type="submit" id="tombolmasuk" class="btn btn-success btn-block">Masuk<i
                                 class="fas fa-arrow-right ml-1"></i></button>
                     </div>
                     {{-- /.col --}}
                 </div>
             </form>
             <p class="mt-5 mb-2 text-center text-muted">
-                © {{ now()->year }} <a href="https://idriskepri.ponpes.id/" style="color: rgb(71, 71, 71)">Yayasan Al-Madinah Kepulauan Riau</a>.
+                © {{ now()->year }} <a href="https://sekolahalmadinah.sch.id/" style="color: rgb(71, 71, 71)">Yayasan Pendidikan Al-Madinah Kepri</a>.
             </p>
         </div>
         {{-- /.card-body --}}

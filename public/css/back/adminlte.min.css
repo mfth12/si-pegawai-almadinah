@@ -20870,7 +20870,7 @@ a.disabled.mailbox-attachment-close {
 }
 .login-box,
 .register-box {
-    width: 360px;
+    width: 400px;
 }
 @media (max-width: 576px) {
     .login-box,

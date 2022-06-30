@@ -22,7 +22,6 @@ class Pengguna extends Authenticatable
     {
         return 'user_id';
     }
-    // use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -57,10 +56,5 @@ class Pengguna extends Authenticatable
     {
         return $this->hasOne(Detail_pengguna::class, 'user_id', 'user_id');
         //yg pertama foreign-key //yg kedua owner-key
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
 }

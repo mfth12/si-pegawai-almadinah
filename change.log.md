@@ -1,3 +1,12 @@
+SHA Commit [null],
+Judul [penambahan_fitur_berita_using_Ajax],
+1. Rebrand login page, and all attributes system
+2. Add feature 'Berita'
+3. Implemented Yajra Datatables
+4. Add items in sidebar panel
+5. Installed 'isiToast' plugin
+6. Table of Berita using Ajax, realtime database
+------------------------------------------------------
 SHA Commit [cad9090fccd9db4e0629714be81fb7c81674d489],
 Judul [migrasi-ke-sistem-pegawai-almadinah],
 1. add more controller

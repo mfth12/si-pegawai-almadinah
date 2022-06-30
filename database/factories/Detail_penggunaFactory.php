@@ -44,6 +44,7 @@ class Detail_penggunaFactory extends Factory
             'nisn' => $this->faker->unique()->randomNumber(9, false),
             'asal' => $this->faker->unique()->city(),
             'tempat_lahir' => $this->faker->unique()->cityName(),
+            'tanggal_lahir' => $this->faker->dateTimeBetween('-24 years', '-15 years'),
             'kelas' => array_rand(array_flip($kelas)),
             'sub_kelas' => array_rand(array_flip($sub_kelas)),
             'alamat' => $this->faker->address(),

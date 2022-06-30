@@ -42,9 +42,9 @@ Breadcrumbs::for('profil', function (BreadcrumbTrail $trail) {
 
 ######### SANTRI ##########
 // Santri
-Breadcrumbs::for('santri.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('berita.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dasbor');
-    $trail->push('Santri', route('santri.index'));
+    $trail->push('Berita', route('berita.index'));
 });
 
 ######### ASATIDZ ##########

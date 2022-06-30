@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('foto-pengguna');
         #do seeding
         $this->call([
-            // RoleSeeder::class,
             PenggunaSeeder::class,
+            BeritaSeeder::class,
         ]);
     }
 }

@@ -5,7 +5,7 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <h1>{{ $head_page }}</h1>
                     </div>
 
@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <div class="col-lg-11">
+                    <div class="col-lg-12">
                         {{-- flash hijau --}}
                         @if (session()->has('hijau'))
                             <div class="alert alert-success alert-dismissible fade show">
@@ -60,7 +60,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-12">
                         <div class="card card-white card-outline">
                             <div class="card-body">
                                 {{-- <h5 class="card-title">Card title</h5> --}}
@@ -70,7 +70,7 @@
                             </div>
                         </div><!-- /.card -->
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-12">
                         <div class="card">
                             {{-- <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>

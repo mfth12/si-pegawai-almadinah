@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class DasborCtrl extends Controller
             'title' => "Dashboard | Sistem Informasi Santri",
             'tabel' => false,
             'jml_pengguna' => Pengguna::all()->count(),
+            'jml_berita' => Berita::all()->count(),
             'setting' => ['form' => false]
         ]);
     }

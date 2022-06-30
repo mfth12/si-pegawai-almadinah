@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     {{-- Brand Logo --}}
     <a href="/" class="brand-link">
-        <img src="{{ asset('img/logo-pondok-idris.png') }}" alt="AdminLTE Logo"
+        <img src="{{ asset('img/logo-yys-almadinah.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Pegawai Al-Madinah</span>
     </a>
@@ -11,7 +11,8 @@
     <div class="sidebar">
         {{-- Sidebar Menu --}}
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 {{-- <li>
                 </li> --}}
                 <div class="form-inline">
@@ -34,24 +35,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/santri" class="nav-link {{ Request::is('santri*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-database"></i>
+                    <a href="/berita" class="nav-link {{ Request::is('berita*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            Santri
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/asatidz" class="nav-link {{ Request::is('asatidz*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Asatidz
+                            Berita
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tree"></i>
+                        <i class="nav-icon fas fa-chart-line"></i>
                         <p>
                             Monitoring
                             <i class="fas fa-angle-left right"></i>
@@ -59,36 +52,60 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/UI/general.html" class="nav-link">
+                            <a href="/maintenance" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kegiatan</p>
+                                <p>Formulir DP3</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/UI/icons.html" class="nav-link">
+                            <a href="/maintenance" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Absensi</p>
+                                <p>Progres Penilaian</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/UI/buttons.html" class="nav-link">
+                            <a href="/maintenance" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Disiplin</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/sliders.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pelanggaran</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/modals.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Penghargaan</p>
+                                <p>Rekap Penilaian</p>
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>
+                            Karir
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/maintenance" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Monitoring</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/maintenance" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Prestasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/maintenance" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Jabatan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>Dokumen</p>
+                    </a>
                 </li>
 
 
@@ -348,41 +365,18 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-search"></i>
-                        <p>
-                            Search
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/search/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Simple Search</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/search/enhanced.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Enhanced</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
 
                 <li class="nav-header">PERSONAL</li>
                 <li class="nav-item">
-                    <a href="/profil" class="nav-link {{ Request::is('profil') ? 'active' : ''}}">
+                    <a href="/profil" class="nav-link {{ Request::is('profil') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Profil</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-                        <i class="nav-icon fas fa-folder-open"></i>
-                        <p>Dokumen</p>
+                    <a href="/maintenance" class="nav-link">
+                        <i class="nav-icon fas fa-gear"></i>
+                        <p>Pengaturan</p>
                     </a>
                 </li>
             </ul>

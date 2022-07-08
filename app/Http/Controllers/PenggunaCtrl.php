@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Detail_pengguna;
+use Carbon\Carbon;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use App\Models\Detail_pengguna;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Datatables;
 
 class PenggunaCtrl extends Controller
 {
@@ -18,10 +18,72 @@ class PenggunaCtrl extends Controller
      */
     public function index(Request $request)
     {
+        $list_pengguna = Pengguna::orderBy('created_at', 'DESC')->get();
+        if ($request->ajax()) {
+            return datatables()->of($list_pengguna)
+                ->addColumn('nomer_induk', function ($data) {
+                    $nomer_induk = '<code class="rounded-pill"
+                    style="color: black;">' . $data->nomer_induk . '</code>';
+                    return $nomer_induk;
+                })
+                ->addColumn('nama', function ($data) {
+                    $nama = '<a href="/pengguna/' . $data->user_id . '" class="text-decoration-none  text-dark" data-toggle="tooltip" data-placement="top" title="Lihat profil' . $data->nama . '">' . $data->nama . '</a>';
+                    return $nama;
+                })
+                ->addColumn('asal', function ($data) {
+                    $kosong = '<i>(Tidak ada data)</i>';
+                    $asal = $data->detail->asal ? $data->detail->asal : $kosong;
+                    return $asal;
+                })
+                ->addColumn('kelas', function ($data) {
+                    $kosong = '<i>(Tidak ada data)</i>';
+                    $kelas = $data->detail->kelas ? $data->detail->kelas . ' - ' . $data->detail->sub_kelas : $kosong;
+                    return $kelas;
+                })
+                ->addColumn('asrama', function ($data) {
+                    $kosong = '<i>(Tidak ada data)</i>';
+                    $asrama = $data->detail->asrama ? $data->detail->asrama . ' - ' . $data->detail->kamar : $kosong;
+                    return $asrama;
+                })
+                ->addColumn('switch', function ($data) {
+                    $switch = ($data->status == 1 ? '<b>Aktif</b>' : '<i>Non-aktif</i>');
+                    return $switch;
+                })
+                ->addColumn('aksi', function ($data) {
+                    $button = '<div class="text-nowrap">';
+                    $button .= '<a href="/pengguna/' . $data->user_id . '/edit"
+                    class="btn btn-sm" data-toggle="tooltip" data-placement="top"
+                    title="Edit' . $data->nama . '.">';
+                    $button .= '<i class="nav-icon fas fa-edit"></i></a>';
+                    $button .= '';
+                    $button .= '<a href="javascript:void(0)" type="button" name="delete" id="' . $data->user_id . '" class="delete btn btn-sm"><i class="fas fa-trash-alt"></i></a>';
+                    $button .= '</div>';
+                    // $button .= '<form action="/pengguna/'. $data->user_id .'" method="POST"
+                    // class="d-inline">';
+                    // $button .= '<a href="#!" class="btn btn-sm" data-toggle="tooltip"
+                    // data-placement="top" title="Hapus"
+                    // onclick="deleteConfirm(\'/pengguna/'.$data->user_id.'\')">';
+                    // $button .= '<i class="nav-icon fas fa-trash"></i></a></form>';
+                    return $button;
+                })
+                // ->addColumn('aksi_ori', function ($data) {
+                //     $button = '<div class="text-nowrap">';
+                //     $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm mr-1 edit-post"><i class="fas fa-edit"></i> Edit</a>';
+                //     $button .= '';
+                //     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>';
+                //     $button .= '</div>';
+                //     return $button;
+                // })
+                ->rawColumns(['nomer_induk', 'nama', 'asal', 'kelas', 'asrama', 'switch', 'aksi'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
         return view('sistem.pengguna.index', [
-            'title' => 'Pengguna Sistem | Portal Santri ',
+        // return view('sistem.pengguna.index_backup', [
+            'title' => 'Pengguna Sistem | Sistem Pegawai Al-Madinah',
             'head_page' => 'Pengguna Sistem',
-            'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get(),
+            'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get()
         ]);
     }
 
@@ -288,14 +350,16 @@ class PenggunaCtrl extends Controller
      * @param  \App\Models\Pengguna  $pengguna
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengguna $pengguna)
+    public function destroy($id)
     {
+        $where = array('user_id' => $id);
+        $pengguna  = Pengguna::where($where)->first();
         // dd("menghapus");
-        Pengguna::destroy($pengguna->user_id); //delete row di tabelnya
+        Pengguna::destroy($id); //delete row di tabelnya
         if ($pengguna->detail->foto != "default.png") {
             Storage::delete($pengguna->detail->foto); //delete foto
         }
-        return redirect('/pengguna')->with('merah', 'Pengguna berhasil dihapus.');
+        // return redirect('/pengguna')->with('merah', 'Pengguna berhasil dihapus.');
     }
 
     public function hapusfoto()
@@ -320,70 +384,70 @@ class PenggunaCtrl extends Controller
         return response()->json(['success' => $user->nama . ' berhasil ganti status.']);
     }
 
-    public function json(Request $request)
-    {
+    // public function json(Request $request)
+    // {
 
-        $columns = array(
-            0 => 'id',
-            1 => 'title',
-            2 => 'body',
-            3 => 'created_at',
-            4 => 'id',
-        );
+    //     $columns = array(
+    //         0 => 'id',
+    //         1 => 'title',
+    //         2 => 'body',
+    //         3 => 'created_at',
+    //         4 => 'id',
+    //     );
 
-        $totalData = Pengguna::count();
+    //     $totalData = Pengguna::count();
 
-        $totalFiltered = $totalData;
+    //     $totalFiltered = $totalData;
 
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
+    //     $limit = $request->input('length');
+    //     $start = $request->input('start');
+    //     $order = $columns[$request->input('order.0.column')];
+    //     $dir = $request->input('order.0.dir');
 
-        if (empty($request->input('search.value'))) {
-            $posts = Pengguna::offset($start)
-                ->limit($limit)
-                ->orderBy($order, $dir)
-                ->get();
-        } else {
-            $search = $request->input('search.value');
+    //     if (empty($request->input('search.value'))) {
+    //         $posts = Pengguna::offset($start)
+    //             ->limit($limit)
+    //             ->orderBy($order, $dir)
+    //             ->get();
+    //     } else {
+    //         $search = $request->input('search.value');
 
-            $posts =  Pengguna::where('id', 'LIKE', "%{$search}%")
-                ->orWhere('title', 'LIKE', "%{$search}%")
-                ->offset($start)
-                ->limit($limit)
-                ->orderBy($order, $dir)
-                ->get();
+    //         $posts =  Pengguna::where('id', 'LIKE', "%{$search}%")
+    //             ->orWhere('title', 'LIKE', "%{$search}%")
+    //             ->offset($start)
+    //             ->limit($limit)
+    //             ->orderBy($order, $dir)
+    //             ->get();
 
-            $totalFiltered = Pengguna::where('id', 'LIKE', "%{$search}%")
-                ->orWhere('title', 'LIKE', "%{$search}%")
-                ->count();
-        }
+    //         $totalFiltered = Pengguna::where('id', 'LIKE', "%{$search}%")
+    //             ->orWhere('title', 'LIKE', "%{$search}%")
+    //             ->count();
+    //     }
 
-        $data = array();
-        if (!empty($pengguna)) {
-            foreach ($pengguna as $post) {
-                $show =  route('pengguna.show', $post->user_id);
-                $edit =  route('pengguna.edit', $post->user_id);
+    //     $data = array();
+    //     if (!empty($pengguna)) {
+    //         foreach ($pengguna as $post) {
+    //             $show =  route('pengguna.show', $post->user_id);
+    //             $edit =  route('pengguna.edit', $post->user_id);
 
-                $nestedData['user_id'] = $post->user_id;
-                $nestedData['name'] = $post->name;
-                $nestedData['email'] = $post->email;
-                // $nestedData['email'] = substr(strip_tags($post->body), 0, 50) . "...";
-                $nestedData['created_at'] = date('j M Y h:i a', strtotime($post->created_at));
-                $nestedData['options'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-                                          &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
-                $data[] = $nestedData;
-            }
-        }
+    //             $nestedData['user_id'] = $post->user_id;
+    //             $nestedData['name'] = $post->name;
+    //             $nestedData['email'] = $post->email;
+    //             // $nestedData['email'] = substr(strip_tags($post->body), 0, 50) . "...";
+    //             $nestedData['created_at'] = date('j M Y h:i a', strtotime($post->created_at));
+    //             $nestedData['options'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
+    //                                       &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
+    //             $data[] = $nestedData;
+    //         }
+    //     }
 
-        $json_data = array(
-            "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data"            => $data
-        );
+    //     $json_data = array(
+    //         "draw"            => intval($request->input('draw')),
+    //         "recordsTotal"    => intval($totalData),
+    //         "recordsFiltered" => intval($totalFiltered),
+    //         "data"            => $data
+    //     );
 
-        echo json_encode($json_data);
-    }
+    //     echo json_encode($json_data);
+    // }
 }

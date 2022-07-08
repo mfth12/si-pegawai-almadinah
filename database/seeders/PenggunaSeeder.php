@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Pengguna;
 use App\Models\Detail_pengguna;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class PenggunaSeeder extends Seeder
 {

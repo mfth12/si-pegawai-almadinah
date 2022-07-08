@@ -69,11 +69,12 @@
                                 <table id="table_berita" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
+                                            <th>Gambar</th>
                                             <th>Judul Berita</th>
                                             <th>Penulis</th>
                                             <th>Isi</th>
                                             <th>Tanggal</th>
-                                            <th>Gambar</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -117,6 +118,11 @@
                                         <input type="text" class="form-control" id="judul_berita" name="judul_berita"
                                             value="" required>
                                     </div>
+                                    @error('judul_berita')
+                                        <div class="invalid-feedback">
+                                            *{{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
@@ -150,13 +156,13 @@
                                     </div>
                                 </div>
 
+                                <div class="col-sm-offset-2 col-sm-12 modal-footer mt-2">
+                                    <button type="submit" class="btn btn-primary btn-block" id="tombol-simpan"
+                                        value="create">Simpan
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="col-sm-offset-2 col-sm-12">
-                                <button type="submit" class="btn btn-primary btn-block" id="tombol-simpan"
-                                    value="create">Simpan
-                                </button>
-                            </div>
                         </div>
 
                     </form>
@@ -167,7 +173,7 @@
     {{-- AKHIR MODAL --}}
 
     {{-- MULAI MODAL KONFIRMASI DELETE --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="konfirmasi-modal" data-backdrop="false">
+    <div class="modal fade" tabindex="-1" role="dialog" id="hapus-modal" data-backdrop="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -180,7 +186,7 @@
                     <p>Data yang dihapus tidak akan bisa kembali lagi. Apakah Anda yakin ingin menghapus?</p>
                 </div>
                 <div class="modal-footer bg-whitesmoke">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-danger" name="tombol-hapus" id="tombol-hapus">Hapus</button>
                 </div>
             </div>
@@ -218,6 +224,15 @@
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
         $(document).ready(function() {
             $('#table_berita').DataTable({
+                lengthChange: true, //apakah statik atau bisa berubah
+                info: true,
+                autoWidth: false, //mengatur lebar width pada table otomatis
+                responsive: true,
+                lengthMenu: [
+                    [5, 10, 20, 50, 100, -1],
+                    [5, 10, 20, 50, 100, "Semua"]
+                ], //jumlah data yang ditampilkan
+
                 processing: true,
                 serverSide: true, //aktifkan server-side 
                 ajax: {
@@ -225,6 +240,17 @@
                     type: 'GET'
                 },
                 columns: [{
+                        data: null,
+                        sortable: true, //harusnya false
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'gambar',
+                        name: 'gambar'
+                    },
+                    {
                         data: 'judul_berita',
                         name: 'judul_berita',
                         className: "text-left"
@@ -242,20 +268,43 @@
                         name: 'tanggal'
                     },
                     {
-                        data: 'gambar',
-                        name: 'gambar'
-                    },
-
-                    {
                         data: 'action',
                         name: 'action'
                     },
-
                 ],
-                order: [
-                    [0, 'asc']
-                ]
-            });
+
+                columnDefs: [{
+                    orderable: false,
+                    targets: [1, 3, 4, 5, 6]
+                }],
+                // order: [
+                //     [2, 'asc']
+                // ],
+                dom: "<'row d-flex align-items-baseline'<'col-sm-12 col-md-6'<'d-flex align-items-baseline'<'mr-2'i><'mr-2'l>>><'col-sm-12 col-md-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-6'><'col-sm-12 col-md-6'p>>",
+                // "initComplete": function() {
+                //     addColNumbers();
+                // },
+                language: {
+                    "processing": "Memproses data..",
+                    "loadingRecords": "Memuat data..",
+                    "lengthMenu": "Tampilkan _MENU_ baris data.",
+                    "zeroRecords": "Data tidak ditemukan.",
+                    "info": "Halaman _PAGE_ dari _PAGES_,",
+                    "infoEmpty": "Kosong",
+                    "infoFiltered": "(terfilter dari total _MAX_ rekam data)",
+                    "search": "Cari:",
+                    "emptyTable": "Tidak ada data yang tabel.",
+                    "thousands": ".",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    },
+                },
+            }).buttons().container();
         });
 
         //SIMPAN & UPDATE DATA DAN VALIDASI (SISI CLIENT)
@@ -268,10 +317,6 @@
                     $('#tombol-simpan').html('Menyimpan data..');
 
                     $.ajax({
-                        // _token: token,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
                         data: $('#form-tambah-edit')
                             .serialize(), //function yang dipakai agar value pada form-control seperti input, textarea, select dll dapat digunakan pada URL query string ketika melakukan ajax request
                         url: "{{ route('berita.store') }}", //url simpan data
@@ -320,7 +365,7 @@
         //jika klik class delete (yang ada pada tombol delete) maka tampilkan modal konfirmasi hapus maka
         $(document).on('click', '.delete', function() {
             dataId = $(this).attr('id');
-            $('#konfirmasi-modal').modal('show');
+            $('#hapus-modal').modal('show');
         });
 
         //jika tombol hapus pada modal konfirmasi di klik maka
@@ -334,10 +379,11 @@
                 type: 'delete',
                 beforeSend: function() {
                     $('#tombol-hapus').text('Hapus'); //set text untuk tombol hapus
+                    $('#tombol-hapus').focus(); //set focus
                 },
                 success: function(data) { //jika sukses
                     setTimeout(function() {
-                        $('#konfirmasi-modal').modal('hide'); //sembunyikan konfirmasi modal
+                        $('#hapus-modal').modal('hide'); //sembunyikan konfirmasi modal
                         var oTable = $('#table_berita').dataTable();
                         oTable.fnDraw(false); //reset datatable
                     });

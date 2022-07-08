@@ -102,7 +102,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="/maintenance" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
                         <p>Dokumen</p>
                     </a>
@@ -374,9 +374,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/maintenance" class="nav-link">
+                    <a href="/konfig" class="nav-link {{ Request::is('konfig*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-gear"></i>
-                        <p>Pengaturan</p>
+                        <p>Konfigurasi</p>
                     </a>
                 </li>
             </ul>

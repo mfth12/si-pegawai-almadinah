@@ -12,23 +12,24 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip({ delay: { "show": 300, "hide": 150 } });
 })
 
-//gantistatus
-$(function () {
-    $('.aktif-gak').change(function () {
-        var status = $(this).prop('checked') == true ? 1 : 0;
-        var user_id = $(this).data('id');
+// //gantistatus
+// $(function () {
+//     $('.aktif-gak').change(function () {
+//         var status = $(this).prop('checked') == true ? 1 : 0;
+//         var user_id = $(this).data('id');
+//         console.log('bisa');
 
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: '/gantistatus',
-            data: { 'status': status, 'user_id': user_id },
-            success: function (data) {
-                console.log(data.success)
-            }
-        });
-    })
-})
+//         $.ajax({
+//             type: "GET",
+//             dataType: "json",
+//             url: '/gantistatus',
+//             data: { 'status': status, 'user_id': user_id },
+//             success: function (data) {
+//                 console.log(data.success)
+//             }
+//         });
+//     })
+// })
 
 //input foto di form
 function lihatGambar() {
@@ -48,7 +49,14 @@ function lihatGambar() {
 //delete modal
 function deleteConfirm(url) {
     $('#btn-delete').attr('action', url);
-    $('#deleteModal').modal();
+    $('#deleteModal').modal('show');
+    console.log('Menghapus data');
+}
+
+//keluar modal
+function keluarConfirm(url) {
+    $('#btn-keluar').attr('action', url);
+    $('#konfirmasiKeluar').modal('show');
 }
 
 // $('[data-widget="sidebar-search"]').SidebarSearch('toggle') 

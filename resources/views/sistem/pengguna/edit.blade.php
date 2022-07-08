@@ -359,7 +359,6 @@
     </div>
 @endsection
 
-
 @section('js_atas')
     <link rel="stylesheet" href="/css/back/daterangepicker.css">
     <link rel="stylesheet" href="/css/back/bootstrap-colorpicker.min.css">

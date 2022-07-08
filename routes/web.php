@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\MasukController;
 use App\Http\Controllers\BeritaCtrl;
 use App\Http\Controllers\DasborCtrl;
+use App\Http\Controllers\KonfigCtrl;
 use App\Http\Controllers\ProfilCtrl;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaCtrl;
-use App\Http\Controllers\MasukController;
+use Illuminate\Support\Facades\Route;
 
 # route root
 Route::get('/', function () {
@@ -25,14 +26,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/dasbor', [DasborCtrl::class, 'index'])->name('dasbor'); //dasbor
     # group route of pengguna controller
     Route::resource('/pengguna', PenggunaCtrl::class); //resource of penggunas
+    Route::delete('/pengguna/hapus/{id}', [PenggunaCtrl::class, 'destroy'])->name('hapus.pengguna'); //resource of penggunas
     Route::controller(PenggunaCtrl::class)->group(function () {
         Route::get('/hapusfoto', 'hapusfoto'); //hapus foto
         Route::get('/gantistatus', 'gantistatus'); //ganti status
     });
     # route of profil controller
     Route::get('/profil', [ProfilCtrl::class, 'index'])->name('profil'); //profil saya
-    # group route of resource berita
-    Route::resource('/berita', BeritaCtrl::class); //resource of berita
+    # group route of resources
+    Route::resource('/berita', BeritaCtrl::class); //resource of Berita
+    Route::resource('/konfig', KonfigCtrl::class); //resource of Konfig
 });
 
 # route maintenance

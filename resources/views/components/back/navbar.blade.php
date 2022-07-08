@@ -64,21 +64,21 @@
             </ul> --}}
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                 <a href="/profil" class="dropdown-item">
-                    {{-- <i class="fas fa-user mr-2"></i>  --}}
+                    <i class="fas fa-user mr-2"></i> 
                     Profil
                 </a>
                 {{-- <div class="dropdown-divider"></div> --}}
-                <a href="/dokumen" class="dropdown-item disabled">
-                    {{-- <i class="fas fa-file mr-2"></i>  --}}
+                <a href="/dokumen" class="dropdown-item">
+                    <i class="fas fa-folder-open mr-2"></i> 
                     Dokumen
                 </a>
                 {{-- <div class="dropdown-divider"></div> --}}
-                <a href="/pengaturan" class="dropdown-item">
-                    {{-- <i class="fas fa-gear mr-2"></i>  --}}
-                    Pengaturan
+                <a href="/konfig" class="dropdown-item">
+                    <i class="fas fa-gear mr-2"></i> 
+                    Konfigurasi
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="/keluar" class="dropdown-item">
+                <a href="javascript:void(0)" onclick="keluarConfirm('/keluar')" class="dropdown-item">
                     <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Keluar
                 </a>
             </div>

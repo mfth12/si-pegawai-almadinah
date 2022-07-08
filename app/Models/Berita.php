@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Berita extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'berita';
+    protected $table = 'beritas';
     protected $primaryKey = 'id';
     protected $guarded = ['id']; //dilindungi agar tidak ada input yang masuk ke user_id
 

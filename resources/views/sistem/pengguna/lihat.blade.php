@@ -52,23 +52,29 @@
 
                                 <ul class="list-group list-group-unbordered mb-1  no-select">
                                     <li class="list-group-item">
-                                        @php
+                                        Login terakhir <a class="float-right" href="javascript:void(0);"
+                                            data-toggle="tooltip" data-placement="top" data-html="true" 
+                                            @php
                                             $login = $pengguna->last_login_at;
                                             $call = Carbon\Carbon::parse($login)->format('j F Y');
                                             $waktu = Carbon\Carbon::parse($login)->format('H:i');
                                             if ($login == null) {
                                                 $login = '(Tidak ada data)';
+                                                @endphp
+                                                    >{{ $login }}</a>
+                                                @php
                                             } else {
                                                 $login = Carbon\Carbon::parse($login)->diffForHumans();
+                                                @endphp
+                                                    title="<b>Tanggal: </b>{{ $pengguna->last_login_at ? $call : '(Tidak ada data)' }} <br> <b>Waktu: </b>{{ $pengguna->last_login_at ? $waktu : '(Tidak ada data)' }} <br> <b>IP: </b>{{ $pengguna->last_login_ip ?? '(Tidak ada data)' }}">{{ $login }}</a>
+                                                    @php
                                             }
-                                        @endphp
-                                        Login terakhir <a class="float-right" href="javascript:void(0);"
-                                            data-toggle="tooltip" data-placement="top" data-html="true"
-                                            title="<b>Tanggal: </b>{{ $pengguna->last_login_at ? $call : '(Tidak ada data)' }} <br> <b>Waktu: </b>{{ $pengguna->last_login_at ? $waktu : '(Tidak ada data)' }} <br> <b>IP: </b>{{ $pengguna->last_login_ip ?? '(Tidak ada data)' }}">{{ $login }}</a>
+                                            @endphp
+                                            
                                     </li>
                                     <li class="list-group-item">
-                                        Email <a class="float-right" href="mailto: {{ $pengguna->email }}"
-                                            target="_blank" data-toggle="tooltip" data-placement="top"
+                                        Email <a class="float-right" href="mailto: {{ $pengguna->email }}" target="_blank"
+                                            data-toggle="tooltip" data-placement="top"
                                             title="Kirim Email">{!! $pengguna->email ?? $kosong !!}</a>
                                     </li>
                                     <li class="list-group-item">
@@ -77,7 +83,7 @@
                                     </li>
                                 </ul>
                                 {{-- <a href="/pengguna/{{ $pengguna->user_id }}/edit" target="_blank" --}}
-                                <a href="{{url()->current()."#sunting"}}" style="font-weight: 200"
+                                <a href="{{ url()->current() . '#sunting' }}" target="_blank" style="font-weight: 200"
                                     class="btn btn-outline-primary btn-block mt-3"><b>Edit Profil
                                         <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></b></a>
 
@@ -293,7 +299,8 @@
                                                     <span class="time"><i class="far fa-clock"></i>
                                                         12:05</span>
 
-                                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an
+                                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent
+                                                        you an
                                                         email</h3>
 
                                                     <div class="timeline-body">
@@ -333,7 +340,8 @@
                                                     <span class="time"><i class="far fa-clock"></i> 27 mins
                                                         ago</span>
 
-                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on
+                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented
+                                                        on
                                                         your
                                                         post</h3>
 
@@ -364,7 +372,8 @@
                                                     <span class="time"><i class="far fa-clock"></i> 2 days
                                                         ago</span>
 
-                                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new
+                                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded
+                                                        new
                                                         photos</h3>
 
                                                     <div class="timeline-body">
@@ -424,7 +433,8 @@
                                                 <div class="offset-sm-2 col-sm-10">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox"> I agree to the <a href="#">terms and
+                                                            <input type="checkbox"> I agree to the <a href="#">terms
+                                                                and
                                                                 conditions</a>
                                                         </label>
                                                     </div>
@@ -453,6 +463,7 @@
 @endsection
 
 @section('js_atas')
+    {{-- kosong --}}
 @endsection
 
 @section('style')
@@ -480,9 +491,22 @@
             /* Sometimes I add this too. */
             cursor: default;
         }
-
     </style>
 @endsection
 
+@section('js_atas')
+    {{-- kosong --}}
+@endsection
+
 @section('js_bawah')
+    <script>
+        $('#edit-profil').click(function() {
+            // $('#button-simpan').val("create-post"); //valuenya menjadi create-post
+            // $('#id').val(''); //valuenya menjadi kosong
+            // $('#form-tambah-edit').trigger("reset"); //mereset semua input dll didalamnya
+            // $('#modal-judul').html("Tambah Berita Baru"); //valuenya tambah pegawai baru
+            // $('#sunting').modal('show'); //modal tampil
+            $('#sunting').activaTab('sunting');
+        });
+    </script>
 @endsection

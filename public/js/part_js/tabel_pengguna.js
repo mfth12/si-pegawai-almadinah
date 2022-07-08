@@ -20,7 +20,7 @@ $(function () {
             "zeroRecords": "Tidak menemukan data - maaf",
             "info": "Halaman _PAGE_ dari _PAGES_,",
             "infoEmpty": "Tidak ada data",
-            "infoFiltered": "(filtered from _MAX_ total records)",
+            "infoFiltered": "(Difilter dari _MAX_ total rekam data)",
             "search": "Cari:",
             "emptyTable": "Data tidak ditemukan.",
             "thousands": ".",

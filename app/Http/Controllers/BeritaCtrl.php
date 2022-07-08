@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
 use Carbon\Carbon;
+use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BeritaCtrl extends Controller
 {
@@ -15,14 +16,17 @@ class BeritaCtrl extends Controller
      */
     public function index(Request $request)
     {
-        $list_berita = Berita::all();
+        $list_berita = Berita::orderBy('tanggal', 'DESC')->get();
+        // $list_berita = DB::table('beritas')
+        //         ->orderBy('tanggal', 'desc')
+        //         ->get();
         if ($request->ajax()) {
             return datatables()->of($list_berita)
                 ->addColumn('action', function ($data) {
                     $button = '<div class="text-nowrap">';
-                    $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Ubah" class="edit btn btn-info btn-sm mr-1 edit-post"><i class="fas fa-edit"></i> Edit</a>';
+                    $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-outline-secondary btn-sm mr-1 edit-post"><i class="fas fa-edit"></i> Edit</a>';
                     $button .= '';
-                    $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>';
+                    $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>';
                     $button .= '</div>';
                     return $button;
                 })

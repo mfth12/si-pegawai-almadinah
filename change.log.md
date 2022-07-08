@@ -1,4 +1,14 @@
 SHA Commit [null],
+Judul [penambahan_fitur_konfig],
+1. Add feature 'pengaturan' untuk sistem
+2. Modal untuk keluar
+3. Returning 'server.php' | 'package.json' files
+4. Making 'pengguna' index server-side table
+5. Add resource 'Konfig' for system configuration
+6. Removing feature direct switch pengguna to 'active'
+or 'deactive' in pengguna table
+------------------------------------------------------
+SHA Commit [c0b74a886479ccff3c071c8ba4ec0b0cfccd6354],
 Judul [penambahan_fitur_berita_using_Ajax],
 1. Rebrand login page, and all attributes system
 2. Add feature 'Berita'
@@ -16,8 +26,6 @@ Judul [migrasi-ke-sistem-pegawai-almadinah],
 5. update the route:breadcrumbs
 6. deleted 'controller/.bin/*'
 7. add features 'role permission' with package spatie
-8. 
-9. 
 ------------------------------------------------------
 SHA Commit [36dc86e25d8c24cdea50928dcb495731df666513],
 Judul [fix_view_pengguna],

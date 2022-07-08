@@ -12,12 +12,12 @@
             </div>
             <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Pegawai Yayasan Pendidikan Al-Madinah.</p>
             {{-- kalau ada error di password --}}
-            {{-- @error('password')
+            @error('password')
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <i class="fa-solid fa-triangle-exclamation mr-2"></i>{{ $message }}
                 </div>
-            @enderror --}}
+            @enderror
             {{-- flash gagal masuk --}}
             @if (session()->has('masukGagal'))
                 <div class="alert alert-danger alert-dismissible">
@@ -44,9 +44,9 @@
 
             {{-- flash keluar user --}}
             @if (session()->has('keluar'))
-                <div class="alert alert-success alert-dismissible">
+                <div class="alert alert-secondary alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <i class="fa-solid fa-check mr-2"></i>{{ session('keluar') }}
+                    <i class="fa-solid fa-user-shield mr-2"></i>{{ session('keluar') }}
                 </div>
             @endif
 

@@ -16,7 +16,7 @@ class MasukController extends Controller
     public function auth(Request $request)
     {
         if (!isset($request->nomer_induk) || !isset($request->password)) {
-            return back()->with('masukKosong', 'Silakan isi Nomor ID dan password Anda !');
+            return back()->with('masukKosong', 'Silakan isi Nomor ID dan password Anda!');
         }
         $kredensi = $request->validate(
             [

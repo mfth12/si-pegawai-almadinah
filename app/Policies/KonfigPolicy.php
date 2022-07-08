@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Konfig;
 use App\Models\Pengguna;
-use App\Models\Santri;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SantriPolicy
+class KonfigPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class SantriPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\Pengguna  $pengguna
-     * @param  \App\Models\Santri  $santri
+     * @param  \App\Models\Konfig  $konfig
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(Pengguna $pengguna, Santri $santri)
+    public function view(Pengguna $pengguna, Konfig $konfig)
     {
         //
     }
@@ -48,10 +48,10 @@ class SantriPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\Pengguna  $pengguna
-     * @param  \App\Models\Santri  $santri
+     * @param  \App\Models\Konfig  $konfig
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Pengguna $pengguna, Santri $santri)
+    public function update(Pengguna $pengguna, Konfig $konfig)
     {
         //
     }
@@ -60,10 +60,10 @@ class SantriPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\Pengguna  $pengguna
-     * @param  \App\Models\Santri  $santri
+     * @param  \App\Models\Konfig  $konfig
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Pengguna $pengguna, Santri $santri)
+    public function delete(Pengguna $pengguna, Konfig $konfig)
     {
         //
     }
@@ -72,10 +72,10 @@ class SantriPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\Pengguna  $pengguna
-     * @param  \App\Models\Santri  $santri
+     * @param  \App\Models\Konfig  $konfig
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Pengguna $pengguna, Santri $santri)
+    public function restore(Pengguna $pengguna, Konfig $konfig)
     {
         //
     }
@@ -84,10 +84,10 @@ class SantriPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\Pengguna  $pengguna
-     * @param  \App\Models\Santri  $santri
+     * @param  \App\Models\Konfig  $konfig
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Pengguna $pengguna, Santri $santri)
+    public function forceDelete(Pengguna $pengguna, Konfig $konfig)
     {
         //
     }

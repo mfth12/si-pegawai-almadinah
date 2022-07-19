@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Konfig;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use App\Models\Detail_pengguna;
@@ -27,7 +28,7 @@ class PenggunaCtrl extends Controller
                     return $nomer_induk;
                 })
                 ->addColumn('nama', function ($data) {
-                    $nama = '<a href="/pengguna/' . $data->user_id . '" class="text-decoration-none  text-dark" data-toggle="tooltip" data-placement="top" title="Lihat profil' . $data->nama . '">' . $data->nama . '</a>';
+                    $nama = '<a href="/pengguna/' . $data->user_id . '" class="text-decoration-none  text-dark" data-toggle="tooltip" data-placement="top" title="Lihat profil' . $data->nama . '"><b>' . $data->nama . '</b></a>';
                     return $nama;
                 })
                 ->addColumn('asal', function ($data) {
@@ -45,7 +46,7 @@ class PenggunaCtrl extends Controller
                     $asrama = $data->detail->asrama ? $data->detail->asrama . ' - ' . $data->detail->kamar : $kosong;
                     return $asrama;
                 })
-                ->addColumn('switch', function ($data) {
+                ->addColumn('status', function ($data) {
                     $switch = ($data->status == 1 ? '<b>Aktif</b>' : '<i>Non-aktif</i>');
                     return $switch;
                 })
@@ -53,37 +54,25 @@ class PenggunaCtrl extends Controller
                     $button = '<div class="text-nowrap">';
                     $button .= '<a href="/pengguna/' . $data->user_id . '/edit"
                     class="btn btn-sm" data-toggle="tooltip" data-placement="top"
-                    title="Edit' . $data->nama . '.">';
+                    title="Edit ' . $data->nama . '.">';
                     $button .= '<i class="nav-icon fas fa-edit"></i></a>';
                     $button .= '';
                     $button .= '<a href="javascript:void(0)" type="button" name="delete" id="' . $data->user_id . '" class="delete btn btn-sm"><i class="fas fa-trash-alt"></i></a>';
                     $button .= '</div>';
-                    // $button .= '<form action="/pengguna/'. $data->user_id .'" method="POST"
-                    // class="d-inline">';
-                    // $button .= '<a href="#!" class="btn btn-sm" data-toggle="tooltip"
-                    // data-placement="top" title="Hapus"
-                    // onclick="deleteConfirm(\'/pengguna/'.$data->user_id.'\')">';
-                    // $button .= '<i class="nav-icon fas fa-trash"></i></a></form>';
                     return $button;
                 })
-                // ->addColumn('aksi_ori', function ($data) {
-                //     $button = '<div class="text-nowrap">';
-                //     $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm mr-1 edit-post"><i class="fas fa-edit"></i> Edit</a>';
-                //     $button .= '';
-                //     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>';
-                //     $button .= '</div>';
-                //     return $button;
-                // })
-                ->rawColumns(['nomer_induk', 'nama', 'asal', 'kelas', 'asrama', 'switch', 'aksi'])
+                ->rawColumns(['nomer_induk', 'nama', 'asal', 'kelas', 'asrama', 'status', 'aksi'])
                 ->addIndexColumn()
                 ->make(true);
         }
-
+        $konfig  = Konfig::firstWhere('konfig_id', 701);
+        $title = $konfig->nama_sistem . ' ' . $konfig->unik;
         return view('sistem.pengguna.index', [
-        // return view('sistem.pengguna.index_backup', [
-            'title' => 'Pengguna Sistem | Sistem Pegawai Al-Madinah',
+            // return view('sistem.pengguna.index_backup', [
+            'title' => 'Pengguna | ' . $title,
             'head_page' => 'Pengguna Sistem',
-            'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get()
+            'pengguna' => Pengguna::orderBy('created_at', 'DESC')->get(),
+            'konfig' => $konfig
         ]);
     }
 
@@ -94,12 +83,10 @@ class PenggunaCtrl extends Controller
      */
     public function create()
     {
-        // @print_r('sd');
         return view('sistem.pengguna.tambah', [
             'title' => 'Tambah Pengguna',
             'head_page' => 'Tambah Pengguna',
-            // 'tabel' => false, //apakah ingin menampilkan tabel atau tidak
-            // 'setting' => ['form' => true] //for individual setting
+            'konfig' => Konfig::firstWhere('konfig_id', 701),
         ]);
     }
 
@@ -191,7 +178,7 @@ class PenggunaCtrl extends Controller
         // Detail_pengguna::create($tervalidasi);
         // dd($detail);
         // dd($tervalidasi);
-        return redirect('/pengguna')->with('hijau', 'Alhamdulillah, pengguna berhasil ditambahkan.');
+        return redirect('/pengguna')->with('hijau', 'Pengguna berhasil ditambahkan.');
     }
 
     /**
@@ -208,6 +195,7 @@ class PenggunaCtrl extends Controller
             'title' => 'Profil ' . $nama,
             'head_page' => 'Profil',
             'pengguna' => $pengguna,
+            'konfig' => Konfig::firstWhere('konfig_id', 701),
         ]);
     }
 
@@ -225,6 +213,7 @@ class PenggunaCtrl extends Controller
             'title' => 'Edit (' . $pengguna->nama . ')',
             'head_page' => 'Edit Pengguna',
             'pengguna' => $pengguna, //return data pengguna dengan relasinya juga
+            'konfig' => Konfig::firstWhere('konfig_id', 701),
         ]);
     }
 
@@ -367,7 +356,7 @@ class PenggunaCtrl extends Controller
         // Storage::delete(public_path('foto-pengguna'));
         Storage::deleteDirectory('foto-pengguna');
         // dd($response);
-        return redirect('/pengguna')->with('merah', 'Foto dalam direktori pengguna berhasil dihapus.');
+        return redirect('/pengguna')->with('merah', 'Seluruh foto dalam direktori pengguna dihapus.');
     }
 
     /**

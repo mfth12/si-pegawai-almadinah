@@ -22,20 +22,21 @@
     <link rel="stylesheet" href="/css/tables/buttons.bootstrap4.min.css">
     {{-- Theme style --}}
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous"> --}}
+    
+    <link rel="stylesheet" href="/css/back/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="/css/back/adminlte.min.css">
     <link rel="stylesheet" href="/css/back/dropify.min.css">
     <script src="/js/back/nprogress.js"></script>
     <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet"> {{-- iziToast --}}
     <link rel="stylesheet" href="/css/back/nprogress.css">
     {{-- Fav-icon --}}
-    <link rel="icon" type="image/x-icon" href="/img/logo-yys-almadinah-red.png">
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/' . $konfig->ikon) }}">
     @yield('style')
 
 
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper" id="thisme">
         @once
             {{-- <x-back.navbar /> --}}
@@ -49,8 +50,8 @@
         @include('theme.modal')
 
         <footer class="main-footer">
-            © {{ now()->year }}. Portal Santri <a href="https://idriskepri.ponpes.id/" style="color: green">Pondok
-                Pesantren Idris Bintan</a>.
+            © {{ now()->year }}. {{ $konfig->nama_sistem }} <a href="mailto:{{ $konfig->email_resmi }}"
+                style="color: green">{{ $konfig->nama_lembaga }}</a>.
         </footer>
     </div>
     @once
@@ -73,6 +74,7 @@
         <script src="/js/process/vfs_fonts.js"></script>
         <script src="/js/demo.js"></script>
         <script src="{{ asset('js/iziToast.js') }}"></script> {{-- iziToast --}}
+        {{-- @include('vendor.lara-izitoast.toast') --}}
         {{-- Batas --}}
         {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
         <script
@@ -90,6 +92,7 @@
         {{-- @endif --}}
 
         {{-- javascript untuk admin lte 3 --}}
+        <script src="/js/back/jquery.overlayScrollbars.min.js"></script>
         <script src="/js/back/adminlte.min.js"></script>
         {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> --}}
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7. 29.2/sweetalert2.all.js"></script> --}}

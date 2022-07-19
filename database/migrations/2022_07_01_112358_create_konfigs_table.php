@@ -14,8 +14,16 @@ class CreateKonfigsTable extends Migration
     public function up()
     {
         Schema::create('konfigs', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('konfig_id')->from(701);
+            $table->string('nama_sistem')->nullable();
+            $table->string('unik')->nullable();
+            $table->string('nama_lembaga')->nullable();
+            $table->string('logo_lembaga')->nullable();
+            $table->string('ikon')->nullable();
+            $table->string('alamat_lembaga')->nullable();
+            $table->string('email_resmi')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->integer('periode_aktif')->nullable();
         });
     }
 

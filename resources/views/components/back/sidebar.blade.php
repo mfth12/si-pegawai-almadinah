@@ -2,9 +2,11 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     {{-- Brand Logo --}}
     <a href="/" class="brand-link">
-        <img src="{{ asset('img/logo-yys-almadinah.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Pegawai Al-Madinah</span>
+        @if ($konfig->logo_lembaga)
+            <img src="{{ asset('img/' . $konfig->logo_lembaga) }}" class="brand-image img-circle elevation-3"
+                style="opacity: 1">
+        @endif
+        <span class="brand-text font-weight-light {{ $konfig->logo_lembaga ? '' : 'ml-3' }}">{{ $konfig->nama_sistem }}</span>
     </a>
 
     {{-- Sidebar --}}
@@ -373,7 +375,7 @@
                         <p>Profil</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mb-5">
                     <a href="/konfig" class="nav-link {{ Request::is('konfig*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-gear"></i>
                         <p>Konfigurasi</p>

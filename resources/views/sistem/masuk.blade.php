@@ -4,13 +4,14 @@
     {{-- card --}}
     <div class="card card-outline card-secondary">
         <div class="card-header text-center">
-            <h2>Sistem Pegawai</h2>
+            {{-- <h2>Sistem Pegawai</h2> --}}
+            <h2>{{ $konfig->nama_sistem }}</h2>
         </div>
         <div class="card-body mx-auto">
             <div class="text-center mb-3">
-                <img src="/img/logo-yys-almadinah.png" alt="" style="width: 150px;">
+                <img src="{{ asset('img/' . $konfig->logo_lembaga) }}" alt="" style="width: 150px;">
             </div>
-            <p class="login-box-msg">Masuk untuk mendapatkan akses ke Sistem Pegawai Yayasan Pendidikan Al-Madinah.</p>
+            <p class="login-box-msg">Masuk untuk mendapatkan akses ke {{ $konfig->nama_sistem.' '. $konfig->nama_lembaga }}.</p>
             {{-- kalau ada error di password --}}
             @error('password')
                 <div class="alert alert-danger alert-dismissible">
@@ -79,7 +80,7 @@
                 </div>
             </form>
             <p class="mt-5 mb-2 text-center text-muted">
-                © {{ now()->year }} <a href="https://sekolahalmadinah.sch.id/" style="color: rgb(71, 71, 71)">Yayasan Pendidikan Al-Madinah Kepri</a>.
+                © {{ now()->year }} <a href="mailto:{{ $konfig->email_resmi }}" style="color: rgb(71, 71, 71)">{{ $konfig->nama_lembaga }}</a>.
             </p>
         </div>
         {{-- /.card-body --}}

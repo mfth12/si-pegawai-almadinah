@@ -1,5 +1,17 @@
 SHA Commit [null],
 Judul [penambahan_fitur_konfig],
+1. add some features in 'konfig'
+2. add sub-menu 'level pengguna' in 'konfig'
+3. make all components sync well with 'konfig'
+    -> logo and icon system
+    -> level pengguna managemen
+4. fixing issue sidebar scrolling
+5. multi level pengguna, begin impletementing
+    -> made model level_pengguna
+    -> made level_pengguna table is server side
+------------------------------------------------------
+SHA Commit [bcef27fd642777455930b169fd3b4a14b20de3cb],
+Judul [penambahan_fitur_konfig],
 1. Add feature 'pengaturan' untuk sistem
 2. Modal untuk keluar
 3. Returning 'server.php' | 'package.json' files

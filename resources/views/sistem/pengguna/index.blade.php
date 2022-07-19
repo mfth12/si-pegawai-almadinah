@@ -23,16 +23,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        {{-- sebuah flash --}}
-                        {{-- @if (session()->has('hijau'))
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <button type="button" class="close" data-dismiss="alert"
-                                    aria-hidden="true">&times;</button>
-                                <i class="fa-solid fa-check mr-2"></i>{{ session('hijau') }}
-                            </div>
-                        @endif --}}
-                    </div>
-                    <div class="col-lg-12">
                         <div class="card card-white card-outline">
                             <div class="card-body">
                                 <p class="card-text">
@@ -76,28 +66,44 @@
 @endsection
 
 @section('js_bawah')
-    {{-- <script src="/js/part_js/tabel_pengguna.js"></script> --}}
+    {{-- flash hijau --}}
+    @if (session()->has('hijau'))
+        <script>
+            iziToast.success({ //tampilkan izitoast warning
+                title: 'Alhamdulillah.',
+                message: '{{ Session('hijau') }}',
+                position: 'topCenter'
+            });
+        </script>
+    @endif
 
-    {{-- MULAI MODAL KONFIRMASI DELETE --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="hapus-modal" data-backdrop="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Perhatian</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Data yang dihapus tidak akan bisa kembali lagi. Apakah Anda yakin ingin menghapus?</p>
-                </div>
-                <div class="modal-footer bg-whitesmoke">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger" name="tombol-hapus" id="tombol-hapus">Hapus</button>
-                </div>
-            </div>
+    {{-- flash kuning --}}
+    {{-- @if (session()->has('kuning'))
+        <div class="alert alert-warning alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa-solid fa-info mr-2"></i>{{ session('kuning') }}
         </div>
-    </div>
+    @endif --}}
+
+    {{-- flash info --}}
+    {{-- @if (session()->has('info'))
+        <div class="alert alert-info alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa-solid fa-info mr-2"></i>{{ session('info') }}
+        </div>
+    @endif --}}
+
+    {{-- flash merah --}}
+    @if (session()->has('merah'))
+        <script>
+            iziToast.warning({ //tampilkan izitoast warning
+                title: 'Berhasil.',
+                message: '{{ Session('hijau') }}',
+                position: 'topCenter'
+            });
+        </script>
+    @endif
+    {{-- <script src="/js/part_js/tabel_pengguna.js"></script> --}}
     <script>
         //CSRF TOKEN PADA HEADER
         //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
@@ -120,26 +126,26 @@
         });
 
         //gantistatus
-        $(function() {
-            $('.aktif-gak').change(function() {
-                // console.log('bisa');
-                var status = $(this).prop('checked') == true ? 1 : 0;
-                var user_id = $(this).data('id');
+        // $(function() {
+        //     $('.aktif-gak').change(function() {
+        //         // console.log('bisa');
+        //         var status = $(this).prop('checked') == true ? 1 : 0;
+        //         var user_id = $(this).data('id');
 
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: '/gantistatus',
-                    data: {
-                        'status': status,
-                        'user_id': user_id
-                    },
-                    success: function(data) {
-                        console.log(data.success)
-                    }
-                });
-            })
-        })
+        //         $.ajax({
+        //             type: "GET",
+        //             dataType: "json",
+        //             url: '/gantistatus',
+        //             data: {
+        //                 'status': status,
+        //                 'user_id': user_id
+        //             },
+        //             success: function(data) {
+        //                 console.log(data.success)
+        //             }
+        //         });
+        //     })
+        // })
 
         //MULAI DATATABLE
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
@@ -197,8 +203,8 @@
                         className: "text-center text-nowrap"
                     },
                     {
-                        data: 'switch',
-                        name: 'switch',
+                        data: 'status',
+                        name: 'status',
                         className: "text-center text-nowrap"
 
                     },
@@ -247,38 +253,38 @@
         //SIMPAN & UPDATE DATA DAN VALIDASI (SISI CLIENT)
         //jika id = form-tambah-edit panjangnya lebih dari 0 atau bisa dibilang terdapat data dalam form tersebut maka
         //jalankan jquery validator terhadap setiap inputan dll dan eksekusi script ajax untuk simpan data
-        if ($("#form-tambah-edit").length > 0) {
-            $("#form-tambah-edit").validate({
-                submitHandler: function(form) {
-                    var actionType = $('#tombol-simpan').val();
-                    $('#tombol-simpan').html('Menyimpan data..');
+        // if ($("#form-tambah-edit").length > 0) {
+        //     $("#form-tambah-edit").validate({
+        //         submitHandler: function(form) {
+        //             var actionType = $('#tombol-simpan').val();
+        //             $('#tombol-simpan').html('Menyimpan data..');
 
-                    $.ajax({
-                        data: $('#form-tambah-edit')
-                            .serialize(), //function yang dipakai agar value pada form-control seperti input, textarea, select dll dapat digunakan pada URL query string ketika melakukan ajax request
-                        url: "{{ route('berita.store') }}", //url simpan data
-                        type: "POST", //karena simpan kita pakai method POST
-                        dataType: 'json', //data tipe kita kirim berupa JSON
-                        success: function(data) { //jika berhasil 
-                            $('#form-tambah-edit').trigger("reset"); //form reset
-                            $('#tambah-edit-modal').modal('hide'); //modal hide
-                            $('#tombol-simpan').html('Simpan'); //tombol simpan
-                            var oTable = $('#table_pengguna').dataTable(); //inialisasi datatable
-                            oTable.fnDraw(false); //reset datatable
-                            iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
-                                title: 'Data berhasil disimpan',
-                                message: '{{ Session('success') }}',
-                                position: 'topCenter'
-                            });
-                        },
-                        error: function(data) { //jika error tampilkan error pada console
-                            console.log('Error:', data);
-                            $('#tombol-simpan').html('Gagal menyimpan');
-                        }
-                    });
-                }
-            })
-        }
+        //             $.ajax({
+        //                 data: $('#form-tambah-edit')
+        //                     .serialize(), //function yang dipakai agar value pada form-control seperti input, textarea, select dll dapat digunakan pada URL query string ketika melakukan ajax request
+        //                 url: "{{ route('berita.store') }}", //url simpan data
+        //                 type: "POST", //karena simpan kita pakai method POST
+        //                 dataType: 'json', //data tipe kita kirim berupa JSON
+        //                 success: function(data) { //jika berhasil 
+        //                     $('#form-tambah-edit').trigger("reset"); //form reset
+        //                     $('#tambah-edit-modal').modal('hide'); //modal hide
+        //                     $('#tombol-simpan').html('Simpan'); //tombol simpan
+        //                     var oTable = $('#table_pengguna').dataTable(); //inialisasi datatable
+        //                     oTable.fnDraw(false); //reset datatable
+        //                     iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+        //                         title: 'Data berhasil disimpan',
+        //                         message: '{{ Session('success') }}',
+        //                         position: 'topCenter'
+        //                     });
+        //                 },
+        //                 error: function(data) { //jika error tampilkan error pada console
+        //                     console.log('Error:', data);
+        //                     $('#tombol-simpan').html('Gagal menyimpan');
+        //                 }
+        //             });
+        //         }
+        //     })
+        // }
 
         //TOMBOL EDIT DATA PER PEGAWAI DAN TAMPIKAN DATA BERDASARKAN ID PEGAWAI KE MODAL
         //ketika class edit-post yang ada pada tag body di klik maka

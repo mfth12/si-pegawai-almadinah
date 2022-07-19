@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Berita;
+use App\Models\Konfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,9 +44,12 @@ class BeritaCtrl extends Controller
                 ->make(true);
         }
 
+        $konfig  = Konfig::firstWhere('konfig_id', 701);
+        $title = $konfig->nama_sistem.' '.$konfig->unik;
         return view('sistem.berita.index', [
-            'title' => 'Berita | Sistem Pegawai Al-Madinah',
-            'head_page' => 'Berita Terbaru'
+            'title' => 'Berita | '.$title,
+            'head_page' => 'Berita Terbaru',
+            'konfig' => $konfig,
         ]);
     }
 

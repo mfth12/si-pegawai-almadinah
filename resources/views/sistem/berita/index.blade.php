@@ -113,7 +113,7 @@
                                 <input type="hidden" name="id" id="id">
 
                                 <div class="form-group">
-                                    <label for="judul_berita" class="col-sm-12 control-label">Judul Berita</label>
+                                    <label for="judul_berita" class="col-sm-12 control-label">Judul</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" id="judul_berita" name="judul_berita"
                                             value="" required>
@@ -134,17 +134,17 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="isi_berita" class="col-sm-12 control-label">Isi Berita</label>
+                                    <label for="gambar" class="col-sm-12 control-label">Gambar</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="isi_berita" name="isi_berita"
+                                        <input type="text" class="form-control" id="gambar" name="gambar"
                                             value="" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="gambar" class="col-sm-12 control-label">Gambar</label>
+                                    <label for="isi_berita" class="col-sm-12 control-label">Isi Berita</label>
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" name="gambar" id="gambar" required></textarea>
+                                        <textarea class="form-control" name="isi_berita" id="isi_berita" rows="9" required></textarea>
                                     </div>
                                 </div>
 
@@ -348,7 +348,7 @@
         $('body').on('click', '.edit-post', function() {
             var data_id = $(this).data('id');
             $.get('berita/' + data_id + '/edit', function(data) {
-                $('#modal-judul').html("Edit Post");
+                $('#modal-judul').html("Edit Berita");
                 $('#tombol-simpan').val("edit-post");
                 $('#tambah-edit-modal').modal('show');
 

@@ -31,23 +31,5 @@ class PenggunaSeeder extends Seeder
         $user = Pengguna::factory(90)->create()->each(function ($pengguna) {
             $pengguna->detail()->save(Detail_pengguna::factory()->make());
         });
-
-        //role dan permission
-        // $role = Role::create([
-        //     'name' => 'superadmin'
-        // ]);
-        // $role = Role::create([
-        //     'name' => 'admin'
-        // ]);
-        // $role = Role::create([
-        //     'name' => 'santri'
-        // ]);
-
-        // $permissions = Permission::pluck('user_id', 'user_id')->all();
-
-        // $role->syncPermissions($permissions);
-
-        // $user->assignRole([$role->user_id]);
-        ////
     }
 }

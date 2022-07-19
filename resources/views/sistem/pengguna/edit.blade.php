@@ -40,7 +40,7 @@
                                 <div class="card-body">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Nomor ID</span>
+                                            <span class="input-group-text">Nomor ID *</span>
                                         </div>
                                         <input type="text" onkeypress="return /[0-9a-zA-Z.]/i.test(event.key)"
                                             class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
@@ -126,9 +126,9 @@
                                     <div class="float-right">
 
                                         <button type="reset" class="btn btn-outline-primary mr-2">Reset<i
-                                                class="fa-solid fa-arrow-rotate-right ml-2"></i></button>
+                                                class="fa-solid fa-arrow-rotate-right ml-1"></i></button>
                                         <button type="submit" class="btn btn-primary float-right">Simpan<i
-                                                class="fa-solid fa-floppy-disk ml-2"></i></button>
+                                                class="fa-solid fa-floppy-disk ml-1"></i></button>
                                     </div>
                                 </div>
 
@@ -153,23 +153,32 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="foto" class="form-label">Foto Profil</label>
-                                            @if ($pengguna->detail->foto)
+                                            @if ($pengguna->detail->foto == 'default.png')
                                                 <input type="hidden" name="fotoOld"
                                                     value="{{ $pengguna->detail->foto }}">
                                                 <img src="{{ asset('storage/' . $pengguna->detail->foto) }}"
                                                     class="img-lihat img-fluid mb-3">
                                                 <a class="btn btn-md btn-outline-secondary mb-3" style="display:block"
-                                                    onclick="document.getElementById('foto').click()">Ganti
+                                                    onclick="document.getElementById('foto').click()">Upload Foto
+                                                    <i class="fa-solid fa-circle-arrow-up ml-1"></i></a>
+                                            @elseif ($pengguna->detail->foto)
+                                                <input type="hidden" name="fotoOld"
+                                                    value="{{ $pengguna->detail->foto }}">
+                                                <img src="{{ asset('storage/' . $pengguna->detail->foto) }}"
+                                                    class="img-lihat img-fluid mb-3">
+                                                <a class="btn btn-md btn-outline-secondary mb-3" style="display:block"
+                                                    onclick="document.getElementById('foto').click()">Ganti Foto
                                                     <i class="fa-solid fa-camera ml-1"></i></a>
                                             @else
                                                 <img class="img-lihat img-fluid mb-3 ">
                                                 <a class="btn btn-md btn-outline-secondary mb-3" style="display:block"
-                                                    onclick="document.getElementById('foto').click()">Upload
+                                                    onclick="document.getElementById('foto').click()">Kosong, Upload Foto
                                                     <i class="fa-solid fa-circle-arrow-up ml-1"></i></a>
                                             @endif
 
                                             <input class="form-control @error('foto') is-invalid @enderror" type="file"
-                                                id="foto" name="foto" style="display:none" onchange="lihatGambar()">
+                                                id="foto" name="foto" style="display:none"
+                                                onchange="lihatGambar()">
                                             @error('foto')
                                                 <div class="invalid-feedback">
                                                     *{{ $message }}
@@ -189,13 +198,15 @@
                                             <div class="form-group">
                                                 <label for="nisn">NISN</label>
                                                 <input type="number"
-                                                    class="form-control @error('nisn') is-invalid @enderror" id="nisn"
-                                                    name="nisn" value="{{ old('nisn', $pengguna->detail->nisn) }}"
+                                                    class="form-control @error('nisn') is-invalid @enderror"
+                                                    id="nisn" name="nisn"
+                                                    value="{{ old('nisn', $pengguna->detail->nisn) }}"
                                                     placeholder="{{ $pengguna->detail->nisn ?? $kosong }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="asal">Asal</label>
-                                                <input type="text" class="form-control @error('asal') is-invalid @enderror"
+                                                <input type="text"
+                                                    class="form-control @error('asal') is-invalid @enderror"
                                                     id="asal" name="asal"
                                                     value="{{ old('asal', $pengguna->detail->asal) }}"
                                                     placeholder="{{ $pengguna->detail->asal ?? $kosong }}">
@@ -269,7 +280,8 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Sub-kelas</label>
-                                                <select class="form-control select2" name="sub_kelas" style="width: 100%;">
+                                                <select class="form-control select2" name="sub_kelas"
+                                                    style="width: 100%;">
                                                     <option value="{{ old('sub_kelas', $pengguna->detail->sub_kelas) }}"
                                                         selected>
                                                         {{ old('sub_kelas', $pengguna->detail->sub_kelas ?? $kosong) }}

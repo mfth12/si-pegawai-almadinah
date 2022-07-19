@@ -159,12 +159,15 @@
                                                         <hr>
                                                         <table class="table table-borderless">
                                                             <tr>
-                                                                <td style="width: 40%;"><b>Tempat, Tanggal
-                                                                        Lahir</b></td>
+                                                                <td style="width: 40%;"><b>Tempat, Tanggal Lahir</b></td>
                                                                 @php $u = Carbon\Carbon::parse($pengguna->detail->tanggal_lahir)->format('j F Y') @endphp
                                                                 <td>:
-                                                                    @if ($pengguna->detail->tempat_lahir || $pengguna->detail->tanggal_lahir)
+                                                                    @if ($pengguna->detail->tempat_lahir && $pengguna->detail->tanggal_lahir)
                                                                         {{ $pengguna->detail->tempat_lahir . ', ' . $u }}
+                                                                    @elseif($pengguna->detail->tempat_lahir)
+                                                                        {{ $pengguna->detail->tempat_lahir }}
+                                                                    @elseif($pengguna->detail->tanggal_lahir)
+                                                                        {{ $u }}
                                                                     @else
                                                                         {!! $kosong !!}
                                                                     @endif

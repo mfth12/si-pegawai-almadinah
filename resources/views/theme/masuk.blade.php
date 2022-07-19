@@ -17,7 +17,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Theme style --}}
     <link rel="stylesheet" href="/css/back/adminlte.min.css">
-    <link rel="icon" type="image/x-icon" href="/img/logo-yys-almadinah-red.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/' . $konfig->ikon) }}">
 </head>
 
 <body class="hold-transition login-page">

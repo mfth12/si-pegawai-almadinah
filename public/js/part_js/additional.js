@@ -46,17 +46,51 @@ function lihatGambar() {
     }
 }
 
-//delete modal
-function deleteConfirm(url) {
-    $('#btn-delete').attr('action', url);
-    $('#deleteModal').modal('show');
-    console.log('Menghapus data');
+//input foto di form
+function lihatLogo() {
+    const logo = document.querySelector('#logo_lembaga');
+    const logoPreview = document.querySelector('.logo-lihat')
+
+    logoPreview.style.display = 'block';
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(logo.files[0]);
+
+    oFReader.onload = function (oFREvent) {
+        logoPreview.src = oFREvent.target.result;
+    }
 }
+
+//input foto di form
+function lihatIkon() {
+    const ikon = document.querySelector('#ikon');
+    const ikonPreview = document.querySelector('.ikon-lihat')
+
+    ikonPreview.style.display = 'block';
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(ikon.files[0]);
+
+    oFReader.onload = function (oFREvent) {
+        ikonPreview.src = oFREvent.target.result;
+    }
+}
+
+//delete modal
+// function deleteConfirm(url) {
+//     $('#btn-delete').attr('action', url);
+//     $('#deleteModal').modal('show');
+//     console.log('Menghapus data');
+// }
 
 //keluar modal
 function keluarConfirm(url) {
     $('#btn-keluar').attr('action', url);
     $('#konfirmasiKeluar').modal('show');
+}
+
+//tidak tersedia modal
+function dev() {
+    // $('#btn-keluar').attr('action', url);
+    $('#tidakTersedia').modal('show');
 }
 
 // $('[data-widget="sidebar-search"]').SidebarSearch('toggle') 

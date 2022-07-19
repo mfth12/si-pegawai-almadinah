@@ -1,7 +1,7 @@
 {{-- Delete Confirmation --}}
 {{-- Delete Confirmation --}}
 {{-- Delete Confirmation --}}
-<div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+{{-- <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,6 +24,28 @@
             </form>
         </div>
     </div>
+</div> --}}
+
+
+{{-- MULAI MODAL KONFIRMASI DELETE --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="hapus-modal" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Peringatan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Data yang dihapus tidak akan bisa kembali lagi. Apakah Anda yakin ingin menghapus?</p>
+            </div>
+            <div class="modal-footer bg-whitesmoke">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" name="tombol-hapus" id="tombol-hapus">Hapus</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -38,7 +60,7 @@
                 @csrf
                 @method('GET')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi Keluar</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -51,6 +73,31 @@
                     <button class="btn btn-danger" type="submit">Keluar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+{{-- Fitur belum tersedia --}}
+{{-- Fitur belum tersedia --}}
+{{-- Fitur belum tersedia --}}
+<div class="modal fade" id="tidakTersedia" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Pemberitahuan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Mohon maaf, fitur ini belum tersedia. Sedang dalam tahap pengembangan.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Ok, Saya Mengerti</button>
+                {{-- <button class="btn btn-danger" type="submit">Keluar</button> --}}
+            </div>
         </div>
     </div>
 </div>

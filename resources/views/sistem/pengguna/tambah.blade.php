@@ -35,7 +35,7 @@
 
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Nomor ID</span>
+                                            <span class="input-group-text">Nomor ID *</span>
                                         </div>
                                         <input type="text" {{-- onkeypress="return /[0-9.,]/i.test(event.key)" --}}
                                             class="form-control @error('nomer_induk') is-invalid @enderror" id="nomer_induk"
@@ -128,9 +128,9 @@
 
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Batal</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Kembali</a>
                                     <button type="submit" class="btn btn-primary float-right">Tambah
-                                        <i class="fa-solid fa-plus ml-2"></i></button>
+                                        <i class="fa-solid fa-plus ml-1"></i></button>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,11 @@
 SHA Commit [null],
+Judul [penambahan_gate_dan_policies],
+1. add gate for SuperAdmin, KepalaSekolah, and Pegawai
+2. update composer --vendor
+3. 
+4. 
+------------------------------------------------------
+SHA Commit [f38db51bc15046e6840fcc80ff5db7df8ebe294f],
 Judul [penambahan_fitur_konfig],
 1. add some features in 'konfig'
 2. add sub-menu 'level pengguna' in 'konfig'
